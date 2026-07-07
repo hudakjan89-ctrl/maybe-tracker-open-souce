@@ -622,7 +622,6 @@ DEPENDENCIES
   aasm
   activerecord-import
   after_commit_everywhere (~> 1.0)
-  aws-sdk-s3 (~> 1.177.0)
   bcrypt (~> 3.1)
   benchmark-ips
   bootsnap
@@ -632,13 +631,9 @@ DEPENDENCIES
   csv
   debug
   derailed_benchmarks
-  doorkeeper
   dotenv-rails
   erb_lint
   faker
-  faraday
-  faraday-multipart
-  faraday-retry
   foreman
   hotwire-livereload
   hotwire_combobox
@@ -646,44 +641,31 @@ DEPENDENCIES
   image_processing (>= 1.2)
   importmap-rails
   inline_svg
-  intercom-rails
   jbuilder
-  jwt
   letter_opener
-  logtail-rails
   lookbook (= 2.3.11)
   lucide-rails!
   mocha
-  octokit
   ostruct
   pagy
   pg (~> 1.5)
-  plaid
   propshaft
   puma (>= 5.0)
-  rack-attack (~> 6.6)
   rack-mini-profiler
   rails (~> 7.2.2)
   rails-settings-cached
-  redcarpet
   redis (~> 5.4)
   rotp (~> 6.3)
   rqrcode (~> 3.0)
   rubocop-rails-omakase
   ruby-lsp-rails
-  ruby-openai
   rubyzip (~> 2.3)
   selenium-webdriver
-  sentry-rails
-  sentry-ruby
-  sentry-sidekiq
   sidekiq
   sidekiq-cron
   simplecov
-  skylight
   stackprof
   stimulus-rails
-  stripe
   tailwindcss-rails
   turbo-rails
   tzinfo-data
