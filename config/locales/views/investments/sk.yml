@@ -1,0 +1,18 @@
+---
+sk:
+  investments:
+    edit:
+      edit: Horeraviť %{account}
+    form:
+      none: Zatiaľ žiadnene
+      subtype_prompt: Vybrať investment type
+    new:
+      title: Zadať zostatok účtu
+    show:
+      chart_title: Celková hodnota
+    value_tooltip:
+      cash: Hotovosť
+      holdings: Držby
+      total: Portfolio balance
+      total_value_tooltip: The total portfolio balance is the sum of brokerage cash
+        (available for trading) and the current market value of your holdings.

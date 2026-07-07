@@ -17,11 +17,11 @@
       </div>
     <% end %>
 
-    <% menu.with_item(variant: "link", text: "Settings", icon: "settings", href: settings_profile_path(return_to: request.fullpath)) %>
-    <% menu.with_item(variant: "link", text: "Feedback", icon: "megaphone", href: feedback_path) %>
+    <% menu.with_item(variant: "link", text: "Nastavenia", icon: "settings", href: settings_profile_path(return_to: request.fullpath)) %>
+    <% menu.with_item(variant: "link", text: "Spätná väzba", icon: "megaphone", href: feedback_path) %>
 
     <% menu.with_item(variant: "divider") %>
 
-    <% menu.with_item(variant: "button", text: "Log out", icon: "log-out", href: session_path(Current.session), method: :delete) %>
+    <% menu.with_item(variant: "button", text: "Odhlásiť sa", icon: "log-out", href: session_path(Current.session), method: :delete) %>
   <% end %>
 </div>

@@ -11,7 +11,7 @@ class Depository < ApplicationRecord
 
   class << self
     def display_name
-      "Cash"
+      "Hotovosť"
     end
 
     def color

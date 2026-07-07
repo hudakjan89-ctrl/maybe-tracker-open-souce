@@ -1,0 +1,25 @@
+---
+sk:
+  vehicles:
+    edit:
+      edit: Horeraviť %{account}
+    form:
+      make: Vytvoriť
+      make_placeholder: Doyota
+      mileage: Mileage
+      mileage_placeholder: '15000'
+      mileage_unit: Jednotka
+      model: Model
+      model_placeholder: Camry
+      year: Rok
+      year_placeholder: '2023'
+    new:
+      title: Enter vehicle details
+    overview:
+      current_price: Aktuálny Cena
+      make_model: Vytvoriť & Model
+      mileage: Mileage
+      purchase_price: Purchase Cena
+      trend: Trend
+      unknown: Neznáme
+      year: Rok

@@ -1,0 +1,7 @@
+---
+sk:
+  other_assets:
+    edit:
+      edit: Horeraviť %{account}
+    new:
+      title: Enter asset details

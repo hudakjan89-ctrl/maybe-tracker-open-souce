@@ -1,0 +1,14 @@
+---
+sk:
+  shared:
+    confirm_modal:
+      accept: Potvrdiť
+      body_html: "<p>Toto rozhodnutie nebude možné vrátiť späť</p>"
+      cancel: Zrušiť
+      title: Ste si istí?
+    money_field:
+      label: Suma
+    syncing_notice:
+      syncing: Synchronizujú sa údaje účtov...
+    trend_change:
+      no_change: bez zmeny

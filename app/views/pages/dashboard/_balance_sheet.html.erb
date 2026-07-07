@@ -37,13 +37,13 @@
 
         <div class="bg-surface rounded-xl p-1 space-y-1 overflow-x-auto">
           <div class="px-4 py-2 flex items-center uppercase text-xs font-medium text-secondary">
-            <div class="w-40">Name</div>
+            <div class="w-40">Názov</div>
             <div class="ml-auto text-right flex items-center gap-6">
               <div class="w-24">
-                <p>Weight</p>
+                <p>Podiel</p>
               </div>
               <div class="w-40">
-                <p>Value</p>
+                <p>Hodnota</p>
               </div>
             </div>
           </div>
@@ -117,8 +117,8 @@
             icon: classification_group.icon,
           ) %>
 
-          <p class="text-primary text-sm font-medium mb-1 mt-4">No <%= classification_group.name %> yet</p>
-          <p class="text-secondary text-sm text-center"><%= "Add your #{classification_group.name} accounts to see a full breakdown" %></p>
+          <p class="text-primary text-sm font-medium mb-1 mt-4">Zatiaľ žiadne <%= classification_group.name.downcase %></p>
+          <p class="text-secondary text-sm text-center">Pridajte účty typu <%= classification_group.name.downcase %> pre kompletný prehľad</p>
         </div>
       <% end %>
     </div>

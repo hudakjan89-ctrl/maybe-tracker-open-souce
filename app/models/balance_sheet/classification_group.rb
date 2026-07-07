@@ -13,7 +13,11 @@ class BalanceSheet::ClassificationGroup
   end
 
   def name
-    classification.titleize.pluralize
+    case classification
+    when "asset" then "Aktíva"
+    when "liability" then "Záväzky"
+    else classification.titleize.pluralize
+    end
   end
 
   def icon

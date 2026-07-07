@@ -1,0 +1,21 @@
+---
+sk:
+  activerecord:
+    attributes:
+      user:
+        email: E-mail
+        family: Family
+        family_id: Family
+        first_name: Meno
+        last_name: Priezvisko
+        password: Heslo
+        password_confirmation: Heslo Potvrdiťation
+    errors:
+      models:
+        user:
+          attributes:
+            base:
+              cannot_deactivate_admin_with_other_users: Administrátor cannot delete
+                account while other users are present. Prosím delete all members first.
+            profile_image:
+              invalid_file_size: file size must be less than %{max_megabytes}MB

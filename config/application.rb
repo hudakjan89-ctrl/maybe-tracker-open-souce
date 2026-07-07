@@ -24,8 +24,8 @@ module Maybe
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # TODO: This is here for incremental adoption of localization.  This can be removed when all translations are implemented.
-    config.i18n.fallbacks = true
+    config.i18n.default_locale = :sk
+    config.i18n.fallbacks = [ :sk, :en ]
 
     config.app_mode = "self_hosted".inquiry
 

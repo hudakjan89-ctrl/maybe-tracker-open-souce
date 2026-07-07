@@ -1,0 +1,28 @@
+---
+sk:
+  onboardings:
+    header:
+      sign_out: Odhlásiť sa
+    preferences:
+      currency: Mena
+      date_format: Formaát dátumu
+      example: Príklad account
+      locale: Jazyk
+      preview: Náhľad how data displays based on preferences.
+      submit: Dokončené
+      subtitle: Let's configure your preferences.
+      title: Nastavte si predvoľby
+    profile:
+      country: Krajina
+      first_name: Meno
+      household_name: Domácnosť Názov
+      last_name: Priezvisko
+      profile_image: Profil Obrázok
+      submit: Pokračovať
+      subtitle: Let's complete your profile.
+      title: Let's set up the basics
+    show:
+      message: We’re really excited you’re here. In the next step we’ll ask you a
+        few questions to complete your profile and then get you all set up.
+      setup: Množina up account
+      title: Meet Maybe

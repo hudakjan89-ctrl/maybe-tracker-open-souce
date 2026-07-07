@@ -1,0 +1,41 @@
+---
+sk:
+  settings:
+    hostings:
+      invite_code_settings:
+        description: Every new user that joins your instance of Maybe can only do
+          so via an invite code
+        email_confirmation_description: When enabled, users must confirm their email
+          address when changing it.
+        email_confirmation_title: Require email confirmation
+        generate_tokens: Generovať new code
+        generated_tokens: Generovaťd codes
+        title: Require invite code for signup
+      show:
+        general: Všeobecné Nastavenia
+        invites: Invite Kóds
+        title: Self-Hosting
+        danger_zone: Nebezpečná zóna
+        clear_cache: Vymazať data cache
+        clear_cache_warning: Vymazaťing the data cache will remove all exchange rates,
+          security prices, account balances, and other data. This will not delete
+          accounts, transakcie, categories, or other user-owned data.
+        confirm_clear_cache:
+          title: Vymazať data cache?
+          body: Are you sure you want to clear the data cache? This will remove all
+            exchange rates, security prices, account balances, and other data. Túto
+            akciu nie je možné vrátiť späť.
+      synth_settings:
+        api_calls_used: "%{used} / %{limit} API calls used (%{percentage})"
+        description: Vstup the API key provided by Synth
+        label: API Kľúč
+        placeholder: Enter your API key here
+        plan: "%{plan} plan"
+        title: Synth Nastavenia
+      update:
+        failure: Neplatné setting value
+        success: Nastavenia updated
+      clear_cache:
+        cache_cleared: Data cache has been cleared. This may take a few moments to
+          complete.
+      not_authorized: You are not authorized to perform this action

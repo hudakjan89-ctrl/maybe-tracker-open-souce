@@ -1,0 +1,31 @@
+---
+sk:
+  transfers:
+    create:
+      success: Prevod created
+    destroy:
+      success: Prevod removed
+    form:
+      amount: Suma
+      date: Dátum
+      expense: Výdavok
+      from: Od
+      income: Príjem
+      select_account: Vybrať account
+      submit: Vytvoriť transfer
+      to: Do
+      transfer: Prevod
+    new:
+      title: Zatiaľ žiadnevé transfer
+    show:
+      delete: Remove transfer
+      delete_subtitle: This removes the transfer.  It will not delete the underlying
+        transakcie.
+      delete_title: Remove transfer?
+      details: Detaily
+      note_label: Poznámky
+      note_placeholder: Add a note to this transfer
+      overview: Prehľad
+      settings: Nastavenia
+    update:
+      success: Prevod updated

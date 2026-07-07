@@ -1,0 +1,10 @@
+---
+sk:
+  depositories:
+    edit:
+      edit: Horeraviť %{account}
+    form:
+      none: Zatiaľ žiadnene
+      subtype_prompt: Vybrať account type
+    new:
+      title: Zadať zostatok účtu

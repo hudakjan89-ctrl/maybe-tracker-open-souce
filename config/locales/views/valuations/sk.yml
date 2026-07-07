@@ -1,0 +1,30 @@
+---
+sk:
+  valuations:
+    form:
+      amount: Suma
+      submit: Add balance update
+    header:
+      balance: Zostatok
+    index:
+      change: change
+      date: date
+      new_entry: Zatiaľ žiadnevé záznam
+      no_valuations: Zatiaľ žiadne valuations for this account yet
+      valuations: Hodnota
+      value: value
+    new:
+      title: Zatiaľ žiadnevý zostatok
+    show:
+      amount: Suma
+      date_label: Dátum
+      delete: Vymazať
+      delete_subtitle: This action cannot be undone
+      delete_title: Vymazať Entry
+      details: Detaily
+      name_label: Názov
+      name_placeholder: Enter a name for this záznam
+      note_label: Poznámky
+      note_placeholder: Add any additional details about this záznam
+      overview: Prehľad
+      settings: Nastavenia

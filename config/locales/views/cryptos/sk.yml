@@ -1,0 +1,7 @@
+---
+sk:
+  cryptos:
+    edit:
+      edit: Horeraviť %{account}
+    new:
+      title: Zadať zostatok účtu

@@ -1,0 +1,15 @@
+---
+sk:
+  impersonation_sessions:
+    approve:
+      success: Request approved
+    complete:
+      success: Relácia completed
+    create:
+      success: Request sent to user. Počkaťing for approval.
+    join:
+      success: Pripojiť saed session
+    leave:
+      success: Vľavo session
+    reject:
+      success: Request rejected

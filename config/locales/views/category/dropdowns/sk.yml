@@ -1,0 +1,11 @@
+---
+sk:
+  category:
+    dropdowns:
+      row:
+        delete: Vymazať category
+        edit: Horeraviť category
+      show:
+        clear: Vymazať category
+        no_categories: Zatiaľ žiadne categories found
+        search_placeholder: Hľadať

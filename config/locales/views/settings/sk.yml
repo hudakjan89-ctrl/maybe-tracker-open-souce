@@ -1,0 +1,81 @@
+---
+sk:
+  settings:
+    preferences:
+      show:
+        country: Krajina
+        currency: Mena
+        date_format: Formát dátumu
+        general_subtitle: Nastavte si predvoľby
+        general_title: Všeobecné
+        default_period: Predvolené obdobie
+        language: Jazyk
+        page_title: Predvoľby
+        theme_dark: Tmavá
+        theme_light: Svetlá
+        theme_subtitle: Vyberte preferovanú tému aplikácie
+        theme_system: Systémová
+        theme_title: Téma
+        timezone: Časové pásmo
+    profiles:
+      show:
+        confirm_delete:
+          body: Naozaj chcete natrvalo vymazať účet? Túto akciu nie je možné vrátiť späť.
+          title: Vymazať účet?
+        confirm_reset:
+          body: Naozaj chcete resetovať účet? Vymažú sa všetky účty, kategórie, obchodníci, značky a ďalšie údaje.
+          title: Resetovať účet?
+        confirm_remove_invitation:
+          body: Naozaj chcete odstrániť pozvánku pre %{email}?
+          title: Odstrániť pozvánku
+        confirm_remove_member:
+          body: Naozaj chcete odstrániť %{name} z domácnosti?
+          title: Odstrániť člena
+        danger_zone_title: Nebezpečná zóna
+        delete_account: Vymazať účet
+        delete_account_warning: Vymazanie účtu natrvalo odstráni všetky vaše údaje.
+        reset_account: Resetovať účet
+        reset_account_warning: Reset vymaže všetky účty, kategórie a ďalšie údaje, ale ponechá používateľský účet.
+        email: E-mail
+        first_name: Meno
+        last_name: Priezvisko
+        household_form_input_placeholder: Zadajte názov domácnosti
+        household_form_label: Názov domácnosti
+        household_subtitle: Pozvite členov domácnosti, partnerov a ďalších osôb.
+        household_title: Domácnosť
+        invitation_link: Odkaz na pozvánku
+        invite_member: Pridať člena
+        page_title: Účet
+        pending: Čaká
+        profile_subtitle: Upravte si profil
+        profile_title: Profil
+        remove_invitation: Odstrániť pozvánku
+        remove_member: Odstrániť člena
+        save: Uložiť
+    securities:
+      show:
+        page_title: Zabezpečenie
+    settings_nav:
+      accounts_label: Účty
+      categories_label: Kategórie
+      feedback_label: Spätná väzba
+      general_section_title: Všeobecné
+      imports_label: Importy
+      logout: Odhlásiť sa
+      merchants_label: Obchodníci
+      other_section_title: Viac
+      preferences_label: Predvoľby
+      profile_label: Účet
+      rules_label: Pravidlá
+      security_label: Zabezpečenie
+      self_hosting_label: Vlastný hosting
+      tags_label: Značky
+      transactions_section_title: Transakcie
+    settings_nav_link_large:
+      next: Ďalej
+      previous: Späť
+    user_avatar_field:
+      accepted_formats: JPG alebo PNG. Max. 5 MB.
+      choose: Nahrať fotku
+      choose_label: (voliteľné)
+      change: Zmeniť fotku

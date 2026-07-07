@@ -53,7 +53,17 @@ module Accountable
     end
 
     def display_name
-      self.name.pluralize.titleize
+      {
+        "Depository" => "Hotovosť",
+        "Investment" => "Investície",
+        "Crypto" => "Kryptomeny",
+        "Property" => "Nehnuteľnosti",
+        "Vehicle" => "Vozidlá",
+        "OtherAsset" => "Ostatné aktíva",
+        "CreditCard" => "Kreditné karty",
+        "Loan" => "Pôžičky",
+        "OtherLiability" => "Ostatné záväzky"
+      }.fetch(name, name.pluralize.titleize)
     end
 
     def balance_money(family)
@@ -73,11 +83,11 @@ module Accountable
   end
 
   def balance_display_name
-    "account value"
+    "hodnota účtu"
   end
 
   def opening_balance_display_name
-    "opening balance"
+    "počiatočný zostatok"
   end
 
   def icon

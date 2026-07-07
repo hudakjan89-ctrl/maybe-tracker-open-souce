@@ -1,0 +1,13 @@
+---
+sk:
+  pages:
+    changelog:
+      title: Novinky
+    dashboard:
+      net_worth_chart:
+        data_not_available: Pre zvolené obdobie nie sú k dispozícii žiadne údaje
+        title: Čistá hodnota
+      no_account_empty_state:
+        new_account: Nový účet
+        no_account_subtitle: Pridajte prvé účty pre zobrazenie údajov na prehľade.
+        no_account_title: Zatiaľ žiadne účty

@@ -1,0 +1,23 @@
+---
+sk:
+  tags:
+    create:
+      created: Tag created
+      error: 'Chyba creating tag: %{error}'
+    destroy:
+      deleted: Tag deleted
+    edit:
+      edit: Horeraviť tag
+    form:
+      placeholder: Tag name
+    index:
+      empty: Zatiaľ žiadne tags yet
+      new: Zatiaľ žiadnevé tag
+      tags: Značky
+    new:
+      new: Zatiaľ žiadnevé tag
+    tag:
+      delete: Vymazať
+      edit: Horeraviť
+    update:
+      updated: Tag updated

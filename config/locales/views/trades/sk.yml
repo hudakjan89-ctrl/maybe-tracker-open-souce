@@ -1,0 +1,38 @@
+---
+sk:
+  trades:
+    form:
+      account: Prevod account (voliteľné)
+      account_prompt: Hľadať account
+      amount: Suma
+      holding: Ticker symbol
+      price: Cena per share
+      qty: Množstvo
+      submit: Pridať transakciu
+      ticker_placeholder: AAPL
+      type: Typ
+    header:
+      buy: Kúpiť
+      current_market_price_label: Aktuálny Trh Cena
+      overview: Prehľad
+      purchase_price_label: Purchase Cena
+      purchase_qty_label: Purchase Množstvo
+      sell: Predať
+      symbol_label: Symbol
+      total_return_label: Unrealized gain/loss
+    new:
+      title: Zatiaľ žiadnevá transakcia
+    show:
+      additional: Additional
+      cost_per_share_label: Náklad per Zdieľať
+      date_label: Dátum
+      delete: Vymazať
+      delete_subtitle: This action cannot be undone
+      delete_title: Vymazať Obchod
+      details: Detaily
+      exclude_subtitle: This trade will not be included in reports and calculations
+      exclude_title: Exclude from analytics
+      note_label: Zatiaľ žiadnete
+      note_placeholder: Add any additional notes here...
+      quantity_label: Množstvo
+      settings: Nastavenia

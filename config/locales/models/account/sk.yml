@@ -1,0 +1,21 @@
+---
+sk:
+  activerecord:
+    attributes:
+      account:
+        balance: Zostatok
+        currency: Mena
+        family: Family
+        family_id: Family
+        name: Názov
+        subtype: Subtype
+    models:
+      account: Účet
+      account/credit: Kreditná karta
+      account/depository: Zakázaťkový účet
+      account/investment: Investícia
+      account/loan: Pôžička
+      account/other_asset: Ostatné aktívum
+      account/other_liability: Ostatný záväzok
+      account/property: Nehnuteľnosti
+      account/vehicle: Vozidlo

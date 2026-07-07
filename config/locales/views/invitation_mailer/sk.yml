@@ -1,0 +1,8 @@
+---
+sk:
+  invitation_mailer:
+    invite_email:
+      accept_button: Prijať Invitation
+      body: "%{inviter} has invited you to join the %{family} family on Maybe!"
+      expiry_notice: This invitation will expire in %{days} days
+      greeting: Vitajte to Maybe!

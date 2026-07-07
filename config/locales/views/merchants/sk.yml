@@ -1,0 +1,27 @@
+---
+sk:
+  family_merchants:
+    create:
+      error: 'Chyba creating merchant: %{error}'
+      success: Zatiaľ žiadnevé merchant created successfully
+    destroy:
+      success: Obchodník deleted successfully
+    edit:
+      title: Horeraviť merchant
+    form:
+      name_placeholder: Obchodník name
+    index:
+      empty: Zatiaľ žiadne merchants yet
+      new: Zatiaľ žiadnevé merchant
+      title: Obchodníci
+    merchant:
+      confirm_accept: Vymazať merchant
+      confirm_body: Are you sure you want to delete this merchant? Removing this merchant
+        will unlink all associated transakcie and may effect your reporting.
+      confirm_title: Vymazať merchant?
+      delete: Vymazať merchant
+      edit: Horeraviť merchant
+    new:
+      title: Zatiaľ žiadnevé merchant
+    update:
+      success: Obchodník updated successfully

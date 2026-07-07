@@ -1,0 +1,14 @@
+---
+sk:
+  entries:
+    create:
+      success: Entry created
+    destroy:
+      success: Entry deleted
+    empty:
+      description: Try adding an záznam, editing filters or refining your search
+      title: Nenašli sa žiadne záznamy
+    loading:
+      loading: Načítava sa záznamy...
+    update:
+      success: Entry updated

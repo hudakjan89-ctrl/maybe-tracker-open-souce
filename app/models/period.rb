@@ -13,56 +13,56 @@ class Period
     "last_day" => {
       date_range: -> { [ 1.day.ago.to_date, Date.current ] },
       label_short: "1D",
-      label: "Last Day",
-      comparison_label: "vs. yesterday"
+      label: "Posledný deň",
+      comparison_label: "oproti včerajšku"
     },
     "current_week" => {
       date_range: -> { [ Date.current.beginning_of_week, Date.current ] },
       label_short: "WTD",
-      label: "Current Week",
-      comparison_label: "vs. start of week"
+      label: "Aktuálny týždeň",
+      comparison_label: "oproti začiatku týždňa"
     },
     "last_7_days" => {
       date_range: -> { [ 7.days.ago.to_date, Date.current ] },
       label_short: "7D",
-      label: "Last 7 Days",
-      comparison_label: "vs. last week"
+      label: "Posledných 7 dní",
+      comparison_label: "oproti minulému týždňu"
     },
     "current_month" => {
       date_range: -> { [ Date.current.beginning_of_month, Date.current ] },
       label_short: "MTD",
-      label: "Current Month",
-      comparison_label: "vs. start of month"
+      label: "Aktuálny mesiac",
+      comparison_label: "oproti začiatku mesiaca"
     },
     "last_30_days" => {
       date_range: -> { [ 30.days.ago.to_date, Date.current ] },
       label_short: "30D",
-      label: "Last 30 Days",
-      comparison_label: "vs. last month"
+      label: "Posledných 30 dní",
+      comparison_label: "oproti minulému mesiacu"
     },
     "last_90_days" => {
       date_range: -> { [ 90.days.ago.to_date, Date.current ] },
       label_short: "90D",
-      label: "Last 90 Days",
-      comparison_label: "vs. last quarter"
+      label: "Posledných 90 dní",
+      comparison_label: "oproti minulému štvrťroku"
     },
     "current_year" => {
       date_range: -> { [ Date.current.beginning_of_year, Date.current ] },
       label_short: "YTD",
-      label: "Current Year",
-      comparison_label: "vs. start of year"
+      label: "Aktuálny rok",
+      comparison_label: "oproti začiatku roka"
     },
     "last_365_days" => {
       date_range: -> { [ 365.days.ago.to_date, Date.current ] },
       label_short: "365D",
-      label: "Last 365 Days",
-      comparison_label: "vs. 1 year ago"
+      label: "Posledných 365 dní",
+      comparison_label: "oproti pred rokom"
     },
     "last_5_years" => {
       date_range: -> { [ 5.years.ago.to_date, Date.current ] },
       label_short: "5Y",
-      label: "Last 5 Years",
-      comparison_label: "vs. 5 years ago"
+      label: "Posledných 5 rokov",
+      comparison_label: "oproti pred 5 rokmi"
     }
   }
 
@@ -122,9 +122,9 @@ class Period
 
   def interval
     if days > 366
-      "1 week"
+      "1 týždeň"
     else
-      "1 day"
+      "1 deň"
     end
   end
 
@@ -132,7 +132,7 @@ class Period
     if key_metadata
       key_metadata.fetch(:label)
     else
-      "Custom Period"
+      "Vlastné obdobie"
     end
   end
 
@@ -140,7 +140,7 @@ class Period
     if key_metadata
       key_metadata.fetch(:label_short)
     else
-      "Custom"
+      "Vlastné"
     end
   end
 

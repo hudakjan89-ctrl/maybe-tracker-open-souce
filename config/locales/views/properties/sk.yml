@@ -1,0 +1,32 @@
+---
+sk:
+  properties:
+    edit:
+      edit: Horeraviť %{account}
+    form:
+      address_line1: Ulica address
+      address_line1_placeholder: 123 Hlavné St
+      area: Žijúci area
+      area_placeholder: '2000'
+      area_unit: Jednotka of measurement
+      country: Krajina
+      country_placeholder: US
+      locality: Mesto
+      locality_placeholder: San Francisco
+      none: Zatiaľ žiadnene
+      postal_code: ZIP/PSČ
+      postal_code_placeholder: '94105'
+      region: Štát/Provincia
+      region_placeholder: CA
+      subtype_prompt: Vybrať property type
+      year_built: Rok built
+      year_built_placeholder: '2000'
+    new:
+      title: Enter property details
+    overview:
+      living_area: Žijúci Oblasť
+      market_value: Trh Hodnota
+      purchase_price: Purchase Cena
+      trend: Trend
+      unknown: Neznáme
+      year_built: Rok Built

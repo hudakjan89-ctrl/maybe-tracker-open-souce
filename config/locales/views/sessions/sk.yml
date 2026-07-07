@@ -1,0 +1,15 @@
+---
+sk:
+  sessions:
+    create:
+      invalid_credentials: Neplatné email or password.
+    destroy:
+      logout_successful: You have signed out successfully.
+    new:
+      email: E-mail address
+      email_placeholder: you@example.com
+      forgot_password: Forgot your password?
+      password: Heslo
+      submit: Log in
+      title: Prihláste sa do účtu
+      password_placeholder: Enter your password

@@ -1,0 +1,19 @@
+---
+sk:
+  invitations:
+    create:
+      failure: Could not send invitation
+      success: Invitation sent successfully
+    destroy:
+      failure: There was a problem removing the invitation.
+      not_authorized: You are not authorized to manage invitations.
+      success: Invitation was successfully removed.
+    new:
+      email_label: E-mail Adresa
+      email_placeholder: Enter email address
+      role_admin: Administrátoristrátor
+      role_label: Role
+      role_member: Člen
+      submit: Odoslať Invitation
+      subtitle: Odoslať an invitation to join your family account on Maybe
+      title: Invite Someone

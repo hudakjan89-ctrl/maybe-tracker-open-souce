@@ -1,0 +1,37 @@
+---
+sk:
+  holdings:
+    cash:
+      brokerage_cash: Brokerage cash
+    destroy:
+      success: Držaťing deleted
+    holding:
+      per_share: per share
+      shares: "%{qty} shares"
+    index:
+      average_cost: Priemer cost
+      holdings: Držby
+      name: Názov
+      new_holding: Zatiaľ žiadnevá transakcia
+      no_holdings: Zatiaľ žiadne holdings to show.
+      return: Celkom return
+      weight: Podiel
+    missing_price_tooltip:
+      description: This investment has missing values and we could not calculate its
+        returns or value.
+      missing_data: Chýbajúce data
+    show:
+      avg_cost_label: Priemer Náklad
+      current_market_price_label: Aktuálny Trh Cena
+      delete: Vymazať
+      delete_subtitle: This will delete the holding and all your associated trades
+        on this account.  Túto akciu nie je možné vrátiť späť.
+      delete_title: Vymazať holding
+      history: History
+      overview: Prehľad
+      portfolio_weight_label: Portfolio Podiel
+      settings: Nastavenia
+      ticker_label: Ticker
+      trade_history_entry: "%{qty} shares of %{security} at %{price}"
+      total_return_label: Celkom Vrátiť sa
+      unknown: Neznáme

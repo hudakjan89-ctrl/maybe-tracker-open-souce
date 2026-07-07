@@ -1,0 +1,12 @@
+---
+sk:
+  password_resets:
+    edit:
+      title: Obnoviť heslo
+    new:
+      requested: Prosím check your email for a link to reset your password.
+      submit: Obnoviť heslo
+      title: Obnoviť heslo
+    update:
+      invalid_token: Neplatné token.
+      success: Your password has been reset.

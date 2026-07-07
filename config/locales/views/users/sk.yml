@@ -1,0 +1,14 @@
+---
+sk:
+  users:
+    destroy:
+      success: Váš účet has been deleted.
+    update:
+      email_change_failed: Zlyhalo to change email address.
+      email_change_initiated: Prosím check your new email address for confirmation
+        instructions.
+      success: Your profile has been updated.
+    reset:
+      success: Váš účet has been reset. Data will be deleted in the background in
+        some time.
+      unauthorized: You are not authorized to perform this action

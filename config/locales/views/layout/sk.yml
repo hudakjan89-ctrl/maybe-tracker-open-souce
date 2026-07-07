@@ -1,0 +1,13 @@
+---
+sk:
+  layouts:
+    auth:
+      existing_account: Už máte účet?
+      no_account: Nový v Maybe?
+      sign_in: Prihlásiť sa
+      sign_up: Vytvoriť účet
+      your_account: Váš účet
+    shared:
+      footer:
+        privacy_policy: Zásady ochrany súkromia
+        terms_of_service: Podmienky používania

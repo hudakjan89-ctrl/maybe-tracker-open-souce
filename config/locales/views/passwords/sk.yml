@@ -1,0 +1,10 @@
+---
+sk:
+  passwords:
+    edit:
+      password: Zatiaľ žiadnevé Heslo
+      password_challenge: Aktuálny Heslo
+      submit: Resetovať Heslo
+      title: Aktualizovať Heslo
+    update:
+      success: Your password has been reset.

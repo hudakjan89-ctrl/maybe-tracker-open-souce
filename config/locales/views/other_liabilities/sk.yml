@@ -1,0 +1,7 @@
+---
+sk:
+  other_liabilities:
+    edit:
+      edit: Horeraviť %{account}
+    new:
+      title: Enter liability details

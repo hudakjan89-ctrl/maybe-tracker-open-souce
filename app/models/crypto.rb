@@ -15,7 +15,7 @@ class Crypto < ApplicationRecord
     end
 
     def display_name
-      "Crypto"
+      "Kryptomeny"
     end
   end
 end
