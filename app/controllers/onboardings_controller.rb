@@ -10,7 +10,7 @@ class OnboardingsController < ApplicationController
   def preferences
   end
 
-  def trial
+  def goals
   end
 
   private

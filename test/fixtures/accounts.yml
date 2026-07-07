@@ -25,15 +25,14 @@ depository:
   accountable: one
   status: active
 
-connected:
+savings:
   family: dylan_family
-  name: Plaid Depository Account
+  name: Savings Account
   balance: 5000
   currency: USD
-  subtype: checking
+  subtype: savings
   accountable_type: Depository
   accountable: two
-  plaid_account: one
   status: active
 
 credit_card:

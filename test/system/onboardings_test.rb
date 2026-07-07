@@ -137,14 +137,8 @@ class OnboardingsTest < ApplicationSystemTestCase
 
     visit goals_onboarding_path
 
-    assert_text "What brings you to Maybe?"
-    assert_button "Next"
-  end
-
-  test "trial page renders correctly" do
-    visit trial_onboarding_path
-
-    assert_text "trial" # Adjust based on actual content
+    assert_text "What are your goals?"
+    assert_button "Get started"
   end
 
   test "navigation between onboarding steps" do

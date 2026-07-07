@@ -82,12 +82,7 @@ class OnboardingsControllerTest < ActionDispatch::IntegrationTest
   test "should get goals" do
     get goals_onboarding_url
     assert_response :success
-    assert_select "h1", text: /What brings you to Maybe/i
-  end
-
-  test "should get trial" do
-    get trial_onboarding_url
-    assert_response :success
+    assert_select "h1", text: /What are your goals/i
   end
 
   test "preferences page shows currency formatting example" do
@@ -138,9 +133,6 @@ end
 
     get goals_onboarding_url
     assert_response :success
-
-    get trial_onboarding_url
-    assert_response :success
   end
 
   test "onboarding pages require authentication" do
@@ -153,9 +145,6 @@ end
   assert_redirected_to new_session_url
 
   get goals_onboarding_url
-  assert_redirected_to new_session_url
-
-  get trial_onboarding_url
   assert_redirected_to new_session_url
 end
 

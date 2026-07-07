@@ -3,8 +3,8 @@ module ApplicationCable
     rescue_from StandardError, with: :report_error
 
     private
-      def report_error(e)
-        Sentry.capture_exception(e)
+      def report_error(error)
+        Rails.logger.error("ActionCable error: #{error.message}")
       end
   end
 end

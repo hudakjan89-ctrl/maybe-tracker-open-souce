@@ -31,15 +31,8 @@ class Account::CurrentBalanceManager
   end
 
   def set_current_balance(balance)
-    if account.linked?
-      result = set_current_balance_for_linked_account(balance)
-    else
-      result = set_current_balance_for_manual_account(balance)
-    end
-
-    # Update cache field so changes appear immediately to the user
+    result = set_current_balance_for_manual_account(balance)
     account.update!(balance: balance)
-
     result
   rescue => e
     Result.new(success?: false, changes_made?: false, error: e.message)
@@ -87,19 +80,6 @@ class Account::CurrentBalanceManager
 
       # Normalize to expected result format
       Result.new(success?: result.success?, changes_made?: true, error: result.error)
-    end
-
-    # Linked accounts manage "current balance" via the special `current_anchor` valuation.
-    # This is NOT a user-facing feature, and is primarily used in "processors" while syncing
-    # linked account data (e.g. via Plaid)
-    def set_current_balance_for_linked_account(balance)
-      if current_anchor_valuation
-        changes_made = update_current_anchor(balance)
-        Result.new(success?: true, changes_made?: changes_made, error: nil)
-      else
-        create_current_anchor(balance)
-        Result.new(success?: true, changes_made?: true, error: nil)
-      end
     end
 
     def current_anchor_valuation
