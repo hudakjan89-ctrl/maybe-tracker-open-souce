@@ -6,7 +6,7 @@
         <%= tag.p @holding.ticker, class: "text-sm text-secondary" %>
       </div>
 
-      <%= image_tag "https://logo.synthfinance.com/ticker/#{@holding.ticker}", loading: "lazy", class: "w-9 h-9 rounded-full" %>
+      <%= render DS::FilledIcon.new(variant: :text, hex_color: @holding.account.accountable.color, text: @holding.ticker, size: "md", rounded: true) %>
     </div>
   <% end %>
 
@@ -79,8 +79,7 @@
       </div>
     <% end %>
 
-    <% unless @holding.account.plaid_account_id.present? %>
-      <% dialog.with_section(title: t(".settings"), open: true) do %>
+    <% dialog.with_section(title: t(".settings"), open: true) do %>
         <div class="pb-4">
           <div class="flex items-center justify-between gap-2 p-3">
             <div class="text-sm space-y-1">
@@ -96,6 +95,5 @@
           </div>
         </div>
       <% end %>
-    <% end %>
   <% end %>
 <% end %>

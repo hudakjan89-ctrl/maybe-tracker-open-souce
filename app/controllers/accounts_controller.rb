@@ -3,8 +3,7 @@ class AccountsController < ApplicationController
   include Periodable
 
   def index
-    @manual_accounts = family.accounts.manual.alphabetically
-    @plaid_items = family.plaid_items.ordered
+    @accounts = family.accounts.alphabetically
 
     render layout: "settings"
   end
@@ -36,8 +35,6 @@ class AccountsController < ApplicationController
   def sparkline
     etag_key = @account.family.build_cache_key("#{@account.id}_sparkline", invalidate_on_data_updates: true)
 
-    # Short-circuit with 304 Not Modified when the client already has the latest version.
-    # We defer the expensive series computation until we know the content is stale.
     if stale?(etag: etag_key, last_modified: @account.family.latest_sync_completed_at)
       @sparkline_series = @account.sparkline_series
       render layout: false
@@ -54,12 +51,8 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    if @account.linked?
-      redirect_to account_path(@account), alert: "Cannot delete a linked account"
-    else
-      @account.destroy_later
-      redirect_to accounts_path, notice: "Account scheduled for deletion"
-    end
+    @account.destroy_later
+    redirect_to accounts_path, notice: "Account scheduled for deletion"
   end
 
   private

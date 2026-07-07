@@ -3,21 +3,18 @@ module SettingsHelper
     { name: "Account", path: :settings_profile_path },
     { name: "Preferences", path: :settings_preferences_path },
     { name: "Security", path: :settings_security_path },
-    { name: "Self hosting", path: :settings_hosting_path, condition: :self_hosted? },
-    { name: "API Key", path: :settings_api_key_path },
-    { name: "Billing", path: :settings_billing_path, condition: :not_self_hosted? },
+    { name: "Self hosting", path: :settings_hosting_path },
     { name: "Accounts", path: :accounts_path },
     { name: "Imports", path: :imports_path },
     { name: "Tags", path: :tags_path },
     { name: "Categories", path: :categories_path },
     { name: "Rules", path: :rules_path },
     { name: "Merchants", path: :family_merchants_path },
-    { name: "What's new", path: :changelog_path },
     { name: "Feedback", path: :feedback_path }
   ]
 
   def adjacent_setting(current_path, offset)
-    visible_settings = SETTINGS_ORDER.select { |setting| setting[:condition].nil? || send(setting[:condition]) }
+    visible_settings = SETTINGS_ORDER
     current_index = visible_settings.index { |setting| send(setting[:path]) == current_path }
     return nil unless current_index
 
@@ -57,9 +54,4 @@ module SettingsHelper
       concat(next_setting)
     end
   end
-
-  private
-    def not_self_hosted?
-      !self_hosted?
-    end
 end

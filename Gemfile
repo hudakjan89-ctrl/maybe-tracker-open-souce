@@ -34,41 +34,23 @@ gem "hotwire_combobox"
 gem "sidekiq"
 gem "sidekiq-cron"
 
-# Monitoring
+# Monitoring (local only)
 gem "vernier"
 gem "rack-mini-profiler"
-gem "sentry-ruby"
-gem "sentry-rails"
-gem "sentry-sidekiq"
-gem "logtail-rails"
-gem "skylight", groups: [ :production ]
 
 # Active Storage
-gem "aws-sdk-s3", "~> 1.177.0", require: false
 gem "image_processing", ">= 1.2"
 
 # Other
 gem "ostruct"
 gem "bcrypt", "~> 3.1"
-gem "jwt"
 gem "jbuilder"
-
-# OAuth & API Security
-gem "doorkeeper"
-gem "rack-attack", "~> 6.6"
-gem "faraday"
-gem "faraday-retry"
-gem "faraday-multipart"
 gem "inline_svg"
-gem "octokit"
 gem "pagy"
 gem "rails-settings-cached"
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "csv"
 gem "redcarpet"
-gem "stripe"
-gem "intercom-rails"
-gem "plaid"
 gem "rotp", "~> 6.3"
 gem "rqrcode", "~> 3.0"
 gem "activerecord-import"
@@ -77,9 +59,6 @@ gem "rubyzip", "~> 2.3"
 # State machines
 gem "aasm"
 gem "after_commit_everywhere", "~> 1.0"
-
-# AI
-gem "ruby-openai"
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows]

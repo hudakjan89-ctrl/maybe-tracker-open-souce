@@ -9,12 +9,8 @@ class HoldingsController < ApplicationController
   end
 
   def destroy
-    if @holding.account.plaid_account_id.present?
-      flash[:alert] = "You cannot delete this holding"
-    else
-      @holding.destroy_holding_and_entries!
-      flash[:notice] = t(".success")
-    end
+    @holding.destroy_holding_and_entries!
+    flash[:notice] = t(".success")
 
     respond_to do |format|
       format.html { redirect_back_or_to account_path(@holding.account) }

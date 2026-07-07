@@ -1,5 +1,5 @@
 class Family < ApplicationRecord
-  include PlaidConnectable, Syncable, AutoTransferMatchable, Subscribeable
+  include Syncable, AutoTransferMatchable
 
   DATE_FORMATS = [
     [ "MM-DD-YYYY", "%m-%d-%Y" ],
@@ -41,22 +41,6 @@ class Family < ApplicationRecord
     Merchant.where(id: merchant_ids)
   end
 
-  def auto_categorize_transactions_later(transactions)
-    AutoCategorizeJob.perform_later(self, transaction_ids: transactions.pluck(:id))
-  end
-
-  def auto_categorize_transactions(transaction_ids)
-    AutoCategorizer.new(self, transaction_ids: transaction_ids).auto_categorize
-  end
-
-  def auto_detect_transaction_merchants_later(transactions)
-    AutoDetectMerchantsJob.perform_later(self, transaction_ids: transactions.pluck(:id))
-  end
-
-  def auto_detect_transaction_merchants(transaction_ids)
-    AutoMerchantDetector.new(self, transaction_ids: transaction_ids).auto_detect
-  end
-
   def balance_sheet
     @balance_sheet ||= BalanceSheet.new(self)
   end
@@ -67,25 +51,6 @@ class Family < ApplicationRecord
 
   def eu?
     country != "US" && country != "CA"
-  end
-
-  def requires_data_provider?
-    # If family has any trades, they need a provider for historical prices
-    return true if trades.any?
-
-    # If family has any accounts not denominated in the family's currency, they need a provider for historical exchange rates
-    return true if accounts.where.not(currency: self.currency).any?
-
-    # If family has any entries in different currencies, they need a provider for historical exchange rates
-    uniq_currencies = entries.pluck(:currency).uniq
-    return true if uniq_currencies.count > 1
-    return true if uniq_currencies.count > 0 && uniq_currencies.first != self.currency
-
-    false
-  end
-
-  def missing_data_provider?
-    requires_data_provider? && Provider::Registry.get_provider(:synth).nil?
   end
 
   def oldest_entry_date
@@ -115,6 +80,6 @@ class Family < ApplicationRecord
   end
 
   def self_hoster?
-    Rails.application.config.app_mode.self_hosted?
+    true
   end
 end
