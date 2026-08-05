@@ -9,8 +9,7 @@ module SettingsHelper
     { name: "Tags", path: :tags_path },
     { name: "Categories", path: :categories_path },
     { name: "Rules", path: :rules_path },
-    { name: "Merchants", path: :family_merchants_path },
-    { name: "Feedback", path: :feedback_path }
+    { name: "Merchants", path: :family_merchants_path }
   ]
 
   def adjacent_setting(current_path, offset)

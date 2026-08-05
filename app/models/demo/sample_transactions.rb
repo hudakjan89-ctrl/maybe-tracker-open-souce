@@ -30,28 +30,25 @@ module Demo
     end
 
     def generate!
-      ensure_categories!
-      checking = ensure_checking_account!
-      investment = ensure_investment_account!
+      ActiveRecord::Base.transaction do
+        ensure_categories!
+        checking = ensure_checking_account!
+        create_sample_transactions!(checking)
+        create_sample_investments!(ensure_investment_account!)
+      end
 
-      create_sample_transactions!(checking)
-      create_sample_investments!(investment)
-
-      @family.accounts.each(&:sync_later)
+      sync_accounts!
     end
 
     private
 
       def ensure_categories!
-        return if @family.categories.any?
-
         SLOVAK_CATEGORIES.each do |name, color, icon, classification|
-          @family.categories.create!(
-            name: name,
-            color: color,
-            lucide_icon: icon,
-            classification: classification
-          )
+          category = @family.categories.find_or_initialize_by(name: name)
+          category.color = color
+          category.lucide_icon = icon
+          category.classification = classification
+          category.save!
         end
       end
 
@@ -59,12 +56,12 @@ module Demo
         account = @family.accounts.where(accountable_type: "Depository").first
         return account if account
 
-        Account.create_and_sync(
-          family: @family,
+        @family.accounts.create!(
+          accountable: Depository.new(subtype: "checking"),
           name: "Hlavný účet",
           balance: 5_000,
-          currency: @family.currency,
-          accountable: Depository.new(subtype: "checking")
+          cash_balance: 5_000,
+          currency: @family.currency
         )
       end
 
@@ -72,18 +69,21 @@ module Demo
         account = @family.accounts.where(accountable_type: "Investment").first
         return account if account
 
-        Account.create_and_sync(
-          family: @family,
+        @family.accounts.create!(
+          accountable: Investment.new(subtype: "brokerage"),
           name: "Investičný portfólio",
           balance: 10_000,
-          currency: @family.currency,
-          accountable: Investment.new(subtype: "brokerage")
+          cash_balance: 10_000,
+          currency: @family.currency
         )
       end
 
       def create_sample_transactions!(account)
         income_cat = @family.categories.incomes.first
         expense_cats = @family.categories.expenses.to_a
+
+        raise "Chýba kategória príjmov" if income_cat.nil?
+        raise "Chýbajú kategórie výdavkov" if expense_cats.empty?
 
         40.times do
           date = rand(6.months.ago.to_date..Date.current)
@@ -111,9 +111,10 @@ module Demo
 
       def create_sample_investments!(account)
         SECURITIES.each do |sec_data|
-          security = Security.find_or_create_by!(ticker: sec_data[:ticker]) do |s|
+          security = Security.find_or_create_by!(ticker: sec_data[:ticker], exchange_operating_mic: nil) do |s|
             s.name = sec_data[:name]
             s.country_code = "SK"
+            s.offline = true
           end
 
           qty = rand(1..20)
@@ -121,11 +122,18 @@ module Demo
 
           account.entries.create!(
             entryable: Trade.new(security: security, qty: qty, price: price, currency: account.currency),
-            amount: -(qty * price),
+            amount: qty * price,
             name: "Nákup #{security.ticker}",
             currency: account.currency,
             date: rand(6.months.ago.to_date..Date.current)
           )
+        end
+      end
+
+      def sync_accounts!
+        @family.accounts.find_each do |account|
+          sync = Sync.create!(syncable: account)
+          sync.perform
         end
       end
   end

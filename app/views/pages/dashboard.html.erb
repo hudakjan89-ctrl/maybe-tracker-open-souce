@@ -1,18 +1,4 @@
 <% content_for :page_header do %>
-  <% unless Current.family.self_hoster? %>
-    <div class="bg-gray-100 mb-4 rounded-xl p-4 flex gap-2 items-start">
-      <%= icon "triangle-alert", color: "warning" %>
-      <div class="text-sm space-y-2">
-        <p class="font-medium">We've made a tough decision to shut down the hosted version of Maybe. Here's what's happening next:</p>
-        <ul class="list-disc list-inside space-y-1 ml-2">
-          <li><%= link_to "Read why we're doing this here", "https://x.com/Shpigford/status/1947725345244709240", class: "underline" %></li>
-          <li>You will be refunded in full.</li>
-          <li>You have until July 31, 2025 to export your data. You can do that <%= link_to "here", settings_profile_path, class: "underline" %>.</li>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-
   <div class="space-y-1 mb-6 flex gap-4 justify-between items-center lg:items-start">
 
     <div class="space-y-1">
@@ -21,8 +7,8 @@
     </div>
 
     <div class="flex items-center gap-2">
-      <%= button_to demo_transactions_path, method: :post, class: "hidden lg:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-container-inset border border-secondary text-secondary hover:text-primary hover:bg-surface-hover transition-colors" do %>
-        <%= icon("flask-conical", size: "sm") %>
+      <%= button_to demo_transactions_path, method: :post, class: "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-container-inset border border-secondary text-secondary hover:text-primary hover:bg-surface-hover transition-colors" do %>
+        <%= icon("zap", size: "sm") %>
         Testing
       <% end %>
 

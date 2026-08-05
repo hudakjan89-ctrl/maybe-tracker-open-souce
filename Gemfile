@@ -34,10 +34,6 @@ gem "hotwire_combobox"
 gem "sidekiq"
 gem "sidekiq-cron"
 
-# Monitoring (local only)
-gem "vernier"
-gem "rack-mini-profiler"
-
 # Active Storage
 gem "image_processing", ">= 1.2"
 
@@ -82,6 +78,8 @@ group :development do
   gem "stackprof"
   gem "derailed_benchmarks"
   gem "foreman"
+  gem "vernier"
+  gem "rack-mini-profiler"
 end
 
 group :test do

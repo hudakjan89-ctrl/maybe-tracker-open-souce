@@ -27,10 +27,6 @@ class PagesController < ApplicationController
     @breadcrumbs = [ [ "Domov", root_path ], [ "Prehľad", nil ] ]
   end
 
-  def feedback
-    render layout: "settings"
-  end
-
   def redis_configuration_error
     render layout: "blank"
   end

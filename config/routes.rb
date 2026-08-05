@@ -20,8 +20,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get "feedback", to: "pages#feedback"
-
   resource :current_session, only: %i[update]
 
   resource :registration, only: %i[new create]
