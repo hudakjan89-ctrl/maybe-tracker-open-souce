@@ -24,6 +24,16 @@ class PagesController < ApplicationController
 
     @cashflow_sankey_data = build_cashflow_sankey_data(income_totals, expense_totals, family_currency)
 
+    month_period = Period.current_month
+    @month_income = Current.family.income_statement.income_totals(period: month_period)
+    @month_expense = Current.family.income_statement.expense_totals(period: month_period)
+    @recent_entries = Current.family.entries
+      .includes(entryable: [ :category, :merchant ])
+      .visible
+      .reverse_chronological
+      .limit(8)
+    @current_budget = Budget.find_or_bootstrap(Current.family, start_date: Date.current)
+
     @breadcrumbs = [ [ "Domov", root_path ], [ "Prehľad", nil ] ]
   end
 

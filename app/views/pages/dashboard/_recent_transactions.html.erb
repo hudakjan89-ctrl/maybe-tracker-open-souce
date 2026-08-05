@@ -1,0 +1,33 @@
+<%# locals: (entries:) %>
+<section class="bg-container rounded-xl shadow-border-xs p-5">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-medium text-primary">Posledné transakcie</h2>
+    <%= render DS::Link.new(text: "Všetky", href: transactions_path) %>
+  </div>
+
+  <% if entries.any? %>
+    <div class="divide-y divide-secondary">
+      <% entries.each do |entry| %>
+        <div class="flex items-center justify-between py-3 gap-4">
+          <div class="flex items-center gap-3 min-w-0">
+            <%= render DS::FilledIcon.new(variant: :text, text: entry.name, size: "sm", rounded: true) %>
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-primary truncate"><%= entry.name %></p>
+              <p class="text-xs text-secondary">
+                <%= l(entry.date, format: :long) %>
+                <% if entry.entryable.respond_to?(:category) && entry.entryable.category %>
+                  · <%= entry.entryable.category.name %>
+                <% end %>
+              </p>
+            </div>
+          </div>
+          <p class="text-sm font-medium shrink-0 <%= entry.amount.negative? ? 'text-success' : 'text-primary' %>">
+            <%= entry.amount_money.format %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-sm text-secondary text-center py-6">Zatiaľ žiadne transakcie</p>
+  <% end %>
+</section>

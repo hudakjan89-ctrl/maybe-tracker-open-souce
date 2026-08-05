@@ -9,7 +9,7 @@
     <div class="flex items-center gap-2">
       <%= button_to demo_transactions_path, method: :post, class: "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-container-inset border border-secondary text-secondary hover:text-primary hover:bg-surface-hover transition-colors" do %>
         <%= icon("zap", size: "sm") %>
-        Testing
+        Testing — ukážkové dáta
       <% end %>
 
       <%= render DS::Link.new(
@@ -33,15 +33,22 @@
 
 <div class="w-full space-y-6 pb-24">
   <% if Current.family.accounts.any? %>
+    <%= render "pages/dashboard/summary_cards", month_income: @month_income, month_expense: @month_expense %>
+
     <section class="bg-container py-4 rounded-xl shadow-border-xs">
       <%= render partial: "pages/dashboard/net_worth_chart", locals: {
         balance_sheet: @balance_sheet,
         period: @period
       } %>
     </section>
+
+    <%= render "pages/dashboard/budget_summary", budget: @current_budget %>
+
     <section>
       <%= render "pages/dashboard/balance_sheet", balance_sheet: @balance_sheet %>
     </section>
+
+    <%= render "pages/dashboard/recent_transactions", entries: @recent_entries %>
 
     <%= turbo_frame_tag "cashflow_sankey_section" do %>
       <section class="bg-container py-4 rounded-xl shadow-border-xs">

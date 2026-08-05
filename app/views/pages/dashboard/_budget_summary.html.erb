@@ -1,0 +1,40 @@
+<%# locals: (budget:) %>
+<% if budget&.initialized? %>
+  <section class="bg-container rounded-xl shadow-border-xs p-5">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="text-lg font-medium text-primary">Rozpočet — <%= l(budget.start_date, format: "%B %Y") %></h2>
+        <p class="text-sm text-secondary">Sledovanie výdavkov tento mesiac</p>
+      </div>
+      <%= render DS::Link.new(text: "Upraviť", href: budget_path(budget)) %>
+    </div>
+
+    <div class="space-y-4">
+      <div>
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-secondary">Minuté</span>
+          <span class="text-primary font-medium">
+            <%= Money.new(budget.actual_spending, budget.currency).format %> / <%= budget.budgeted_spending_money.format %>
+          </span>
+        </div>
+        <% spent_pct = budget.percent_of_budget_spent %>
+        <div class="h-2 bg-container-inset rounded-full overflow-hidden">
+          <div class="h-full rounded-full <%= spent_pct > 100 ? 'bg-destructive' : 'bg-success' %>" style="width: <%= [spent_pct, 100].min %>%"></div>
+        </div>
+      </div>
+
+      <% top_categories = budget.expense_category_totals.reject { |ct| ct.total.zero? }.sort_by { |ct| -ct.total }.first(5) %>
+      <% if top_categories.any? %>
+        <div class="flex flex-wrap gap-x-3 gap-y-1">
+          <% top_categories.each do |ct| %>
+            <div class="flex items-center gap-1.5 text-xs">
+              <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: <%= ct.category.color %>"></span>
+              <span class="text-secondary"><%= ct.category.name %></span>
+              <span class="text-primary font-medium"><%= Money.new(ct.total, budget.currency).format %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>

@@ -5,13 +5,19 @@
       icon: "layers",
     ) %>
 
-    <p class="text-sm font-medium text-primary">Zatiaľ žiadne účty</p>
-    <p class="text-secondary text-sm">Pridajte účty pre zobrazenie čistej hodnoty</p>
-    <%= render DS::Link.new(
+    <p class="text-sm font-medium text-primary">Vitajte vo vašom finančnom trackeri</p>
+    <p class="text-secondary text-sm">Kliknite na <strong>Testing</strong> pre ukážkové dáta, alebo pridajte vlastný účet</p>
+    <div class="flex flex-col sm:flex-row gap-2 items-center">
+      <%= button_to demo_transactions_path, method: :post, class: "inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-success text-white hover:opacity-90 transition-opacity" do %>
+        <%= icon("zap", size: "sm", color: "white") %>
+        Načítať ukážkové dáta
+      <% end %>
+      <%= render DS::Link.new(
       text: "Pridať účet",
       icon: "plus",
       href: new_account_path,
       frame: :modal
     ) %>
+    </div>
   </div>
 </div>
