@@ -32,6 +32,10 @@ class IncomeStatement
     build_period_total(classification: "income", period: period)
   end
 
+  def monthly_series(period: Period.last_365_days)
+    MonthlySeries.new(family, period: period).call
+  end
+
   def median_expense(interval: "month", category: nil)
     if category.present?
       category_stats(interval: interval).find { |stat| stat.classification == "expense" && stat.category_id == category.id }&.median || 0

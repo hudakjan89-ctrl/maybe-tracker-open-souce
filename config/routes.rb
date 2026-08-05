@@ -73,6 +73,10 @@ Rails.application.routes.draw do
     resources :budget_categories, only: %i[index show update]
   end
 
+  resources :charts, only: :index
+
+  resource :demo_transactions, only: :create
+
   resources :family_merchants, only: %i[index new create edit update destroy]
 
   resources :transfers, only: %i[new create destroy show update]
@@ -152,7 +156,7 @@ Rails.application.routes.draw do
   end
 
   resources :depositories, only: %i[new create edit update]
-  resources :investments, only: %i[new create edit update]
+  resources :investments, only: %i[index new create edit update]
   resources :properties, only: %i[new create edit update] do
     member do
       get :balances

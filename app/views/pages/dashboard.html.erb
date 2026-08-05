@@ -20,7 +20,13 @@
       <p class="text-sm lg:text-base text-secondary">Tu je prehľad vašich financií</p>
     </div>
 
-    <%= render DS::Link.new(
+    <div class="flex items-center gap-2">
+      <%= button_to demo_transactions_path, method: :post, class: "hidden lg:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-container-inset border border-secondary text-secondary hover:text-primary hover:bg-surface-hover transition-colors" do %>
+        <%= icon("flask-conical", size: "sm") %>
+        Testing
+      <% end %>
+
+      <%= render DS::Link.new(
       icon: "plus",
       text: "Nové",
       href: new_account_path,
@@ -35,6 +41,7 @@
         frame: :modal,
         class: "rounded-full lg:hidden"
       ) %>
+    </div>
   </div>
 <% end %>
 

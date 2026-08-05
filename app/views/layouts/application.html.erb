@@ -1,7 +1,9 @@
 <% mobile_nav_items = [
   { name: "Domov", path: root_path, icon: "pie-chart", icon_custom: false, active: page_active?(root_path) },
   { name: "Transakcie", path: transactions_path, icon: "credit-card", icon_custom: false, active: page_active?(transactions_path) },
-  { name: "Rozpočty", path: budgets_path, icon: "map", icon_custom: false, active: page_active?(budgets_path) }
+  { name: "Rozpočty", path: budgets_path, icon: "map", icon_custom: false, active: page_active?(budgets_path) },
+  { name: "Investície", path: investments_path, icon: "line-chart", icon_custom: false, active: page_active?(investments_path) },
+  { name: "Grafy", path: charts_path, icon: "bar-chart-2", icon_custom: false, active: page_active?(charts_path) }
 ] %>
 
 <% desktop_nav_items = mobile_nav_items %>
@@ -103,7 +105,7 @@
     <% end %>
 
     <%# MOBILE - Bottom Nav %>
-    <%= tag.nav class: "lg:hidden bg-surface shrink-0 z-10 pb-[env(safe-area-inset-bottom)] border-t border-tertiary flex justify-around" do %>
+    <%= tag.nav class: "lg:hidden bg-surface shrink-0 z-10 pb-[env(safe-area-inset-bottom)] border-t border-tertiary flex justify-around overflow-x-auto" do %>
       <% mobile_nav_items.each do |nav_item| %>
         <%= render "layouts/shared/nav_item", **nav_item %>
       <% end %>
