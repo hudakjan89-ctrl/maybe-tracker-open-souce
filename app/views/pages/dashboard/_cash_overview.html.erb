@@ -1,0 +1,41 @@
+<%# locals: (overview:, period:) %>
+<% series = overview.cash_series(period: period) %>
+
+<section class="bg-container rounded-xl shadow-border-xs p-5">
+  <div class="flex justify-between items-start gap-4 mb-5">
+    <div>
+      <p class="text-sm text-secondary font-medium">Peniaze na účtoch</p>
+      <p class="text-3xl font-medium text-primary mt-1"><%= overview.cash_total_money.format %></p>
+      <% if series.trend.present? %>
+        <%= render partial: "shared/trend_change", locals: { trend: series.trend, comparison_label: period.comparison_label } %>
+      <% end %>
+    </div>
+
+    <%= form_with url: root_path, method: :get, data: { controller: "auto-submit-form" } do |form| %>
+      <%= form.select :period,
+                Period.as_options,
+                { selected: period.key },
+                data: { "auto-submit-form-target": "auto" },
+                class: "bg-container border border-secondary font-medium rounded-lg px-3 py-2 text-sm pr-7 cursor-pointer text-primary focus:outline-hidden focus:ring-0" %>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
+    <% overview.cash_accounts.each do |account| %>
+      <%= link_to account_path(account), class: "flex items-center gap-3 p-4 rounded-xl bg-container-inset border border-secondary hover:bg-surface-hover transition-colors" do %>
+        <%= render "accounts/logo", account: account, size: "sm", color: Depository.color %>
+        <div class="min-w-0 flex-1">
+          <p class="text-sm font-medium text-primary truncate"><%= account.name %></p>
+          <p class="text-xs text-secondary"><%= account.short_subtype_label %></p>
+        </div>
+        <p class="text-sm font-medium text-primary shrink-0"><%= account.balance_money.format %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if series.any? %>
+    <div class="w-full min-h-44"
+         data-controller="time-series-chart"
+         data-time-series-chart-data-value="<%= series.to_json %>"></div>
+  <% end %>
+</section>

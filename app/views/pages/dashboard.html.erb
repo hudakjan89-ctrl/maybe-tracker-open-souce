@@ -13,14 +13,14 @@
       <% end %>
 
       <%= render DS::Link.new(
-      icon: "plus",
-      text: "Nové",
-      href: new_account_path,
-      frame: :modal,
-      class: "hidden lg:inline-flex"
-    ) %>
+        icon: "plus",
+        text: "Nové",
+        href: new_account_path,
+        frame: :modal,
+        class: "hidden lg:inline-flex"
+      ) %>
 
-    <%= render DS::Link.new(
+      <%= render DS::Link.new(
         variant: "icon-inverse",
         icon: "plus",
         href: new_account_path,
@@ -35,29 +35,18 @@
   <% if Current.family.accounts.any? %>
     <%= render "pages/dashboard/summary_cards", month_income: @month_income, month_expense: @month_expense %>
 
-    <section class="bg-container py-4 rounded-xl shadow-border-xs">
-      <%= render partial: "pages/dashboard/net_worth_chart", locals: {
-        balance_sheet: @balance_sheet,
-        period: @period
-      } %>
-    </section>
+    <%= render "pages/dashboard/cash_overview", overview: @dashboard, period: @period %>
 
     <%= render "pages/dashboard/budget_summary", budget: @current_budget %>
 
-    <section>
-      <%= render "pages/dashboard/balance_sheet", balance_sheet: @balance_sheet %>
-    </section>
+    <%= render "pages/dashboard/liabilities_overview", overview: @dashboard %>
 
     <%= render "pages/dashboard/recent_transactions", entries: @recent_entries %>
 
-    <%= turbo_frame_tag "cashflow_sankey_section" do %>
-      <section class="bg-container py-4 rounded-xl shadow-border-xs">
-        <%= render partial: "pages/dashboard/cashflow_sankey", locals: {
-          sankey_data: @cashflow_sankey_data,
-          period: @cashflow_period
-        } %>
-      </section>
-    <% end %>
+    <%= render "pages/dashboard/spending_breakdown",
+          expense_totals: @spending_expense,
+          income_totals: @spending_income,
+          period: @cashflow_period %>
   <% else %>
     <section>
       <%= render "pages/dashboard/no_accounts_graph_placeholder" %>

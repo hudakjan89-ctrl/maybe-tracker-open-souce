@@ -6,7 +6,7 @@ sk:
     dashboard:
       net_worth_chart:
         data_not_available: Pre zvolené obdobie nie sú k dispozícii žiadne údaje
-        title: Čistá hodnota
+        title: Peniaze na účtoch
       no_account_empty_state:
         new_account: Nový účet
         no_account_subtitle: Pridajte prvé účty pre zobrazenie údajov na prehľade.

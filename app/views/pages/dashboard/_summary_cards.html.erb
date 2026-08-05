@@ -1,20 +1,21 @@
 <%# locals: (month_income:, month_expense:) %>
 <% net = month_income.total - month_expense.total %>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-  <div class="bg-container rounded-xl shadow-border-xs p-5">
+  <div class="bg-container rounded-xl shadow-border-xs p-5 border-l-4 border-success">
     <p class="text-sm text-secondary mb-1">Príjmy tento mesiac</p>
     <p class="text-2xl font-medium text-success"><%= Money.new(month_income.total, month_income.currency).format %></p>
   </div>
 
-  <div class="bg-container rounded-xl shadow-border-xs p-5">
+  <div class="bg-container rounded-xl shadow-border-xs p-5 border-l-4 border-destructive">
     <p class="text-sm text-secondary mb-1">Výdavky tento mesiac</p>
     <p class="text-2xl font-medium text-destructive"><%= Money.new(month_expense.total, month_expense.currency).format %></p>
   </div>
 
-  <div class="bg-container rounded-xl shadow-border-xs p-5">
-    <p class="text-sm text-secondary mb-1">Zostatok mesiaca</p>
+  <div class="bg-container rounded-xl shadow-border-xs p-5 border-l-4 <%= net >= 0 ? 'border-success' : 'border-destructive' %>">
+    <p class="text-sm text-secondary mb-1">Bilancia mesiaca</p>
     <p class="text-2xl font-medium <%= net >= 0 ? 'text-success' : 'text-destructive' %>">
-      <%= Money.new(net, month_income.currency).format %>
+      <%= net >= 0 ? "+" : "" %><%= Money.new(net, month_income.currency).format %>
     </p>
+    <p class="text-xs text-secondary mt-1"><%= net >= 0 ? "Máte v pluse" : "Minuli ste viac ako zarobili" %></p>
   </div>
 </div>

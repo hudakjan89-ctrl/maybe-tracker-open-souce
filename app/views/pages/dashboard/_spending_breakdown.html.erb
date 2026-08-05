@@ -1,0 +1,71 @@
+<%# locals: (expense_totals:, income_totals:, period:) %>
+<section class="bg-container rounded-xl shadow-border-xs p-5">
+  <div class="flex justify-between items-center gap-4 mb-6">
+    <div>
+      <h2 class="text-lg font-medium text-primary">Kam idú peniaze</h2>
+      <p class="text-sm text-secondary">Rozdelenie výdavkov za obdobie</p>
+    </div>
+
+    <%= form_with url: root_path, method: :get, data: { controller: "auto-submit-form", turbo_frame: "spending_breakdown_section" } do |form| %>
+      <%= form.hidden_field :period, value: params[:period] if params[:period].present? %>
+      <%= form.select :cashflow_period,
+                Period.as_options,
+                { selected: period.key },
+                data: { "auto-submit-form-target": "auto" },
+                class: "bg-container border border-secondary font-medium rounded-lg px-3 py-2 text-sm pr-7 cursor-pointer text-primary focus:outline-hidden focus:ring-0" %>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag "spending_breakdown_section" do %>
+    <% expense_categories = expense_totals.category_totals.reject { |ct| ct.category.subcategory? || ct.total.zero? }.sort_by { |ct| -ct.total } %>
+    <% income_total = income_totals.total %>
+    <% expense_total = expense_totals.total %>
+    <% net = income_total - expense_total %>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+      <div class="bg-container-inset rounded-xl p-4 text-center">
+        <p class="text-xs text-secondary mb-1">Príjmy</p>
+        <p class="text-lg font-medium text-success"><%= Money.new(income_total, expense_totals.currency).format %></p>
+      </div>
+      <div class="bg-container-inset rounded-xl p-4 text-center">
+        <p class="text-xs text-secondary mb-1">Výdavky</p>
+        <p class="text-lg font-medium text-destructive"><%= Money.new(expense_total, expense_totals.currency).format %></p>
+      </div>
+      <div class="bg-container-inset rounded-xl p-4 text-center">
+        <p class="text-xs text-secondary mb-1">Rozdiel</p>
+        <p class="text-lg font-medium <%= net >= 0 ? 'text-success' : 'text-destructive' %>">
+          <%= Money.new(net, expense_totals.currency).format %>
+        </p>
+      </div>
+    </div>
+
+    <% if expense_categories.any? %>
+      <div class="space-y-4">
+        <% max_total = expense_categories.first.total.to_f %>
+        <% expense_categories.first(8).each do |ct| %>
+          <div>
+            <div class="flex justify-between text-sm mb-1.5">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: <%= ct.category.color %>"></span>
+                <span class="text-primary font-medium truncate"><%= ct.category.name %></span>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="text-secondary text-xs"><%= number_to_percentage(ct.weight, precision: 0) %></span>
+                <span class="text-primary font-medium"><%= Money.new(ct.total, ct.currency).format %></span>
+              </div>
+            </div>
+            <div class="h-2 bg-container-inset rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all" style="width: <%= (ct.total / max_total * 100).round %>% background-color: <%= ct.category.color %>; opacity: 0.85"></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="py-8 text-center">
+        <%= render DS::FilledIcon.new(variant: :container, icon: "pie-chart") %>
+        <p class="text-sm font-medium text-primary mt-3">Žiadne výdavky v tomto období</p>
+        <p class="text-secondary text-sm">Pridajte transakcie alebo zvoľte dlhšie obdobie</p>
+      </div>
+    <% end %>
+  <% end %>
+</section>

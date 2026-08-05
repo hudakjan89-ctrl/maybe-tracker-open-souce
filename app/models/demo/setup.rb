@@ -64,7 +64,10 @@ module Demo
         end
 
         create_investments!(investment) if investment.entries.trades.none?
+        create_liabilities!(checking)
         ensure_budget!
+
+        synced_account_ids = @family.accounts.pluck(:id)
       end
 
       sync_accounts!(synced_account_ids)
@@ -169,6 +172,89 @@ module Demo
             date: date
           )
         end
+      end
+
+      def create_liabilities!(checking)
+        mortgage = ensure_loan!("Hypotéka", subtype: "mortgage", initial_balance: 85_000, interest_rate: 3.5, term_months: 240)
+        car_loan = ensure_loan!("Leasing auta", subtype: "auto", initial_balance: 12_000, interest_rate: 5.9, term_months: 48)
+        friend_loan = ensure_liability!("Pôžička od Martina", OtherLiability)
+
+        6.downto(0) do |months_ago|
+          month = months_ago.months.ago.to_date.beginning_of_month + 15.days
+          next if month > Date.current
+
+          checking.entries.create!(
+            entryable: Transaction.new(category: category("Bývanie")),
+            amount: 520,
+            name: "Splátka hypotéky",
+            currency: CURRENCY,
+            date: month
+          )
+
+          mortgage.entries.create!(
+            entryable: Transaction.new(category: category("Bývanie")),
+            amount: -520,
+            name: "Splátka hypotéky",
+            currency: CURRENCY,
+            date: month
+          )
+
+          checking.entries.create!(
+            entryable: Transaction.new(category: category("Doprava")),
+            amount: 280,
+            name: "Splátka auta",
+            currency: CURRENCY,
+            date: month + 2.days
+          )
+
+          car_loan.entries.create!(
+            entryable: Transaction.new(category: category("Doprava")),
+            amount: -280,
+            name: "Splátka auta",
+            currency: CURRENCY,
+            date: month + 2.days
+          )
+        end
+
+        friend_loan.entries.create!(
+          entryable: Transaction.new(category: category("Nákupy")),
+          amount: 500,
+          name: "Pôžičené peniaze",
+          currency: CURRENCY,
+          date: 3.months.ago.to_date
+        )
+      end
+
+      def ensure_loan!(name, subtype:, initial_balance:, interest_rate:, term_months:)
+        existing = @family.accounts.find_by(name: name)
+        return existing if existing
+
+        @family.accounts.create!(
+          accountable: Loan.new(
+            initial_balance: initial_balance,
+            interest_rate: interest_rate,
+            term_months: term_months,
+            rate_type: "fixed"
+          ),
+          name: name,
+          subtype: subtype,
+          balance: initial_balance,
+          cash_balance: 0,
+          currency: CURRENCY
+        )
+      end
+
+      def ensure_liability!(name, accountable_class)
+        existing = @family.accounts.find_by(name: name)
+        return existing if existing
+
+        @family.accounts.create!(
+          accountable: accountable_class.new,
+          name: name,
+          balance: 500,
+          cash_balance: 0,
+          currency: CURRENCY
+        )
       end
 
       def create_investments!(account)

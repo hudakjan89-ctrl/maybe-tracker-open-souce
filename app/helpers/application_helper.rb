@@ -68,6 +68,33 @@ module ApplicationHelper
     Money.new(number_or_money).format(options)
   end
 
+  def entry_amount_display(entry)
+    if entry.amount.negative?
+      content_tag(:span, "+#{format_money(entry.amount.abs)}", class: "text-success font-medium tabular-nums")
+    else
+      content_tag(:span, "−#{format_money(entry.amount)}", class: "text-destructive font-medium tabular-nums")
+    end
+  end
+
+  def entry_date_label(date)
+    case date
+    when Date.current then "Dnes"
+    when Date.current - 1 then "Včera"
+    else l(date, format: :long)
+    end
+  end
+
+  def loan_subtype_label(account)
+    return account.name unless account.accountable_type == "Loan"
+
+    {
+      "mortgage" => "Hypotéka",
+      "auto" => "Auto / leasing",
+      "student" => "Študentská pôžička",
+      "other" => "Pôžička"
+    }[account.subtype] || account.name
+  end
+
   def totals_by_currency(collection:, money_method:, separator: " | ", negate: false)
     collection.group_by(&:currency)
               .transform_values { |item| calculate_total(item, money_method, negate) }

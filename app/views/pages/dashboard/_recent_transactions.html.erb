@@ -1,33 +1,41 @@
 <%# locals: (entries:) %>
-<section class="bg-container rounded-xl shadow-border-xs p-5">
-  <div class="flex items-center justify-between mb-4">
+<section class="bg-container rounded-xl shadow-border-xs overflow-hidden">
+  <div class="flex items-center justify-between p-5 pb-0">
     <h2 class="text-lg font-medium text-primary">Posledné transakcie</h2>
     <%= render DS::Link.new(text: "Všetky", href: transactions_path) %>
   </div>
 
   <% if entries.any? %>
-    <div class="divide-y divide-secondary">
+    <div class="p-2">
       <% entries.each do |entry| %>
-        <div class="flex items-center justify-between py-3 gap-4">
-          <div class="flex items-center gap-3 min-w-0">
-            <%= render DS::FilledIcon.new(variant: :text, text: entry.name, size: "sm", rounded: true) %>
-            <div class="min-w-0">
-              <p class="text-sm font-medium text-primary truncate"><%= entry.name %></p>
-              <p class="text-xs text-secondary">
-                <%= l(entry.date, format: :long) %>
-                <% if entry.entryable.respond_to?(:category) && entry.entryable.category %>
-                  · <%= entry.entryable.category.name %>
-                <% end %>
-              </p>
-            </div>
+        <% transaction = entry.entryable %>
+        <% category = transaction.respond_to?(:category) ? transaction.category : nil %>
+
+        <%= link_to transaction_path(entry.entryable), class: "flex items-center gap-3 p-3 rounded-xl hover:bg-surface-hover transition-colors group", data: { turbo_frame: "_top" } do %>
+          <div class="w-1 self-stretch rounded-full shrink-0" style="background-color: <%= category&.color || '#737373' %>"></div>
+
+          <div class="w-10 h-10 rounded-full shrink-0 flex items-center justify-center text-sm font-medium"
+               style="background-color: <%= hex_with_alpha(category&.color || '#737373', 0.15) %>; color: <%= category&.color || '#737373' %>">
+            <%= entry.name.first.upcase %>
           </div>
-          <p class="text-sm font-medium shrink-0 <%= entry.amount.negative? ? 'text-success' : 'text-primary' %>">
-            <%= entry.amount_money.format %>
-          </p>
-        </div>
+
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-medium text-primary truncate group-hover:text-primary"><%= entry.name %></p>
+            <p class="text-xs text-secondary">
+              <%= entry_date_label(entry.date) %>
+              <% if category %>
+                · <%= category.name %>
+              <% end %>
+            </p>
+          </div>
+
+          <div class="shrink-0 text-right">
+            <%= entry_amount_display(entry) %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   <% else %>
-    <p class="text-sm text-secondary text-center py-6">Zatiaľ žiadne transakcie</p>
+    <p class="text-sm text-secondary text-center py-8">Zatiaľ žiadne transakcie</p>
   <% end %>
 </section>
