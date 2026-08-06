@@ -1,4 +1,4 @@
-<%# locals: (budget:, previous_budget:, next_budget:, latest_budget:) %>
+<%# locals: (budget:) %>
 
 <div class="flex items-center gap-1 mb-4">
   <div class="flex items-center gap-2">
@@ -29,7 +29,7 @@
 
   <%= render DS::Menu.new(variant: "button") do |menu| %>
     <% menu.with_button class: "flex items-center gap-1 hover:bg-alpha-black-25 cursor-pointer rounded-md p-2"  do %>
-      <span class="text-primary font-medium text-lg lg:text-base"><%= @budget.name %></span>
+      <span class="text-primary font-medium text-lg lg:text-base"><%= budget_period_label(budget) %></span>
       <%= icon("chevron-down") %>
     <% end %>
 
@@ -40,7 +40,7 @@
 
   <div class="ml-auto">
     <%= render DS::Link.new(
-        text: "Today",
+        text: "Dnes",
         variant: "outline",
         href: budget_path(Budget.date_to_param(Date.current)),
     ) %>

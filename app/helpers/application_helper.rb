@@ -84,6 +84,16 @@ module ApplicationHelper
     end
   end
 
+  def budget_period_label(budget_or_date)
+    date = budget_or_date.is_a?(Budget) ? budget_or_date.start_date : budget_or_date
+    month_names = %w[január február marec apríl máj jún júl august september október november december]
+    "#{month_names[date.month - 1].capitalize} #{date.year}"
+  end
+
+  def budget_month_abbr(month)
+    %w[jan feb mar apr máj jún júl aug sep okt nov dec][month - 1]
+  end
+
   def loan_subtype_label(account)
     case account.accountable_type
     when "Loan"

@@ -6,6 +6,7 @@ class BudgetsController < ApplicationController
   end
 
   def show
+    @budget.sync_budget_categories
   end
 
   def edit

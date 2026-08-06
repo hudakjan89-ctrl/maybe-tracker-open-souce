@@ -3,10 +3,10 @@
   <section class="bg-container rounded-xl shadow-border-xs p-5">
     <div class="flex items-center justify-between mb-4">
       <div>
-        <h2 class="text-lg font-medium text-primary">Rozpočet — <%= l(budget.start_date, format: "%B %Y") %></h2>
+        <h2 class="text-lg font-medium text-primary">Rozpočet — <%= budget_period_label(budget) %></h2>
         <p class="text-sm text-secondary">Sledovanie výdavkov tento mesiac</p>
       </div>
-      <%= render DS::Link.new(text: "Upraviť", href: budget_path(budget)) %>
+      <%= render DS::Link.new(text: "Detail", href: budget_path(budget)) %>
     </div>
 
     <div class="space-y-4">
@@ -21,6 +21,11 @@
         <div class="h-2 bg-container-inset rounded-full overflow-hidden">
           <div class="h-full rounded-full <%= spent_pct > 100 ? 'bg-destructive' : 'bg-success' %>" style="width: <%= [spent_pct, 100].min %>%"></div>
         </div>
+        <% if spent_pct > 100 %>
+          <p class="text-xs text-destructive mt-1">Prekročený rozpočet o <%= format_money(budget.available_to_spend_money.abs) %></p>
+        <% else %>
+          <p class="text-xs text-secondary mt-1">Zostáva <%= format_money(budget.available_to_spend_money) %></p>
+        <% end %>
       </div>
 
       <% top_categories = budget.expense_category_totals.reject { |ct| ct.total.zero? }.sort_by { |ct| -ct.total }.first(5) %>
@@ -36,5 +41,13 @@
         </div>
       <% end %>
     </div>
+  </section>
+<% elsif budget %>
+  <section class="bg-container rounded-xl shadow-border-xs p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-lg font-medium text-primary">Rozpočet</h2>
+      <p class="text-sm text-secondary">Nastavte mesačný rozpočet a sledujte, koľko miniete.</p>
+    </div>
+    <%= render DS::Link.new(text: "Nastaviť", href: edit_budget_path(budget), variant: "primary") %>
   </section>
 <% end %>

@@ -2,10 +2,10 @@
 
 <div class="flex flex-col gap-4 items-center justify-center h-full">
   <%= icon "alert-triangle", size: "lg", color: "destructive" %>
-  <p class="text-secondary text-sm text-center">You have over-allocated your budget.  Please fix your allocations.</p>
+  <p class="text-secondary text-sm text-center">Rozdelili ste viac peňazí, než je váš rozpočet. Upravte sumy v kategóriách.</p>
 
   <%= render DS::Link.new(
-    text: "Fix allocations",
+    text: "Upraviť kategórie",
     variant: "secondary",
     size: "sm",
     icon: "pencil",
