@@ -12,6 +12,9 @@
     </div>
 
     <%= form_with url: root_path, method: :get, data: { controller: "auto-submit-form" } do |form| %>
+      <% if params[:cashflow_period].present? %>
+        <%= form.hidden_field :cashflow_period, value: params[:cashflow_period] %>
+      <% end %>
       <%= form.select :period,
                 Period.as_options,
                 { selected: period.key },

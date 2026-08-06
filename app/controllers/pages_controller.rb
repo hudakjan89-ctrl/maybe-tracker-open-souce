@@ -22,6 +22,7 @@ class PagesController < ApplicationController
     @spending_expense = Current.family.income_statement.expense_totals(period: @cashflow_period)
 
     @recent_entries = Current.family.entries
+      .where(entryable_type: "Transaction")
       .includes(entryable: [ :category, :merchant ])
       .visible
       .reverse_chronological

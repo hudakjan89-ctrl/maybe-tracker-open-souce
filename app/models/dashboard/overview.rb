@@ -40,11 +40,9 @@ module Dashboard
     end
 
     def liability_accounts
-      @liability_accounts ||= family.accounts.visible.liabilities
-        .includes(:accountable, :entries)
-        .with_attached_logo
-        .alphabetically
-        .select { |account| repayment_summary_for(account).remaining_money.amount.to_d.positive? }
+      @liability_accounts ||= active_liability_records.select do |account|
+        repayment_summary_for(account).remaining_money.amount.to_d.positive?
+      end
     end
 
     def paid_off_liability_accounts
@@ -54,7 +52,8 @@ module Dashboard
     end
 
     def repayment_summary_for(account)
-      Liability::RepaymentSummary.new(account)
+      @repayment_summaries ||= {}
+      @repayment_summaries[account.id] ||= Liability::RepaymentSummary.new(account)
     end
 
     def liabilities_total_money
@@ -65,7 +64,16 @@ module Dashboard
     end
 
     def last_payment_for(account)
-      account.transactions.order(date: :desc, created_at: :desc).first&.entry
+      repayment_summary_for(account).payment_entries.first
     end
+
+    private
+
+      def active_liability_records
+        @active_liability_records ||= family.accounts.visible.liabilities
+          .includes(:accountable, :balances)
+          .with_attached_logo
+          .alphabetically
+      end
   end
 end
