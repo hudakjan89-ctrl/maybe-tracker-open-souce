@@ -15,6 +15,7 @@ class LiabilitiesController < ApplicationController
       currency: Current.family.currency,
       accountable: OtherLiability.new
     )
+    @account.sync_now
 
     redirect_to root_path, notice: "Záväzok bol pridaný."
   rescue ActiveRecord::RecordInvalid
@@ -41,7 +42,7 @@ class LiabilitiesController < ApplicationController
     end
 
     if @account.update(name: account_params[:name])
-      @account.sync_later
+      @account.sync_now
       return redirect_to_paid_off_or_root(@account, notice: "Záväzok bol upravený.")
     end
 
@@ -54,6 +55,7 @@ class LiabilitiesController < ApplicationController
   end
 
   def payments
+    repair_stale_balance_if_needed
     @summary = Liability::RepaymentSummary.new(@account)
   end
 
@@ -105,11 +107,24 @@ class LiabilitiesController < ApplicationController
 
     def redirect_to_paid_off_or_root(account, notice:)
       account.reload
-      if account.balance.to_d <= 0 && account.may_disable?
+      summary = Liability::RepaymentSummary.new(account)
+
+      if summary.paid_off? && account.may_disable?
         Liability::PaidOff.mark!(account)
         redirect_to paid_off_liability_path(account), notice: notice
       else
-        redirect_to root_path, notice: notice
+        redirect_to payments_liability_path(account), notice: notice
       end
+    end
+
+    def repair_stale_balance_if_needed
+      summary = Liability::RepaymentSummary.new(@account)
+      return if summary.payment_entries.none?
+
+      expected_remaining = summary.remaining_money.amount.to_d
+      actual_balance = @account.balance.to_d
+      return if (actual_balance - expected_remaining).abs < 0.01
+
+      @account.sync_now
     end
 end

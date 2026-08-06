@@ -34,6 +34,13 @@ module Syncable
     end
   end
 
+  # Run sync immediately in-process (used for user-facing flows where stale balances are confusing).
+  def sync_now
+    sync = syncs.create!
+    sync.perform
+    reload
+  end
+
   def perform_sync(sync)
     syncer.perform_sync(sync)
   end

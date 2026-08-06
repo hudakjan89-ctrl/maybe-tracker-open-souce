@@ -10,7 +10,7 @@
       Zostáva splatiť: <span class="font-medium text-destructive"><%= @summary.remaining_money.format %></span>
     </p>
 
-    <%= styled_form_with url: create_payment_liability_path(@account), scope: :payment, class: "flex flex-col gap-4" do |form| %>
+    <%= styled_form_with url: create_payment_liability_path(@account), scope: :payment, data: { turbo_frame: "modal" }, class: "flex flex-col gap-4" do |form| %>
       <% if @source_accounts.many? %>
         <%= form.collection_select :from_account_id,
               @source_accounts,

@@ -20,7 +20,8 @@ module Liability
         source_account_id: source.id,
         destination_account_id: @liability.id,
         date: @date,
-        amount: @amount
+        amount: @amount,
+        sync_immediately: true
       ).create
 
       if transfer.persisted?

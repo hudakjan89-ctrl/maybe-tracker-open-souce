@@ -1,10 +1,11 @@
 class Transfer::Creator
-  def initialize(family:, source_account_id:, destination_account_id:, date:, amount:)
+  def initialize(family:, source_account_id:, destination_account_id:, date:, amount:, sync_immediately: false)
     @family = family
     @source_account = family.accounts.find(source_account_id) # early throw if not found
     @destination_account = family.accounts.find(destination_account_id) # early throw if not found
     @date = date
     @amount = amount.to_d
+    @sync_immediately = sync_immediately
   end
 
   def create
@@ -15,15 +16,24 @@ class Transfer::Creator
     )
 
     if transfer.save
-      source_account.sync_later
-      destination_account.sync_later
+      sync_accounts
     end
 
     transfer
   end
 
   private
-    attr_reader :family, :source_account, :destination_account, :date, :amount
+    attr_reader :family, :source_account, :destination_account, :date, :amount, :sync_immediately
+
+    def sync_accounts
+      if sync_immediately
+        source_account.sync_now
+        destination_account.sync_now
+      else
+        source_account.sync_later
+        destination_account.sync_later
+      end
+    end
 
     def outflow_transaction
       name = "#{name_prefix} to #{destination_account.name}"

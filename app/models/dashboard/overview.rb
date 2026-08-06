@@ -41,10 +41,10 @@ module Dashboard
 
     def liability_accounts
       @liability_accounts ||= family.accounts.visible.liabilities
-        .where("accounts.balance > 0")
-        .includes(:accountable)
+        .includes(:accountable, :entries)
         .with_attached_logo
         .alphabetically
+        .select { |account| repayment_summary_for(account).remaining_money.amount.to_d.positive? }
     end
 
     def paid_off_liability_accounts
@@ -58,7 +58,10 @@ module Dashboard
     end
 
     def liabilities_total_money
-      Money.new(liability_accounts.sum(&:balance), family.currency)
+      Money.new(
+        liability_accounts.sum { |account| repayment_summary_for(account).remaining_money.amount.to_d },
+        family.currency
+      )
     end
 
     def last_payment_for(account)

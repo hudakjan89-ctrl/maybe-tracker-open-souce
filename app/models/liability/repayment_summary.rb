@@ -16,19 +16,26 @@ module Liability
           if peak.present? && peak.to_d.positive?
             Money.new(peak, account.currency)
           else
-            account.first_valuation_amount
+            amount = account.first_valuation_amount
+            amount.amount.positive? ? amount : account.balance_money
           end
         end
       end
     end
 
-    def remaining_money
-      account.balance_money
+    def paid_money
+      payment_total = payment_entries.sum { |entry| entry.amount.abs.to_d }
+      if payment_total.positive?
+        Money.new(payment_total, account.currency)
+      else
+        paid = original_amount_money.amount.to_d - remaining_from_balance.to_d
+        Money.new([ paid, 0 ].max, account.currency)
+      end
     end
 
-    def paid_money
-      paid = original_amount_money - remaining_money
-      paid.amount.negative? ? Money.new(0, account.currency) : paid
+    def remaining_money
+      remaining = original_amount_money.amount.to_d - paid_money.amount.to_d
+      Money.new([ remaining, 0 ].max, account.currency)
     end
 
     def progress_percent
@@ -48,5 +55,11 @@ module Liability
     def paid_off?
       account.disabled? || remaining_money.amount.to_d <= 0
     end
+
+    private
+
+      def remaining_from_balance
+        account.balance_money
+      end
   end
 end

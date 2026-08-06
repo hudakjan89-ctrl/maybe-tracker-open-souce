@@ -23,7 +23,7 @@
               <p class="font-medium text-primary"><%= account.name %></p>
               <p class="text-xs text-secondary"><%= loan_subtype_label(account) %></p>
             </div>
-            <p class="text-lg font-medium text-destructive shrink-0"><%= account.balance_money.format %></p>
+            <p class="text-lg font-medium text-destructive shrink-0"><%= summary.remaining_money.format %></p>
           </div>
 
           <div class="mb-3">
