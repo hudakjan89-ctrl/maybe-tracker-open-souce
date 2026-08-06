@@ -28,7 +28,7 @@ module Liability
       if payment_total.positive?
         Money.new(payment_total, account.currency)
       else
-        paid = original_amount_money.amount.to_d - remaining_from_balance.to_d
+        paid = original_amount_money.amount.to_d - remaining_from_balance.amount.to_d
         Money.new([ paid, 0 ].max, account.currency)
       end
     end
