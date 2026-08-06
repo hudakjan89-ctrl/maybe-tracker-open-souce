@@ -41,9 +41,20 @@ module Dashboard
 
     def liability_accounts
       @liability_accounts ||= family.accounts.visible.liabilities
+        .where("accounts.balance > 0")
         .includes(:accountable)
         .with_attached_logo
         .alphabetically
+    end
+
+    def paid_off_liability_accounts
+      @paid_off_liability_accounts ||= family.accounts.where(status: "disabled").liabilities
+        .includes(:accountable)
+        .order(updated_at: :desc)
+    end
+
+    def repayment_summary_for(account)
+      Liability::RepaymentSummary.new(account)
     end
 
     def liabilities_total_money

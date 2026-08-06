@@ -1,0 +1,75 @@
+<%= render DS::Dialog.new do |dialog| %>
+  <% dialog.with_header(title: @account.name) %>
+  <% dialog.with_body do %>
+    <% summary = @summary %>
+
+    <div class="space-y-5">
+      <div>
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-secondary">Splatené</span>
+          <span class="font-medium text-primary"><%= summary.progress_percent %>%</span>
+        </div>
+        <div class="h-2 bg-container-inset rounded-full overflow-hidden">
+          <div class="h-full bg-success rounded-full transition-all" style="width: <%= summary.progress_percent %>%"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3 text-sm">
+        <div class="bg-container-inset rounded-lg p-3">
+          <p class="text-xs text-secondary mb-0.5">Pôvodná suma</p>
+          <p class="font-medium text-primary"><%= summary.original_amount_money.format %></p>
+        </div>
+        <div class="bg-container-inset rounded-lg p-3">
+          <p class="text-xs text-secondary mb-0.5">Už splatené</p>
+          <p class="font-medium text-success"><%= summary.paid_money.format %></p>
+        </div>
+        <div class="bg-container-inset rounded-lg p-3">
+          <p class="text-xs text-secondary mb-0.5">Zostáva</p>
+          <p class="font-medium text-destructive"><%= summary.remaining_money.format %></p>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <% unless @account.disabled? %>
+          <%= render DS::Link.new(
+            text: "Zaznamenať platbu",
+            icon: "plus",
+            href: record_payment_liability_path(@account),
+            frame: :modal,
+            variant: "primary"
+          ) %>
+        <% end %>
+        <%= render DS::Link.new(
+          text: "Upraviť",
+          icon: "pencil",
+          href: edit_liability_path(@account),
+          frame: :modal,
+          variant: "outline"
+        ) %>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-medium text-primary mb-3">História platieb</h3>
+
+        <% if summary.payment_entries.any? %>
+          <div class="space-y-2 max-h-64 overflow-y-auto">
+            <% summary.payment_entries.each do |entry| %>
+              <div class="flex items-center justify-between py-2 px-3 bg-container-inset rounded-lg text-sm">
+                <div class="min-w-0">
+                  <p class="text-primary truncate"><%= entry.name %></p>
+                  <p class="text-xs text-secondary"><%= entry_date_label(entry.date) %></p>
+                </div>
+                <p class="font-medium text-success shrink-0 ml-3"><%= entry.amount_money.abs.format %></p>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-6 bg-container-inset rounded-lg">
+            <p class="text-sm text-secondary">Zatiaľ nemáte zaznamenané žiadne platby.</p>
+            <p class="text-xs text-secondary mt-1">Kliknite na „Zaznamenať platbu“ a pridajte prvú splátku.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

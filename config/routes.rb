@@ -73,7 +73,14 @@ Rails.application.routes.draw do
 
   resources :charts, only: :index
 
-  resources :liabilities, only: %i[new create edit update]
+  resources :liabilities, only: %i[new create edit update destroy] do
+    member do
+      get :payments
+      get :record_payment
+      post :create_payment
+      get :paid_off
+    end
+  end
 
   resource :demo_transactions, only: :create
 

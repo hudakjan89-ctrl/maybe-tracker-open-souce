@@ -1,0 +1,53 @@
+<%= render DS::Dialog.new do |dialog| %>
+  <% dialog.with_header(title: "Zaznamenať platbu") %>
+  <% dialog.with_body do %>
+    <% if @error_message.present? %>
+      <%= render DS::Alert.new(message: @error_message, variant: :error) %>
+    <% end %>
+
+    <p class="text-sm text-secondary mb-4">
+      Platba pre <span class="font-medium text-primary"><%= @account.name %></span>.
+      Zostáva splatiť: <span class="font-medium text-destructive"><%= @summary.remaining_money.format %></span>
+    </p>
+
+    <%= styled_form_with url: create_payment_liability_path(@account), scope: :payment, class: "flex flex-col gap-4" do |form| %>
+      <% if @source_accounts.many? %>
+        <%= form.collection_select :from_account_id,
+              @source_accounts,
+              :id,
+              :name,
+              { selected: @source_accounts.first&.id, label: "Platím z účtu" },
+              required: true %>
+      <% elsif @source_accounts.none? %>
+        <%= render DS::Alert.new(
+          message: "Nemáte žiadny bankový účet. Najprv pridajte účet, z ktorého platíte.",
+          variant: :warning
+        ) %>
+      <% else %>
+        <%= form.hidden_field :from_account_id, value: @source_accounts.first.id %>
+        <p class="text-sm text-secondary">Platba pôjde z účtu: <span class="font-medium text-primary"><%= @source_accounts.first.name %></span></p>
+      <% end %>
+
+      <%= form.money_field :amount,
+            label: "Suma platby",
+            required: true,
+            default_currency: @account.currency %>
+
+      <%= form.date_field :date,
+            label: "Dátum platby",
+            value: Date.current,
+            required: true,
+            max: Date.current %>
+
+      <div class="flex gap-2">
+        <%= form.submit "Uložiť platbu", class: "flex-1", disabled: @source_accounts.none? %>
+        <%= render DS::Link.new(
+          text: "Späť",
+          href: payments_liability_path(@account),
+          frame: :modal,
+          variant: "ghost"
+        ) %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

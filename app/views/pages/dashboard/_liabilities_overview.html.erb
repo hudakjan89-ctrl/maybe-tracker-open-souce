@@ -13,6 +13,7 @@
   <% if overview.liability_accounts.any? %>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <% overview.liability_accounts.each do |account| %>
+        <% summary = overview.repayment_summary_for(account) %>
         <% last_payment = overview.last_payment_for(account) %>
 
         <div class="bg-container rounded-xl shadow-border-xs p-5 border border-secondary">
@@ -25,21 +26,33 @@
             <p class="text-lg font-medium text-destructive shrink-0"><%= account.balance_money.format %></p>
           </div>
 
+          <div class="mb-3">
+            <div class="flex justify-between text-xs text-secondary mb-1">
+              <span>Splatené <%= summary.progress_percent %>%</span>
+              <span><%= summary.paid_money.format %> / <%= summary.original_amount_money.format %></span>
+            </div>
+            <div class="h-1.5 bg-container-inset rounded-full overflow-hidden">
+              <div class="h-full bg-success rounded-full" style="width: <%= summary.progress_percent %>%"></div>
+            </div>
+          </div>
+
           <% if last_payment %>
             <p class="text-xs text-secondary mb-3">Posledná platba: <%= entry_date_label(last_payment.date) %></p>
           <% end %>
 
-          <div class="flex gap-2">
+          <div class="flex flex-wrap gap-2">
+            <%= render DS::Link.new(
+              text: "Platby",
+              icon: "receipt",
+              href: payments_liability_path(account),
+              frame: :modal,
+              variant: "outline"
+            ) %>
             <%= render DS::Link.new(
               text: "Upraviť",
               icon: "pencil",
               href: edit_liability_path(account),
               frame: :modal,
-              variant: "outline"
-            ) %>
-            <%= render DS::Link.new(
-              text: "Platby",
-              href: account_path(account),
               variant: "ghost"
             ) %>
           </div>
@@ -53,5 +66,54 @@
       <p class="text-secondary text-sm mb-4 max-w-sm">Pôžička od kamaráta, leasing auta alebo hypotéka — stačí názov a suma, ktorú dlžíte.</p>
       <%= render DS::Link.new(text: "Pridať záväzok", icon: "plus", href: new_liability_path, frame: :modal) %>
     </div>
+  <% end %>
+
+  <% if overview.paid_off_liability_accounts.any? %>
+    <details class="bg-container rounded-xl shadow-border-xs border border-secondary group">
+      <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
+        <div class="flex items-center gap-2">
+          <%= icon "history", class: "text-secondary" %>
+          <span class="font-medium text-primary">História záväzkov</span>
+          <span class="text-xs text-secondary">(<%= overview.paid_off_liability_accounts.count %> splatených)</span>
+        </div>
+        <%= icon "chevron-down", class: "text-secondary group-open:rotate-180 transition-transform" %>
+      </summary>
+
+      <div class="px-4 pb-4 space-y-3 border-t border-secondary pt-4">
+        <% overview.paid_off_liability_accounts.each do |account| %>
+          <% summary = overview.repayment_summary_for(account) %>
+
+          <div class="bg-container-inset rounded-lg p-4">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <div>
+                <p class="font-medium text-primary"><%= account.name %></p>
+                <p class="text-xs text-secondary">
+                  Splatené <%= entry_date_label(account.updated_at.to_date) %>
+                  · <%= loan_subtype_label(account) %>
+                </p>
+              </div>
+              <span class="text-xs font-medium text-success shrink-0">Splatené</span>
+            </div>
+
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-secondary"><%= summary.original_amount_money.format %> → 0</span>
+              <span class="text-success font-medium"><%= summary.payment_entries.count %> <%= summary.payment_entries.count == 1 ? "platba" : "platieb" %></span>
+            </div>
+
+            <div class="h-1.5 bg-container rounded-full overflow-hidden mb-3">
+              <div class="h-full bg-success rounded-full" style="width: 100%"></div>
+            </div>
+
+            <%= render DS::Link.new(
+              text: "Detail splácania",
+              icon: "receipt",
+              href: payments_liability_path(account),
+              frame: :modal,
+              variant: "ghost"
+            ) %>
+          </div>
+        <% end %>
+      </div>
+    </details>
   <% end %>
 </section>

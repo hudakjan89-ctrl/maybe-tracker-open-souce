@@ -1,0 +1,40 @@
+<%= render DS::Dialog.new do |dialog| %>
+  <% dialog.with_header(title: "Gratulujeme!") %>
+  <% dialog.with_body do %>
+    <div class="text-center space-y-4 py-2">
+      <%= render DS::FilledIcon.new(variant: :surface, icon: "circle-check", size: "lg") %>
+
+      <div>
+        <p class="text-lg font-medium text-primary">Záväzok „<%= @account.name %>“ je splatený!</p>
+        <p class="text-sm text-secondary mt-2 max-w-sm mx-auto">
+          (Záväzok bude odstránený z prehľadu a presunutý do histórie záväzkov, kde uvidíte, ako ste ho splácali.)
+        </p>
+      </div>
+
+      <div class="bg-container-inset rounded-xl p-4 text-left space-y-3">
+        <div class="flex justify-between text-sm">
+          <span class="text-secondary">Pôvodná suma</span>
+          <span class="font-medium text-primary"><%= @summary.original_amount_money.format %></span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-secondary">Celkom splatené</span>
+          <span class="font-medium text-success"><%= @summary.paid_money.format %></span>
+        </div>
+        <div class="h-2 bg-container rounded-full overflow-hidden">
+          <div class="h-full bg-success rounded-full" style="width: 100%"></div>
+        </div>
+        <% if @summary.payment_entries.any? %>
+          <p class="text-xs text-secondary"><%= @summary.payment_entries.count %> <%= @summary.payment_entries.count == 1 ? "platba" : "platieb" %> zaznamenaných</p>
+        <% end %>
+      </div>
+
+      <%= render DS::Link.new(
+        text: "Späť na dashboard",
+        href: root_path,
+        variant: "primary",
+        data: { turbo_frame: "_top" },
+        class: "w-full justify-center"
+      ) %>
+    </div>
+  <% end %>
+<% end %>
