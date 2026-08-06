@@ -1,0 +1,6 @@
+<%= render DS::Dialog.new do |dialog| %>
+  <% dialog.with_header(title: "Upraviť záväzok") %>
+  <% dialog.with_body do %>
+    <%= render "form", account: @account, url: liability_path(@account), method: :patch %>
+  <% end %>
+<% end %>

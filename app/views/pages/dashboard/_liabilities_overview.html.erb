@@ -7,17 +7,16 @@
         <span class="text-secondary font-normal">· <%= overview.liabilities_total_money.format %></span>
       <% end %>
     </h2>
-    <%= render DS::Link.new(text: "Pridať", icon: "plus", href: new_loan_path, frame: :modal) %>
+    <%= render DS::Link.new(text: "Pridať", icon: "plus", href: new_liability_path, frame: :modal) %>
   </div>
 
   <% if overview.liability_accounts.any? %>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <% overview.liability_accounts.each do |account| %>
         <% last_payment = overview.last_payment_for(account) %>
-        <% loan = account.accountable if account.accountable_type == "Loan" %>
 
-        <%= link_to account_path(account), class: "block bg-container rounded-xl shadow-border-xs p-5 hover:bg-container-inset transition-colors border border-secondary" do %>
-          <div class="flex items-start gap-3 mb-4">
+        <div class="bg-container rounded-xl shadow-border-xs p-5 border border-secondary">
+          <div class="flex items-start gap-3 mb-3">
             <%= render DS::FilledIcon.new(variant: :surface, icon: account.accountable.icon) %>
             <div class="min-w-0 flex-1">
               <p class="font-medium text-primary"><%= account.name %></p>
@@ -26,53 +25,33 @@
             <p class="text-lg font-medium text-destructive shrink-0"><%= account.balance_money.format %></p>
           </div>
 
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <% if loan.is_a?(Loan) && loan.initial_balance.present? %>
-              <div class="bg-container-inset rounded-lg p-3">
-                <p class="text-xs text-secondary mb-0.5">Pôvodná suma</p>
-                <p class="font-medium text-primary"><%= format_money(loan.initial_balance) %></p>
-              </div>
-            <% end %>
+          <% if last_payment %>
+            <p class="text-xs text-secondary mb-3">Posledná platba: <%= entry_date_label(last_payment.date) %></p>
+          <% end %>
 
-            <% if loan.is_a?(Loan) && loan.rate_type == "fixed" %>
-              <% payment = loan.monthly_payment %>
-              <% if payment && payment.amount.positive? %>
-                <div class="bg-container-inset rounded-lg p-3">
-                  <p class="text-xs text-secondary mb-0.5">Mesačná splátka</p>
-                  <p class="font-medium text-primary"><%= format_money(payment) %></p>
-                </div>
-              <% end %>
-            <% end %>
-
-            <% if last_payment %>
-              <div class="bg-container-inset rounded-lg p-3">
-                <p class="text-xs text-secondary mb-0.5">Posledná platba</p>
-                <p class="font-medium text-primary"><%= entry_date_label(last_payment.date) %></p>
-              </div>
-            <% end %>
-
-            <% if loan.is_a?(Loan) && loan.term_months.present? %>
-              <div class="bg-container-inset rounded-lg p-3">
-                <p class="text-xs text-secondary mb-0.5">Doba splácania</p>
-                <p class="font-medium text-primary">
-                  <% if loan.term_months >= 12 %>
-                    <%= loan.term_months / 12 %> rokov
-                  <% else %>
-                    <%= loan.term_months %> mesiacov
-                  <% end %>
-                </p>
-              </div>
-            <% end %>
+          <div class="flex gap-2">
+            <%= render DS::Link.new(
+              text: "Upraviť",
+              icon: "pencil",
+              href: edit_liability_path(account),
+              frame: :modal,
+              variant: "outline"
+            ) %>
+            <%= render DS::Link.new(
+              text: "Platby",
+              href: account_path(account),
+              variant: "ghost"
+            ) %>
           </div>
-        <% end %>
+        </div>
       <% end %>
     </div>
   <% else %>
     <div class="bg-container rounded-xl shadow-border-xs p-8 flex flex-col items-center text-center">
       <%= render DS::FilledIcon.new(variant: :container, icon: "hand-coins") %>
       <p class="text-sm font-medium text-primary mt-3">Zatiaľ nemáte žiadne záväzky</p>
-      <p class="text-secondary text-sm mb-4 max-w-sm">Hypotéka, leasing auta, pôžička od kamaráta — všetko si tu môžete jednoducho zapisovať a sledovať splátky.</p>
-      <%= render DS::Link.new(text: "Pridať záväzok", icon: "plus", href: new_loan_path, frame: :modal) %>
+      <p class="text-secondary text-sm mb-4 max-w-sm">Pôžička od kamaráta, leasing auta alebo hypotéka — stačí názov a suma, ktorú dlžíte.</p>
+      <%= render DS::Link.new(text: "Pridať záväzok", icon: "plus", href: new_liability_path, frame: :modal) %>
     </div>
   <% end %>
 </section>

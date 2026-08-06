@@ -3,40 +3,42 @@ import * as d3 from "d3";
 
 // Connects to data-controller="bar-chart"
 export default class extends Controller {
-  static targets = ["detail", "detailTitle", "detailIncome", "detailExpense"];
+  static targets = ["detail", "detailTitle", "detailIncome", "detailExpense", "canvas"];
   static values = {
     data: { type: Array, default: [] },
     currencySymbol: { type: String, default: "€" },
   };
 
   connect() {
-    this.resizeObserver = new ResizeObserver(() => this.#draw());
-    this.resizeObserver.observe(this.element);
-    this.#draw();
+    this.draw = this.draw.bind(this);
+    this.resizeObserver = new ResizeObserver(() => this.draw());
+    this.resizeObserver.observe(this.canvasTarget);
+    this.draw();
   }
 
   disconnect() {
     this.resizeObserver?.disconnect();
   }
 
-  #draw() {
+  draw() {
     const months = this.dataValue || [];
-    if (!months.length) return;
+    const container = this.canvasTarget;
+    if (!months.length || !container) return;
 
-    const container = this.element.querySelector("[data-bar-chart-target='canvas']");
-    if (!container) return;
-
-    d3.select(container).selectAll("svg").remove();
+    container.replaceChildren();
 
     const margin = { top: 20, right: 20, bottom: 40, left: 60 };
-    const width = container.clientWidth - margin.left - margin.right;
+    const containerWidth = container.clientWidth || 600;
+    const width = Math.max(containerWidth - margin.left - margin.right, 200);
     const height = 360 - margin.top - margin.bottom;
 
-    const svg = d3
+    const svgRoot = d3
       .select(container)
       .append("svg")
       .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("height", height + margin.top + margin.bottom);
+
+    const svg = svgRoot
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -62,10 +64,8 @@ export default class extends Controller {
     const formatValue = (v) =>
       `${this.currencySymbolValue}${d3.format(",.0f")(v)}`;
 
-    // Y axis
     svg
       .append("g")
-      .attr("class", "text-secondary")
       .call(
         d3
           .axisLeft(y)
@@ -77,7 +77,6 @@ export default class extends Controller {
 
     svg.selectAll(".domain, .tick line").attr("stroke", "var(--color-gray-300)");
 
-    // X axis labels
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
@@ -101,7 +100,6 @@ export default class extends Controller {
         if (total === 0) return;
 
         const baseColor = type === "income" ? "#10A861" : "#DC2626";
-
         let cumulative = 0;
 
         categories.forEach((cat, i) => {
@@ -109,20 +107,20 @@ export default class extends Controller {
           const segmentBottom = total - cumulative;
           const y1 = y(segmentTop);
           const y2 = y(segmentBottom);
-          const segmentHeight = Math.max(y2 - y1, 1);
 
-          const rect = svg
+          svg
             .append("rect")
             .attr("x", barX)
             .attr("y", y1)
             .attr("width", barWidth)
-            .attr("height", segmentHeight)
+            .attr("height", Math.max(y2 - y1, 1))
             .attr("fill", cat.color || baseColor)
             .attr("opacity", type === "income" ? 0.85 : 0.8)
             .attr("cursor", "pointer")
-            .on("click", () => self.#showDetail(month));
-
-          rect.append("title").text(`${cat.name}: ${formatValue(cat.value)}`);
+            .attr("rx", i === 0 ? 4 : 0)
+            .on("click", () => self.showDetail(month))
+            .append("title")
+            .text(`${cat.name}: ${formatValue(cat.value)}`);
 
           if (i < categories.length - 1) {
             svg
@@ -133,14 +131,12 @@ export default class extends Controller {
               .attr("y2", y2)
               .attr("stroke", "white")
               .attr("stroke-opacity", 0.4)
-              .attr("stroke-width", 1)
-              .attr("pointer-events", "none");
+              .attr("stroke-width", 1);
           }
 
           cumulative += cat.value;
         });
 
-        // Bar outline
         svg
           .append("rect")
           .attr("x", barX)
@@ -155,36 +151,18 @@ export default class extends Controller {
           .attr("pointer-events", "none");
       });
     });
-
-    // Legend
-    const legend = d3.select(container).append("div").attr("class", "flex gap-6 justify-center mt-4 text-sm");
-
-    legend
-      .append("div")
-      .attr("class", "flex items-center gap-2")
-      .html(
-        '<span class="w-3 h-3 rounded-sm inline-block" style="background:#10A861"></span><span class="text-secondary">Príjmy</span>',
-      );
-
-    legend
-      .append("div")
-      .attr("class", "flex items-center gap-2")
-      .html(
-        '<span class="w-3 h-3 rounded-sm inline-block" style="background:#DC2626"></span><span class="text-secondary">Výdavky</span>',
-      );
   }
 
-  #showDetail(month) {
+  showDetail(month) {
     if (!this.hasDetailTarget) return;
 
     this.detailTarget.classList.remove("hidden");
     this.detailTitleTarget.textContent = month.label;
-
-    this.#renderCategoryBreakdown(this.detailIncomeTarget, month.income, "Príjmy");
-    this.#renderCategoryBreakdown(this.detailExpenseTarget, month.expense, "Výdavky");
+    this.renderCategoryBreakdown(this.detailIncomeTarget, month.income, "Príjmy");
+    this.renderCategoryBreakdown(this.detailExpenseTarget, month.expense, "Výdavky");
   }
 
-  #renderCategoryBreakdown(container, data, title) {
+  renderCategoryBreakdown(container, data, title) {
     const formatValue = (v) =>
       `${this.currencySymbolValue}${d3.format(",.2f")(v)}`;
 

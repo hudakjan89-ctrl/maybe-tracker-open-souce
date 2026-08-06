@@ -85,14 +85,21 @@ module ApplicationHelper
   end
 
   def loan_subtype_label(account)
-    return account.name unless account.accountable_type == "Loan"
-
-    {
-      "mortgage" => "Hypotéka",
-      "auto" => "Auto / leasing",
-      "student" => "Študentská pôžička",
-      "other" => "Pôžička"
-    }[account.subtype] || account.name
+    case account.accountable_type
+    when "Loan"
+      {
+        "mortgage" => "Hypotéka",
+        "auto" => "Auto / leasing",
+        "student" => "Študentská pôžička",
+        "other" => "Pôžička"
+      }[account.subtype] || "Pôžička"
+    when "CreditCard"
+      "Kreditná karta"
+    when "OtherLiability"
+      "Osobný záväzok"
+    else
+      "Záväzok"
+    end
   end
 
   def totals_by_currency(collection:, money_method:, separator: " | ", negate: false)

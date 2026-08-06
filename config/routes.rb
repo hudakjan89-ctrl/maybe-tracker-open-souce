@@ -73,6 +73,8 @@ Rails.application.routes.draw do
 
   resources :charts, only: :index
 
+  resources :liabilities, only: %i[new create edit update]
+
   resource :demo_transactions, only: :create
 
   resources :family_merchants, only: %i[index new create edit update destroy]

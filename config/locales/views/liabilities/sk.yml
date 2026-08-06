@@ -1,0 +1,7 @@
+---
+sk:
+  liabilities:
+    new:
+      title: Nový záväzok
+    edit:
+      title: Upraviť záväzok

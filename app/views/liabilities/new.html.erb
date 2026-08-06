@@ -1,0 +1,6 @@
+<%= render DS::Dialog.new do |dialog| %>
+  <% dialog.with_header(title: "Nový záväzok") %>
+  <% dialog.with_body do %>
+    <%= render "form", account: @account, url: liabilities_path %>
+  <% end %>
+<% end %>

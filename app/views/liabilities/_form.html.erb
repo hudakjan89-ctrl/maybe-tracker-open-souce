@@ -1,0 +1,21 @@
+<%# locals: (account:, url:, method: nil) %>
+
+<% if @error_message.present? %>
+  <%= render DS::Alert.new(message: @error_message, variant: :error) %>
+<% end %>
+
+<%= styled_form_with model: account, url: url, method: method, scope: :account, class: "flex flex-col gap-4" do |form| %>
+  <%= form.text_field :name,
+        label: "Názov záväzku",
+        placeholder: "napr. Pôžička od Martina, Leasing auta",
+        required: true %>
+
+  <%= form.money_field :balance,
+        label: "Koľko dlžíte",
+        required: true,
+        default_currency: Current.family.currency %>
+
+  <p class="text-xs text-secondary">Zadajte aktuálnu sumu, ktorú ešte musíte splatiť.</p>
+
+  <%= form.submit account.persisted? ? "Uložiť zmeny" : "Pridať záväzok", class: "w-full" %>
+<% end %>

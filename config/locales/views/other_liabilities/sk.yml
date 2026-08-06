@@ -2,6 +2,6 @@
 sk:
   other_liabilities:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     new:
-      title: Enter liability details
+      title: Nový záväzok
