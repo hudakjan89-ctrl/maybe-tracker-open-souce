@@ -29,7 +29,7 @@ class Account::OpeningBalanceManagerTest < ActiveSupport::TestCase
     entry = opening_anchor.entry
     assert_equal 1000, entry.amount
     assert_equal 1.year.ago.to_date, entry.date
-    assert_equal "Opening balance", entry.name
+    assert_equal "Počiatočný zostatok", entry.name
   end
 
   test "when no existing anchor, creates with provided balance" do
@@ -213,7 +213,7 @@ class Account::OpeningBalanceManagerTest < ActiveSupport::TestCase
 
     assert_not result.success?
     assert_not result.changes_made?
-    assert_equal "Opening balance date must be before the oldest entry date", result.error
+    assert_equal "Dátum počiatočného zostatku musí byť pred dátumom najstaršieho záznamu", result.error
 
     # Try to set opening balance after the oldest entry
     result = manager.set_opening_balance(
@@ -223,7 +223,7 @@ class Account::OpeningBalanceManagerTest < ActiveSupport::TestCase
 
     assert_not result.success?
     assert_not result.changes_made?
-    assert_equal "Opening balance date must be before the oldest entry date", result.error
+    assert_equal "Dátum počiatočného zostatku musí byť pred dátumom najstaršieho záznamu", result.error
 
     # Verify no opening anchor was created
     assert_nil @depository_account.valuations.opening_anchor.first

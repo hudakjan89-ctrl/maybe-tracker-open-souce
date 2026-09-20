@@ -28,7 +28,7 @@ class Account::OpeningBalanceManager
 
     # Validate date is before oldest entry
     if date && oldest_entry_date && resolved_date >= oldest_entry_date
-      return Result.new(success?: false, changes_made?: false, error: "Opening balance date must be before the oldest entry date")
+      return Result.new(success?: false, changes_made?: false, error: "Dátum počiatočného zostatku musí byť pred dátumom najstaršieho záznamu")
     end
 
     if opening_anchor_valuation.nil?

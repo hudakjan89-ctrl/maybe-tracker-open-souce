@@ -2,6 +2,6 @@
 sk:
   other_assets:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     new:
-      title: Enter asset details
+      title: Zadajte údaje o aktíve

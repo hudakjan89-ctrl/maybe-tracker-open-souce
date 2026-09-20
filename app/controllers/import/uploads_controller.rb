@@ -21,7 +21,7 @@ class Import::UploadsController < ApplicationController
 
       redirect_to import_configuration_path(@import, template_hint: true), notice: "Súbor CSV bol nahratý."
     else
-      flash.now[:alert] = "Must be valid CSV with headers and at least one row of data"
+      flash.now[:alert] = "Súbor musí byť platné CSV s hlavičkou a aspoň jedným riadkom údajov."
 
       render :show, status: :unprocessable_entity
     end

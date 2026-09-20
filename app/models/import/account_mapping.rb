@@ -14,7 +14,7 @@ class Import::AccountMapping < Import::Mapping
     family_accounts = import.family.accounts.manual.alphabetically.map { |account| [ account.name, account.id ] }
 
     unless key.blank?
-      family_accounts.unshift [ "Add as new account", CREATE_NEW_KEY ]
+      family_accounts.unshift [ "Pridať ako nový účet", CREATE_NEW_KEY ]
     end
 
     family_accounts

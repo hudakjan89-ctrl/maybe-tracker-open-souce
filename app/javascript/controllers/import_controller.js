@@ -58,7 +58,7 @@ export default class extends Controller {
 
     // Only add the prompt if there's no current value
     if (!currentValue) {
-      fragment.appendChild(new Option("Select value", ""));
+      fragment.appendChild(new Option("Vyberte hodnotu", ""));
     }
 
     selectableValues.forEach((value) => {

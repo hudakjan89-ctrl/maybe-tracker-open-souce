@@ -2,9 +2,9 @@
 sk:
   passwords:
     edit:
-      password: Zatiaľ žiadnevé Heslo
-      password_challenge: Aktuálny Heslo
-      submit: Resetovať Heslo
-      title: Aktualizovať Heslo
+      password: Nové heslo
+      password_challenge: Aktuálne heslo
+      submit: Obnoviť heslo
+      title: Zmeniť heslo
     update:
-      success: Your password has been reset.
+      success: Heslo bolo obnovené.

@@ -2,22 +2,22 @@
 sk:
   tags:
     create:
-      created: Tag created
-      error: 'Chyba creating tag: %{error}'
+      created: Značka bola vytvorená
+      error: 'Chyba pri vytváraní značky: %{error}'
     destroy:
-      deleted: Tag deleted
+      deleted: Značka bola vymazaná
     edit:
-      edit: Horeraviť tag
+      edit: Upraviť značku
     form:
-      placeholder: Tag name
+      placeholder: Názov značky
     index:
-      empty: Zatiaľ žiadne tags yet
-      new: Zatiaľ žiadnevé tag
+      empty: Zatiaľ žiadne značky
+      new: Nová značka
       tags: Značky
     new:
-      new: Zatiaľ žiadnevé tag
+      new: Nová značka
     tag:
       delete: Vymazať
-      edit: Horeraviť
+      edit: Upraviť
     update:
-      updated: Tag updated
+      updated: Značka bola aktualizovaná

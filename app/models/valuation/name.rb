@@ -21,37 +21,37 @@ class Valuation::Name
     def opening_anchor_name
       case accountable_type
       when "Property", "Vehicle"
-        "Original purchase price"
+        "Pôvodná kúpna cena"
       when "Loan"
-        "Original principal"
+        "Pôvodná istina"
       when "Investment", "Crypto", "OtherAsset"
-        "Opening account value"
+        "Počiatočná hodnota účtu"
       else
-        "Opening balance"
+        "Počiatočný zostatok"
       end
     end
 
     def current_anchor_name
       case accountable_type
       when "Property", "Vehicle"
-        "Current market value"
+        "Aktuálna trhová hodnota"
       when "Loan"
-        "Current loan balance"
+        "Aktuálny zostatok úveru"
       when "Investment", "Crypto", "OtherAsset"
-        "Current account value"
+        "Aktuálna hodnota účtu"
       else
-        "Current balance"
+        "Aktuálny zostatok"
       end
     end
 
     def recon_name
       case accountable_type
       when "Property", "Investment", "Vehicle", "Crypto", "OtherAsset"
-        "Manual value update"
+        "Manuálna úprava hodnoty"
       when "Loan"
-        "Manual principal update"
+        "Manuálna úprava istiny"
       else
-        "Manual balance update"
+        "Manuálna úprava zostatku"
       end
     end
 end

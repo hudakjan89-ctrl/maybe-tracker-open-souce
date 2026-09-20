@@ -25,9 +25,9 @@ class Settings::ProfilesController < ApplicationController
     if @user.destroy
       # Also destroy the invitation associated with this user for this family
       Current.family.invitations.find_by(email: @user.email)&.destroy
-      flash[:notice] = "Member removed successfully."
+      flash[:notice] = "Člen bol odstránený."
     else
-      flash[:alert] = "Failed to remove member."
+      flash[:alert] = "Člena sa nepodarilo odstrániť."
     end
 
     redirect_to settings_profile_path

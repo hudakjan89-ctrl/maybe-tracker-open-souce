@@ -2,31 +2,31 @@
 sk:
   properties:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     form:
-      address_line1: Ulica address
-      address_line1_placeholder: 123 Hlavné St
-      area: Žijúci area
-      area_placeholder: '2000'
-      area_unit: Jednotka of measurement
+      address_line1: Ulica a číslo
+      address_line1_placeholder: Hlavná 12
+      area: Obytná plocha
+      area_placeholder: '80'
+      area_unit: Jednotka merania
       country: Krajina
-      country_placeholder: US
+      country_placeholder: SK
       locality: Mesto
-      locality_placeholder: San Francisco
-      none: Zatiaľ žiadnene
-      postal_code: ZIP/PSČ
-      postal_code_placeholder: '94105'
-      region: Štát/Provincia
-      region_placeholder: CA
-      subtype_prompt: Vybrať property type
-      year_built: Rok built
+      locality_placeholder: Bratislava
+      none: Žiadne
+      postal_code: PSČ
+      postal_code_placeholder: '81101'
+      region: Kraj
+      region_placeholder: BA
+      subtype_prompt: Vyberte typ nehnuteľnosti
+      year_built: Rok výstavby
       year_built_placeholder: '2000'
     new:
-      title: Enter property details
+      title: Zadajte údaje o nehnuteľnosti
     overview:
-      living_area: Žijúci Oblasť
-      market_value: Trh Hodnota
-      purchase_price: Purchase Cena
+      living_area: Obytná plocha
+      market_value: Trhová hodnota
+      purchase_price: Kúpna cena
       trend: Trend
       unknown: Neznáme
-      year_built: Rok Built
+      year_built: Rok výstavby

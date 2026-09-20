@@ -62,7 +62,7 @@ class TransactionsController < ApplicationController
       @entry.lock_saved_attributes!
       @entry.transaction.lock_attr!(:tag_ids) if @entry.transaction.tags.any?
 
-      flash[:notice] = "Transaction created"
+      flash[:notice] = "Transakcia bola vytvorená."
 
       respond_to do |format|
         format.html { redirect_back_or_to account_path(@entry.account) }

@@ -4,9 +4,7 @@ sk:
     securities:
       show:
         disable_mfa: Vypnúť 2FA
-        disable_mfa_confirm: Are you sure you want to disable two-factor authentication?
-          This will make your account less secure.
+        disable_mfa_confirm: Naozaj chcete vypnúť dvojfaktorové overenie? Tým sa účet stane menej bezpečným.
         enable_mfa: Zapnúť 2FA
-        mfa_description: Add an extra layer of security to your account by requiring
-          a code from your authenticator app when signing in
-        mfa_title: Two-Faktor Authentication
+        mfa_description: Pridajte ďalšiu vrstvu zabezpečenia — pri prihlásení budete potrebovať kód z autentifikačnej aplikácie.
+        mfa_title: Dvojfaktorové overenie

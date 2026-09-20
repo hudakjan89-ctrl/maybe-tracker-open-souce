@@ -27,7 +27,7 @@ export default class extends Controller {
 
   bulkEditDrawerHeaderTargetConnected(element) {
     const headingTextEl = element.querySelector("h2");
-    headingTextEl.innerText = `Edit ${
+    headingTextEl.innerText = `Upraviť ${
       this.selectedIdsValue.length
     } ${this._pluralizedResourceName()}`;
   }
@@ -131,7 +131,7 @@ export default class extends Controller {
 
   _updateSelectionBar() {
     const count = this.selectedIdsValue.length;
-    this.selectionBarTextTarget.innerText = `${count} ${this._pluralizedResourceName()} selected`;
+    this.selectionBarTextTarget.innerText = `${count} ${this._pluralizedResourceName()} vybraných`;
     this.selectionBarTarget.classList.toggle("hidden", count === 0);
     this.selectionBarTarget.querySelector("input[type='checkbox']").checked =
       count > 0;

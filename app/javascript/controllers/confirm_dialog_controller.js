@@ -34,12 +34,12 @@ export default class extends Controller {
         button.setAttribute("hidden", true);
       }
 
-      button.textContent = data.confirmText || "Confirm";
+      button.textContent = data.confirmText || "Potvrdiť";
     });
 
-    this.titleTarget.textContent = data.title || "Are you sure?";
+    this.titleTarget.textContent = data.title || "Ste si istí?";
     this.subtitleTarget.innerHTML =
-      data.body || "This action cannot be undone.";
+      data.body || "Túto akciu nie je možné vrátiť späť.";
   }
 
   // If data is a string, it's the title.  Otherwise, return the parsed object.
@@ -48,7 +48,7 @@ export default class extends Controller {
       const parsed = JSON.parse(rawData);
 
       if (typeof parsed === "boolean") {
-        return { title: "Are you sure?" };
+        return { title: "Ste si istí?" };
       }
 
       return parsed;

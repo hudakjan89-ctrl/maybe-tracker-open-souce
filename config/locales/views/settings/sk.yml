@@ -52,6 +52,7 @@ sk:
         remove_invitation: Odstrániť pozvánku
         remove_member: Odstrániť člena
         save: Uložiť
+        unconfirmed_email_notice: Požiadali ste o zmenu e-mailu na %{email}. Potvrďte zmenu v e-maile, aby sa prejavila.
     securities:
       show:
         page_title: Zabezpečenie

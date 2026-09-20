@@ -2,14 +2,14 @@
 sk:
   sessions:
     create:
-      invalid_credentials: Neplatné email or password.
+      invalid_credentials: Neplatný e-mail alebo heslo.
     destroy:
-      logout_successful: You have signed out successfully.
+      logout_successful: Úspešne ste sa odhlásili.
     new:
-      email: E-mail address
-      email_placeholder: you@example.com
-      forgot_password: Forgot your password?
+      email: E-mailová adresa
+      email_placeholder: vas@email.sk
+      forgot_password: Zabudli ste heslo?
       password: Heslo
-      submit: Log in
+      submit: Prihlásiť sa
       title: Prihláste sa do účtu
-      password_placeholder: Enter your password
+      password_placeholder: Zadajte heslo

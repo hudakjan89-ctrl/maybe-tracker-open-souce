@@ -19,15 +19,14 @@ sk:
       tags_label: Značky
       transfer: Prevod
     new:
-      new_transaction: Zatiaľ žiadnevá transakcia
+      new_transaction: Nová transakcia
     show:
       account_label: Účet
       amount: Suma
       category_label: Kategória
       date_label: Dátum
       delete: Vymazať
-      delete_subtitle: This permanently deletes the transakcia, affects your historical
-        balances, and cannot be undone.
+      delete_subtitle: Týmto natrvalo vymažete transakciu, ovplyvníte historické zostatky a túto akciu nie je možné vrátiť späť.
       delete_title: Vymazať transakciu
       details: Detaily
       merchant_label: Obchodník
@@ -41,10 +40,10 @@ sk:
       tags_label: Značky
       uncategorized: "(nekategorizované)"
     header:
-      edit_categories: Horeraviť kategórie
-      edit_imports: Horeraviť importy
-      edit_merchants: Horeraviť obchodníkov
-      edit_tags: Horeraviť značky
+      edit_categories: Upraviť kategórie
+      edit_imports: Upraviť importy
+      edit_merchants: Upraviť obchodníkov
+      edit_tags: Upraviť značky
       import: Importovať
     index:
       transaction: transakcia
@@ -59,8 +58,8 @@ sk:
         badge:
           expense: Výdavok
           income: Príjem
-          on_or_after: on or after %{date}
-          on_or_before: on or before %{date}
+          on_or_after: od %{date}
+          on_or_before: do %{date}
           transfer: Prevod
         type_filter:
           expense: Výdavok
@@ -72,12 +71,12 @@ sk:
         apply: Použiť
         cancel: Zrušiť
         category_filter: Kategória
-        clear_filters: Vymazať filters
+        clear_filters: Vymazať filtre
         date_filter: Dátum
         merchant_filter: Obchodník
-        tag_filter: Tag
+        tag_filter: Značka
         type_filter: Typ
       search:
-        equal_to: equal to
-        greater_than: greater than
-        less_than: less than
+        equal_to: rovná sa
+        greater_than: väčšie ako
+        less_than: menšie ako

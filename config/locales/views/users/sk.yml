@@ -2,13 +2,11 @@
 sk:
   users:
     destroy:
-      success: Váš účet has been deleted.
+      success: Váš účet bol vymazaný.
     update:
-      email_change_failed: Zlyhalo to change email address.
-      email_change_initiated: Prosím check your new email address for confirmation
-        instructions.
-      success: Your profile has been updated.
+      email_change_failed: E-mailovú adresu sa nepodarilo zmeniť.
+      email_change_initiated: Skontrolujte novú e-mailovú adresu a potvrďte zmenu podľa pokynov.
+      success: Profil bol aktualizovaný.
     reset:
-      success: Váš účet has been reset. Data will be deleted in the background in
-        some time.
-      unauthorized: You are not authorized to perform this action
+      success: Účet bol resetovaný. Údaje sa o chvíľu vymažú na pozadí.
+      unauthorized: Na túto akciu nemáte oprávnenie

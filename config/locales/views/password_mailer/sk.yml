@@ -2,9 +2,7 @@
 sk:
   password_mailer:
     password_reset:
-      cta: Resetovať your password
-      ignore_if_not_requested: If you didn't make this request, you can ignore this
-        email.
-      request_made: A request was made to reset your Maybe password. Click the link
-        to reset it.
-      subject: 'Maybe: Resetovať your password'
+      cta: Obnoviť heslo
+      ignore_if_not_requested: Ak ste o to nepožiadali, tento e-mail môžete ignorovať.
+      request_made: Prišla žiadosť o obnovenie hesla v Maybe. Kliknite na odkaz a heslo si obnovte.
+      subject: 'Maybe: Obnovenie hesla'

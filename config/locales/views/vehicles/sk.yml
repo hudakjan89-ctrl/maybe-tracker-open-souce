@@ -2,24 +2,24 @@
 sk:
   vehicles:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     form:
-      make: Vytvoriť
-      make_placeholder: Doyota
-      mileage: Mileage
+      make: Značka
+      make_placeholder: Škoda
+      mileage: Najazdené kilometre
       mileage_placeholder: '15000'
       mileage_unit: Jednotka
       model: Model
-      model_placeholder: Camry
+      model_placeholder: Octavia
       year: Rok
       year_placeholder: '2023'
     new:
-      title: Enter vehicle details
+      title: Zadajte údaje o vozidle
     overview:
-      current_price: Aktuálny Cena
-      make_model: Vytvoriť & Model
-      mileage: Mileage
-      purchase_price: Purchase Cena
+      current_price: Aktuálna cena
+      make_model: Značka a model
+      mileage: Najazdené kilometre
+      purchase_price: Kúpna cena
       trend: Trend
       unknown: Neznáme
       year: Rok
