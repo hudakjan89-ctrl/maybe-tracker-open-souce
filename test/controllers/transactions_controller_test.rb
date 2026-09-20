@@ -31,7 +31,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     created_entry = Entry.order(:created_at).last
 
     assert_redirected_to account_url(created_entry.account)
-    assert_equal "Transaction created", flash[:notice]
+    assert_equal "Transakcia bola vytvorená.", flash[:notice]
     assert_enqueued_with(job: SyncJob)
   end
 
@@ -69,7 +69,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "test notes", @entry.notes
     assert_equal false, @entry.excluded
 
-    assert_equal "Transaction updated", flash[:notice]
+    assert_equal "Transakcia bola upravená.", flash[:notice]
     assert_redirected_to account_url(@entry.account)
     assert_enqueued_with(job: SyncJob)
   end
@@ -189,5 +189,22 @@ end
 
     get transactions_url(q: { categories: [ "Food" ], types: [ "expense" ] })
     assert_response :success
+  end
+
+  test "highlights matching period pill" do
+    period = Period.last_7_days
+
+    get transactions_url(q: { start_date: period.start_date, end_date: period.end_date })
+
+    assert_response :success
+    assert_dom "a[aria-current=page]", text: "7 dní"
+    assert_dom "p", text: /Posledných 7 dní/
+  end
+
+  test "shows all transactions period by default" do
+    get transactions_url(per_page: 10)
+
+    assert_response :success
+    assert_dom "a[aria-current=page]", text: "Všetko"
   end
 end

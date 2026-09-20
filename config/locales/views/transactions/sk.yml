@@ -46,6 +46,7 @@ sk:
       edit_tags: Upraviť značky
       import: Importovať
     index:
+      import: Importovať
       transaction: transakcia
       transactions: transakcie
     searches:

@@ -1,8 +1,14 @@
-<div class="space-y-4 pb-20 flex flex-col">
-  <header class="flex justify-between items-center text-primary font-medium">
-    <h1 class="text-xl">Transakcie</h1>
-    <div class="flex items-center gap-5">
-      <div class="flex items-center gap-2">
+<div class="space-y-5 pb-20 flex flex-col">
+  <header class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+    <div class="space-y-1 min-w-0">
+      <h1 class="text-xl lg:text-3xl font-medium text-primary">Transakcie</h1>
+      <p class="text-sm text-secondary"><%= transaction_period_subtitle %></p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-3 lg:justify-end">
+      <%= render "period_pills" %>
+
+      <div class="flex items-center gap-2 shrink-0">
         <%= render DS::Menu.new do |menu| %>
           <% menu.with_item(variant: "link", text: "Nové pravidlo", href: new_rule_path(resource_type: "transaction"), icon: "plus", data: { turbo_frame: :modal }) %>
           <% menu.with_item(variant: "link", text: "Pravidlá", href: rules_path, icon: "git-branch", data: { turbo_frame: :_top }) %>
@@ -15,7 +21,7 @@
 
         <div class="hidden md:flex">
           <%= render DS::Link.new(
-            text: t(".import"),
+            text: "Importovať",
             icon: "download",
             variant: "outline",
             href: new_import_path,
@@ -63,11 +69,11 @@
             <%= check_box_tag "selection_entry",
                               class: "checkbox checkbox--light",
                               data: { action: "bulk-select#togglePageSelection" } %>
-            <p>transakcia</p>
+            <p>Transakcia</p>
           </div>
 
-          <p class="col-span-2">kategória</p>
-          <p class="col-span-2 justify-self-end">suma</p>
+          <p class="col-span-2">Kategória</p>
+          <p class="col-span-2 justify-self-end">Suma</p>
         </div>
 
         <% if @transactions.any? %>
@@ -75,18 +81,28 @@
             <%= check_box_tag "selection_entry",
                               class: "checkbox checkbox--light mr-2 ml-1",
                               data: { action: "bulk-select#togglePageSelection" } %>
-            <span>TRANSAKCIA</span>
+            <span>Transakcia</span>
           </div>
         <% end %>
 
-        <div class="space-y-6">
+        <div class="space-y-3">
           <%= entries_by_date(@transactions.map(&:entry), totals: true) do |entries| %>
             <%= render entries %>
           <% end %>
         </div>
       </div>
     <% else %>
-      <%= render "entries/empty" %>
+      <div class="flex flex-col items-center justify-center py-16 px-4 text-center">
+        <div class="w-12 h-12 rounded-full bg-container-inset flex items-center justify-center mb-3">
+          <%= icon "calendar" %>
+        </div>
+        <p class="text-primary font-medium">Žiadne transakcie v tomto období</p>
+        <p class="text-secondary text-sm mt-1 max-w-sm">Skúste iné obdobie, upravte filtre alebo pridajte novú transakciu.</p>
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <%= render DS::Link.new(text: "Zobraziť všetko", href: transaction_period_url("all"), variant: "outline") %>
+          <%= render DS::Link.new(text: "Nová transakcia", href: new_transaction_path, variant: "primary", frame: :modal, icon: "plus") %>
+        </div>
+      </div>
     <% end %>
 
     <div class="pt-4">

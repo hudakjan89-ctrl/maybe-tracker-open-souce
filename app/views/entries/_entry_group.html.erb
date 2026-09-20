@@ -9,7 +9,7 @@
                           data: { action: "bulk-select#toggleGroupSelection" } %>
 
       <p class="uppercase space-x-1.5">
-        <%= tag.span I18n.l(date, format: :long) %>
+        <%= tag.span entry_date_label(date) %>
         <span>·</span>
         <%= tag.span entries.size %>
       </p>

@@ -1,9 +1,26 @@
 <%= render "transactions/searches/form" %>
 
+<% filter_params = @q.reject { |key| key.to_s == "amount_operator" } %>
+<% hide_date_badges = transaction_preset_period? %>
 <ul id="transaction-search-filters" class="flex items-center flex-wrap gap-2 mb-4">
-  <% @q.reject { |key| key == "amount_operator" }.each do |param_key, param_value| %>
+  <% if hide_date_badges %>
+    <% filter_params = filter_params.reject { |key| %w[start_date end_date].include?(key.to_s) } %>
+  <% elsif @q[:start_date].present? || @q[:end_date].present? %>
+    <li class="flex items-center gap-1 text-sm border border-secondary rounded-3xl p-1.5">
+      <div class="flex items-center gap-2 px-1">
+        <%= icon "calendar" %>
+        <p><%= transaction_date_range_label_for_filters %></p>
+      </div>
+      <%= link_to transaction_period_url("all"), class: "flex items-center", aria: { label: "Zrušiť obdobie" } do %>
+        <%= icon "x", size: "sm", class: "hover:text-primary" %>
+      <% end %>
+    </li>
+    <% filter_params = filter_params.reject { |key| %w[start_date end_date].include?(key.to_s) } %>
+  <% end %>
+
+  <% filter_params.each do |param_key, param_value| %>
     <% unless param_value.blank? %>
-      <% if param_key == "amount" %>
+      <% if param_key.to_s == "amount" %>
         <% amount_operator = case @q[:amount_operator]
                              when "equal"
                                t(".equal_to")

@@ -1,19 +1,59 @@
 <%# locals: (totals:) %>
-<div class="grid grid-cols-1 md:grid-cols-3 bg-container rounded-xl shadow-border-xs md:divide-x divide-y md:divide-y-0 divide-alpha-black-100 theme-dark:divide-alpha-white-200">
-  <div class="p-4 space-y-2">
-    <p class="text-sm text-secondary">Počet transakcií</p>
-    <p class="text-primary font-medium text-xl" id="total-transactions"><%= totals.count.round(0) %></p>
+<% net_money = transaction_net_money(totals) %>
+<% net_positive = net_money.amount.to_d >= 0 %>
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+  <div class="bg-container rounded-xl shadow-border-xs p-4">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-lg bg-container-inset flex items-center justify-center shrink-0">
+        <%= icon "list", size: "sm" %>
+      </div>
+      <div class="min-w-0">
+        <p class="text-xs text-secondary">Počet</p>
+        <p class="text-primary font-medium text-xl tabular-nums mt-0.5" id="total-transactions"><%= totals.count.round(0) %></p>
+      </div>
+    </div>
   </div>
-  <div class="p-4 space-y-2">
-    <p class="text-sm text-secondary">Príjmy</p>
-    <p class="text-primary font-medium text-xl" id="total-income">
-      <%= totals.income_money.format %>
-    </p>
+
+  <div class="bg-container rounded-xl shadow-border-xs p-4">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
+        <%= icon "arrow-down-left", size: "sm", color: "success" %>
+      </div>
+      <div class="min-w-0">
+        <p class="text-xs text-secondary">Príjmy</p>
+        <p class="text-success font-medium text-xl tabular-nums mt-0.5 truncate" id="total-income">
+          <%= totals.income_money.format %>
+        </p>
+      </div>
+    </div>
   </div>
-  <div class="p-4 space-y-2">
-    <p class="text-sm text-secondary">Výdavky</p>
-    <p class="text-primary font-medium text-xl" id="total-expense">
-      <%= totals.expense_money.format %>
-    </p>
+
+  <div class="bg-container rounded-xl shadow-border-xs p-4">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-lg bg-red-500/10 flex items-center justify-center shrink-0">
+        <%= icon "arrow-up-right", size: "sm", color: "destructive" %>
+      </div>
+      <div class="min-w-0">
+        <p class="text-xs text-secondary">Výdavky</p>
+        <p class="text-destructive font-medium text-xl tabular-nums mt-0.5 truncate" id="total-expense">
+          <%= totals.expense_money.format %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-container rounded-xl shadow-border-xs p-4">
+    <div class="flex items-start gap-3">
+      <div class="w-9 h-9 rounded-lg <%= net_positive ? "bg-green-500/10" : "bg-red-500/10" %> flex items-center justify-center shrink-0">
+        <%= icon "wallet", size: "sm", color: net_positive ? "success" : "destructive" %>
+      </div>
+      <div class="min-w-0">
+        <p class="text-xs text-secondary">Čistý pohyb</p>
+        <p class="<%= net_positive ? "text-success" : "text-destructive" %> font-medium text-xl tabular-nums mt-0.5 truncate" id="total-net">
+          <%= net_positive ? "+" : "" %><%= net_money.format %>
+        </p>
+      </div>
+    </div>
   </div>
 </div>

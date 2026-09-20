@@ -1,0 +1,23 @@
+<%# locals: (filters: @q) %>
+<% selected_key = transaction_period_key(filters) %>
+
+<nav aria-label="Obdobie transakcií" class="max-w-full">
+  <div class="flex flex-wrap gap-0.5 p-1 bg-container-inset border border-secondary rounded-xl">
+    <% TransactionsHelper::TRANSACTION_PERIODS.each do |option| %>
+      <% selected = selected_key == option[:key] %>
+      <%= link_to option[:label],
+            transaction_period_url(option[:key], filters: filters),
+            class: class_names(
+              "shrink-0 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors",
+              selected ? "bg-container text-primary shadow-border-xs" : "text-secondary hover:text-primary hover:bg-container-inset-hover"
+            ),
+            **(selected ? { aria: { current: "page" } } : {}) %>
+    <% end %>
+
+    <% if selected_key == "custom" %>
+      <span class="shrink-0 px-3 py-1.5 text-sm font-medium rounded-lg bg-container text-primary shadow-border-xs">
+        Vlastné
+      </span>
+    <% end %>
+  </div>
+</nav>
