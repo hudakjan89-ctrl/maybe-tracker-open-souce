@@ -33,7 +33,7 @@ RUN rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bund
 
 RUN bundle exec bootsnap precompile --gemfile -j 0
 
-# Copy application code
+# Copy application code (bust cache after Merchant Zeitwerk fix)
 COPY . .
 
 # Precompile bootsnap code for faster boot times

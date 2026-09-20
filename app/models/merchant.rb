@@ -1,3 +1,5 @@
+# Merchant is an ActiveRecord class. Do not add app/models/merchant/*.rb —
+# Zeitwerk would treat Merchant as a module and boot would fail in production.
 class Merchant < ApplicationRecord
   TYPES = %w[FamilyMerchant ProviderMerchant].freeze
 
