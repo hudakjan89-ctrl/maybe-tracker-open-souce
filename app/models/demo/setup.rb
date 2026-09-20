@@ -119,11 +119,11 @@ module Demo
           date = months_ago.months.ago.to_date.beginning_of_month + 1.day
           next if date > Date.current
 
-          account.entries.create!(
-            entryable: Transaction.new(category: category("Plat")),
+          create_transaction_entry!(
+            account: account,
+            category: category("Plat"),
             amount: -@rng.rand(2_200..3_200),
             name: "Výplata",
-            currency: CURRENCY,
             date: date
           )
         end
@@ -281,6 +281,18 @@ module Demo
             date: trade_date
           )
         end
+      end
+
+      def create_transaction_entry!(account:, category:, amount:, name:, date:)
+        entry = account.entries.create!(
+          entryable: Transaction.new(category: category),
+          amount: amount,
+          name: name,
+          currency: CURRENCY,
+          date: date
+        )
+        Merchant::Assigner.assign_to_transaction!(entry.entryable, entry_name: name)
+        entry
       end
 
       def ensure_security_prices!(security, base_price, start_date)
