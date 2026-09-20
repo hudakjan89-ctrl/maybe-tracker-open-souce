@@ -47,9 +47,9 @@
         icon: "rotate-ccw",
         method: :put,
         confirm: CustomConfirm.new(
-          title: "Revert import?",
-          body: "This will delete transactions that were imported, but you will still be able to review and re-import your data at any time.",
-          btn_text: "Revert"
+          title: "Vrátiť import späť?",
+          body: "Zmažú sa transakcie z tohto importu. Údaje si však môžete kedykoľvek znova pozrieť a naimportovať.",
+          btn_text: "Vrátiť späť"
         )) %>
 
     <% else %>
@@ -59,7 +59,7 @@
         href: import_path(import),
         icon: "trash-2",
         method: :delete,
-        confirm: CustomConfirm.for_resource_deletion("import")) %>
+        confirm: CustomConfirm.for_resource_deletion("tento import")) %>
     <% end %>
   <% end %>
 </div>

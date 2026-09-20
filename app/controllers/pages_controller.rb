@@ -27,6 +27,7 @@ class PagesController < ApplicationController
       .visible
       .reverse_chronological
       .limit(8)
+    Category::Normalizer.normalize!(Current.family)
     @current_budget = Budget.find_or_bootstrap(Current.family, start_date: Date.current)
     @dashboard = Dashboard::Overview.new(Current.family)
 

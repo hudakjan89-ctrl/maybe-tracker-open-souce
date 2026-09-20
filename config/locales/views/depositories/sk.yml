@@ -2,9 +2,9 @@
 sk:
   depositories:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     form:
-      none: Zatiaľ žiadnene
-      subtype_prompt: Vybrať account type
+      none: Žiadny
+      subtype_prompt: Vyberte typ účtu
     new:
-      title: Zadať zostatok účtu
+      title: Zadajte zostatok účtu

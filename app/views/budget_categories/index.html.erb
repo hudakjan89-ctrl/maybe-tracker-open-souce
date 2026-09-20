@@ -23,24 +23,33 @@
         <div class="max-w-md mx-auto">
           <%= render "budget_categories/allocation_progress", budget: @budget %>
 
+          <% visible_groups, hidden_groups = BudgetCategory::Group.split_by_relevance(@budget_categories) %>
+
           <div class="space-y-4 mb-4">
-            <% BudgetCategory::Group.for(@budget_categories).sort_by(&:name).each do |group| %>
-              <div class="space-y-4">
-                <%= render "budget_categories/budget_category_form", budget_category: group.budget_category %>
+            <% visible_groups.each do |group| %>
+              <%= render "budget_categories/group_form", group: group %>
+            <% end %>
 
-                <div class="space-y-4">
-                  <% group.budget_subcategories.each do |budget_subcategory| %>
-                    <div class="w-full flex items-center gap-4">
-                      <div class="ml-4 flex items-center justify-center text-subdued">
-                        <%= icon("corner-down-right") %>
-                      </div>
-
-                      <%= render "budget_categories/budget_category_form", budget_category: budget_subcategory %>
-                    </div>
+            <% if hidden_groups.any? %>
+              <%= render layout: "shared/show_more_disclosure", locals: { count: hidden_groups.size } do %>
+                <div class="space-y-4 pt-1">
+                  <% hidden_groups.each do |group| %>
+                    <%= render "budget_categories/group_form", group: group %>
                   <% end %>
                 </div>
-              </div>
+              <% end %>
             <% end %>
+
+            <div class="pt-2">
+              <%= render DS::Link.new(
+                text: "Pridať kategóriu",
+                icon: "plus",
+                href: new_category_path,
+                frame: :modal,
+                variant: "outline",
+                full_width: true
+              ) %>
+            </div>
 
             <%= render "budget_categories/uncategorized_budget_category_form", budget: @budget %>
           </div>

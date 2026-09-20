@@ -3,88 +3,88 @@ sk:
   import:
     cleans:
       show:
-        description: Horeraviť your data in the table below.  Red cells are invalid.
-        errors_notice: You have errors in your data.  Hover over the error to see
-          details.
-        errors_notice_mobile: You have errors in your data.  Tap over the error tooltip
-          to see details.
-        title: Clean your data
+        description: Upravte svoje údaje v tabuľke nižšie. Červené polia sú neplatné.
+        errors_notice: Vo vašich údajoch sú chyby. Podrobnosti zobrazíte prejdením
+          kurzorom nad chybu.
+        errors_notice_mobile: Vo vašich údajoch sú chyby. Podrobnosti zobrazíte ťuknutím
+          na bublinu s chybou.
+        title: Vyčistite svoje údaje
     configurations:
       mint_import:
-        date_format_label: Formaát dátumu
+        date_format_label: Formát dátumu
       show:
-        description: Vybrať the columns that correspond to each field in your CSV.
-        title: Konfigurovať your import
+        description: Vyberte stĺpce, ktoré zodpovedajú jednotlivým poliam vo vašom
+          CSV.
+        title: Nastavte svoj import
       trade_import:
-        date_format_label: Formaát dátumu
+        date_format_label: Formát dátumu
       transaction_import:
-        date_format_label: Formaát dátumu
+        date_format_label: Formát dátumu
     confirms:
       mappings:
         create_account: Vytvoriť účet
-        csv_mapping_label: "%{mapping} in CSV"
-        maybe_mapping_label: "%{mapping} in Maybe"
-        no_accounts: You don't have any accounts yet. Prosím create an account that
-          we can use for (unassigned) rows in your CSV or go back to the Clean step
-          and provide an account name we can use.
-        rows_label: Rows
-        unassigned_account: Need to create a new account for unassigned rows?
+        csv_mapping_label: "%{mapping} v CSV"
+        maybe_mapping_label: "%{mapping} v Maybe"
+        no_accounts: Zatiaľ nemáte žiadne účty. Vytvorte, prosím, účet, ktorý použijeme
+          pre nepriradené riadky vo vašom CSV, alebo sa vráťte na krok čistenia údajov
+          a zadajte názov účtu, ktorý môžeme použiť.
+        rows_label: Riadky
+        unassigned_account: Potrebujete vytvoriť nový účet pre nepriradené riadky?
       show:
-        account_mapping_description: Priradiť all of your imported file's accounts
-          to Maybe's existing accounts.  You can also add new accounts or leave them
-          uncategorized.
-        account_mapping_title: Priradiť your accounts
-        account_type_mapping_description: Priradiť all of your imported file's account
-          types to Maybe's
-        account_type_mapping_title: Priradiť your account types
-        category_mapping_description: Priradiť all of your imported file's categories
-          to Maybe's existing categories.  You can also add new categories or leave
-          them uncategorized.
-        category_mapping_title: Priradiť your categories
-        tag_mapping_description: Priradiť all of your imported file's tags to Maybe's
-          existing tags.  You can also add new tags or leave them uncategorized.
-        tag_mapping_title: Priradiť your tags
+        account_mapping_description: Priraďte všetky účty z importovaného súboru k
+          existujúcim účtom v Maybe. Môžete tiež pridať nové účty alebo ich nechať
+          nezaradené.
+        account_mapping_title: Priraďte svoje účty
+        account_type_mapping_description: Priraďte všetky typy účtov z importovaného
+          súboru k typom účtov v Maybe
+        account_type_mapping_title: Priraďte typy svojich účtov
+        category_mapping_description: Priraďte všetky kategórie z importovaného súboru
+          k existujúcim kategóriám v Maybe. Môžete tiež pridať nové kategórie alebo
+          ich nechať nezaradené.
+        category_mapping_title: Priraďte svoje kategórie
+        tag_mapping_description: Priraďte všetky štítky z importovaného súboru k existujúcim
+          štítkom v Maybe. Môžete tiež pridať nové štítky alebo ich nechať nezaradené.
+        tag_mapping_title: Priraďte svoje štítky
     uploads:
       show:
-        description: Vložiť or upload your CSV file below.  Prosím review the instructions
-          in the table below before beginning.
-        instructions_1: Below is an example CSV with columns available for import.
-        instructions_2: Your CSV must have a header row
-        instructions_3: You may name your columns anything you like.  You will map
-          them at a later step.
-        instructions_4: Columns marked with an asterisk (*) are required data.
-        instructions_5: Zatiaľ žiadne commas, no currency symbols, and no parentheses
-          in numbers.
-        title: Importovať your data
+        description: Nižšie vložte alebo nahrajte svoj CSV súbor. Pred začatím si,
+          prosím, prečítajte pokyny v tabuľke nižšie.
+        instructions_1: Nižšie je ukážkové CSV so stĺpcami, ktoré je možné importovať.
+        instructions_2: Vaše CSV musí mať hlavičkový riadok
+        instructions_3: Stĺpce si môžete pomenovať ľubovoľne. Priradíte ich v ďalšom
+          kroku.
+        instructions_4: Stĺpce označené hviezdičkou (*) sú povinné.
+        instructions_5: V číslach nepoužívajte čiarky, symboly mien ani zátvorky.
+        title: Importujte svoje údaje
   imports:
     empty:
-      message: Zatiaľ žiadne imports yet.
-      new: Zatiaľ žiadnevé import
+      message: Zatiaľ žiadne importy.
+      new: Nový import
     import:
       complete: Dokončené
       delete: Vymazať
       failed: Zlyhalo
       in_progress: Prebieha
       label: "%{type}: %{datetime}"
-      revert_failed: Revert failed
-      reverting: Reverting
-      uploading: Spracováva sa rows
+      revert_failed: Vrátenie zlyhalo
+      reverting: Vracia sa späť
+      uploading: Spracúvajú sa riadky
       view: Zobraziť
     index:
-      imports: Importovaťy
-      new: Zatiaľ žiadnevé import
-      title: Importovaťy
+      imports: Importy
+      new: Nový import
+      title: Importy
     new:
-      description: You can manually import various types of data via CSV or use one
-        of our import templates like Mint.
-      import_accounts: Importovaťovať účty
-      import_mint: Importovať from Mint
-      import_portfolio: Importovať investments
-      import_transactions: Importovaťovať transakcie
-      resume: Pokračovať %{type}
-      sources: Zdrojs
-      title: Zatiaľ žiadnevé CSV Importovať
+      description: Rôzne typy údajov môžete importovať manuálne cez CSV alebo použiť
+        niektorú z našich šablón, napríklad Mint.
+      import_accounts: Importovať účty
+      import_mint: Importovať z Mintu
+      import_portfolio: Importovať investície
+      import_transactions: Importovať transakcie
+      resume: Pokračovať – %{type}
+      sources: Zdroje
+      title: Nový import z CSV
     ready:
-      description: Here's a summary of the new items that will be added to your account
-        once you publish this import.
-      title: Potvrdiť your import data
+      description: Tu je súhrn nových položiek, ktoré sa po publikovaní tohto importu
+        pridajú do vášho účtu.
+      title: Potvrďte údaje importu

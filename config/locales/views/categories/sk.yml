@@ -2,33 +2,33 @@
 sk:
   categories:
     bootstrap:
-      success: Predvolené categories created successfully
+      success: Predvolené kategórie boli úspešne vytvorené
     category:
-      delete: Vymazať category
-      edit: Horeraviť category
+      delete: Vymazať kategóriu
+      edit: Upraviť kategóriu
     create:
-      success: Kategória created successfully
+      success: Kategória bola úspešne vytvorená
     destroy:
-      success: Kategória deleted successfully
+      success: Kategória bola úspešne vymazaná
     edit:
-      edit: Horeraviť category
+      edit: Upraviť kategóriu
     form:
-      placeholder: Kategória name
+      placeholder: Názov kategórie
     index:
-      bootstrap: Use defaults (recommended)
+      bootstrap: Použiť predvolené (odporúčané)
       categories: Kategórie
-      categories_expenses: Výdavok categories
-      categories_incomes: Príjem categories
-      empty: Zatiaľ žiadne categories found
-      new: Zatiaľ žiadnevé category
+      categories_expenses: Kategórie výdavkov
+      categories_incomes: Kategórie príjmov
+      empty: Nenašli sa žiadne kategórie
+      new: Nová kategória
     menu:
       loading: Načítava sa...
     new:
-      new_category: Zatiaľ žiadnevé category
+      new_category: Nová kategória
     update:
-      success: Kategória updated successfully
+      success: Kategória bola úspešne aktualizovaná
   category:
     dropdowns:
       show:
-        bootstrap: Generovať default categories
-        empty: Zatiaľ žiadne categories found
+        bootstrap: Vytvoriť predvolené kategórie
+        empty: Nenašli sa žiadne kategórie

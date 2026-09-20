@@ -12,7 +12,7 @@
               <%= account.name %>
             </span>
             <span class="text-red-500 animate-pulse">
-              (deletion in progress...)
+              (prebieha mazanie...)
             </span>
           </p>
         <% else %>
@@ -31,7 +31,7 @@
     </div>
     <div class="flex items-center gap-8">
       <% if account.draft? %>
-        <!-- Balance hidden for draft accounts -->
+        <%# Rozpracované účty zostatok nezobrazujú %>
       <% elsif account.syncing? %>
         <div class="w-16 h-6 bg-loader rounded-full animate-pulse"></div>
       <% else %>
@@ -42,7 +42,7 @@
 
       <% if account.draft? %>
         <%= render DS::Link.new(
-          text: "Complete setup",
+          text: "Dokončiť nastavenie",
           href: edit_account_path(account, return_to: return_to),
           variant: :outline,
           frame: :modal

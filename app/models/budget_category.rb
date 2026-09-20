@@ -8,6 +8,9 @@ class BudgetCategory < ApplicationRecord
 
   monetize :budgeted_spending, :available_to_spend, :avg_monthly_expense, :median_monthly_expense, :actual_spending
 
+  # Koľko kategórií ukážeme hneď; zvyšok sa skryje za rozbaľovacie tlačidlo.
+  VISIBLE_LIMIT = 5
+
   class Group
     attr_reader :budget_category, :budget_subcategories
 
@@ -22,9 +25,35 @@ class BudgetCategory < ApplicationRecord
       end.sort_by { |group| group.category.name }
     end
 
+    # Najdôležitejšie kategórie ako prvé: tie, do ktorých už používateľ rozdelil
+    # peniaze, potom tie, v ktorých v minulosti najviac míňal.
+    def self.by_relevance(budget_categories)
+      self.for(budget_categories).sort_by do |group|
+        [
+          group.budgeted? ? 0 : 1,
+          -group.typical_monthly_expense,
+          group.name
+        ]
+      end
+    end
+
+    # Prvých VISIBLE_LIMIT skupín a zvyšok, ktorý sa skryje za rozbalenie.
+    def self.split_by_relevance(budget_categories, limit: VISIBLE_LIMIT)
+      groups = by_relevance(budget_categories)
+      [ groups.first(limit), groups.drop(limit) ]
+    end
+
     def initialize(budget_category, budget_subcategories = [])
       @budget_category = budget_category
       @budget_subcategories = budget_subcategories
+    end
+
+    def budgeted?
+      (budget_category.budgeted_spending || 0).to_d.positive?
+    end
+
+    def typical_monthly_expense
+      (budget_category.median_monthly_expense || 0).to_d
     end
   end
 

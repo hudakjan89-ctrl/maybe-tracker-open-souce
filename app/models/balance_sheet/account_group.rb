@@ -33,6 +33,10 @@ class BalanceSheet::AccountGroup
     accountable_type.to_s.underscore
   end
 
+  def new_account_label
+    Accountable.from_type(accountable_type.to_s)&.new_account_label || "Nový účet"
+  end
+
   def total
     accounts.sum(&:converted_balance)
   end

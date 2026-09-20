@@ -1,40 +1,34 @@
 <%# locals: (entry:, size: "md") %>
-<% transaction = entry.entryable %>
-<% category = transaction.respond_to?(:category) ? transaction.category : nil %>
-<% merchant = transaction.respond_to?(:merchant) ? transaction.merchant : nil %>
-<% logo_url = merchant&.logo_url.presence || MerchantLogo::LogoUrl.for(entry.name) %>
-<% emoji = MerchantLogo::LogoUrl.emoji_for(entry.name) %>
-<% size_classes = { "sm" => "w-8 h-8 text-sm", "md" => "w-10 h-10 text-base", "lg" => "w-12 h-12 text-lg" } %>
-<% dims = size_classes.fetch(size, size_classes["md"]) %>
+<% entryable = entry.entryable %>
+<% category = entryable.respond_to?(:category) ? entryable.category : nil %>
+<% merchant = entryable.respond_to?(:merchant) ? entryable.merchant : nil %>
+<% candidates = MerchantLogo.logo_candidates_for(entry.name) %>
+<% logo_url = merchant&.logo_url.presence || candidates.first %>
+<% fallback_logo_url = candidates.second %>
+<% emoji = MerchantLogo.emoji_for(entry.name) %>
+<% dims = { "sm" => "w-8 h-8 text-sm", "md" => "w-10 h-10 text-base", "lg" => "w-12 h-12 text-lg" }.fetch(size, "w-10 h-10 text-base") %>
+<% tint = category&.color || "#737373" %>
 
-<% if logo_url.present? %>
-  <%= image_tag logo_url,
-        class: "#{dims.split.first(2).join(' ')} rounded-full object-cover bg-container-inset shrink-0",
-        loading: "lazy",
-        alt: entry.name,
-        onerror: "this.style.display='none'; this.nextElementSibling?.classList.remove('hidden')" %>
-  <div class="hidden <%= dims %> rounded-full shrink-0 flex items-center justify-center font-medium"
-       style="background-color: <%= hex_with_alpha(category&.color || '#737373', 0.15) %>; color: <%= category&.color || '#737373' %>">
+<% fallback = capture do %>
+  <div class="<%= dims %> <%= "hidden" if logo_url.present? %> rounded-full shrink-0 flex items-center justify-center font-medium"
+       style="background-color: <%= hex_with_alpha(tint, 0.15) %>; color: <%= tint %>">
     <% if emoji.present? %>
-      <%= emoji %>
+      <span class="leading-none"><%= emoji %></span>
     <% elsif category&.lucide_icon.present? %>
       <%= icon category.lucide_icon, size: "sm", color: "current" %>
     <% else %>
-      <%= entry.name.first.upcase %>
+      <%= entry.name.to_s.first.to_s.upcase.presence || "?" %>
     <% end %>
   </div>
-<% elsif emoji.present? %>
-  <div class="<%= dims %> rounded-full shrink-0 flex items-center justify-center bg-container-inset">
-    <%= emoji %>
-  </div>
-<% elsif category&.lucide_icon.present? %>
-  <div class="<%= dims %> rounded-full shrink-0 flex items-center justify-center"
-       style="background-color: <%= hex_with_alpha(category.color, 0.15) %>; color: <%= category.color %>">
-    <%= icon category.lucide_icon, size: "sm", color: "current" %>
-  </div>
-<% else %>
-  <div class="<%= dims %> rounded-full shrink-0 flex items-center justify-center font-medium"
-       style="background-color: <%= hex_with_alpha(category&.color || '#737373', 0.15) %>; color: <%= category&.color || '#737373' %>">
-    <%= entry.name.first.upcase %>
-  </div>
 <% end %>
+
+<% if logo_url.present? %>
+  <%= image_tag logo_url,
+        class: "#{dims} rounded-full object-contain bg-white shrink-0 p-0.5 border border-secondary",
+        loading: "lazy",
+        referrerpolicy: "no-referrer",
+        alt: entry.name,
+        data: { fallback_src: fallback_logo_url }.compact,
+        onerror: "if(this.dataset.fallbackSrc && this.src!==this.dataset.fallbackSrc){this.src=this.dataset.fallbackSrc}else{this.style.display='none';this.nextElementSibling?.classList.remove('hidden')}" %>
+<% end %>
+<%= fallback %>

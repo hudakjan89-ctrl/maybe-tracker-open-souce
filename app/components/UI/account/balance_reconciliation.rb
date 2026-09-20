@@ -29,103 +29,103 @@ class UI::Account::BalanceReconciliation < ApplicationComponent
 
     def default_items
       items = [
-        { label: "Start balance", value: balance.start_balance_money, tooltip: "The account balance at the beginning of this day", style: :start },
-        { label: "Net cash flow", value: net_cash_flow, tooltip: "Net change in balance from all transactions during the day", style: :flow }
+        { label: "Počiatočný zostatok", value: balance.start_balance_money, tooltip: "Zostatok na účte na začiatku tohto dňa", style: :start },
+        { label: "Čistý tok hotovosti", value: net_cash_flow, tooltip: "Čistá zmena zostatku zo všetkých transakcií počas dňa", style: :flow }
       ]
 
       if has_adjustments?
-        items << { label: "End balance", value: end_balance_before_adjustments, tooltip: "The calculated balance after all transactions", style: :subtotal }
-        items << { label: "Adjustments", value: total_adjustments, tooltip: "Manual reconciliations or other adjustments", style: :adjustment }
+        items << { label: "Vypočítaný zostatok", value: end_balance_before_adjustments, tooltip: "Zostatok vypočítaný po všetkých transakciách", style: :subtotal }
+        items << { label: "Úpravy", value: total_adjustments, tooltip: "Ručné úpravy alebo iné korekcie", style: :adjustment }
       end
 
-      items << { label: "Final balance", value: balance.end_balance_money, tooltip: "The final account balance for the day", style: :final }
+      items << { label: "Konečný zostatok", value: balance.end_balance_money, tooltip: "Konečný zostatok na účte za tento deň", style: :final }
       items
     end
 
     def credit_card_items
       items = [
-        { label: "Start balance", value: balance.start_balance_money, tooltip: "The balance owed at the beginning of this day", style: :start },
-        { label: "Charges", value: balance.cash_outflows_money, tooltip: "New charges made during the day", style: :flow },
-        { label: "Payments", value: balance.cash_inflows_money * -1, tooltip: "Payments made to the card during the day", style: :flow }
+        { label: "Počiatočný zostatok", value: balance.start_balance_money, tooltip: "Dlžná suma na začiatku tohto dňa", style: :start },
+        { label: "Platby kartou", value: balance.cash_outflows_money, tooltip: "Nové platby kartou uskutočnené počas dňa", style: :flow },
+        { label: "Splátky", value: balance.cash_inflows_money * -1, tooltip: "Splátky uhradené na kartu počas dňa", style: :flow }
       ]
 
       if has_adjustments?
-        items << { label: "End balance", value: end_balance_before_adjustments, tooltip: "The calculated balance after all transactions", style: :subtotal }
-        items << { label: "Adjustments", value: total_adjustments, tooltip: "Manual reconciliations or other adjustments", style: :adjustment }
+        items << { label: "Vypočítaný zostatok", value: end_balance_before_adjustments, tooltip: "Zostatok vypočítaný po všetkých transakciách", style: :subtotal }
+        items << { label: "Úpravy", value: total_adjustments, tooltip: "Ručné úpravy alebo iné korekcie", style: :adjustment }
       end
 
-      items << { label: "Final balance", value: balance.end_balance_money, tooltip: "The final balance owed for the day", style: :final }
+      items << { label: "Konečný zostatok", value: balance.end_balance_money, tooltip: "Konečná dlžná suma za tento deň", style: :final }
       items
     end
 
     def investment_items
       items = [
-        { label: "Start balance", value: balance.start_balance_money, tooltip: "The total portfolio value at the beginning of this day", style: :start }
+        { label: "Počiatočný zostatok", value: balance.start_balance_money, tooltip: "Celková hodnota portfólia na začiatku tohto dňa", style: :start }
       ]
 
       # Change in brokerage cash (includes deposits, withdrawals, and cash from trades)
-      items << { label: "Change in brokerage cash", value: net_cash_flow, tooltip: "Net change in cash from deposits, withdrawals, and trades", style: :flow }
+      items << { label: "Zmena hotovosti na účte", value: net_cash_flow, tooltip: "Čistá zmena hotovosti z vkladov, výberov a obchodov", style: :flow }
 
       # Change in holdings from trading activity
-      items << { label: "Change in holdings (buys/sells)", value: net_non_cash_flow, tooltip: "Impact on holdings from buying and selling securities", style: :flow }
+      items << { label: "Zmena držieb (nákupy/predaje)", value: net_non_cash_flow, tooltip: "Vplyv nákupu a predaja cenných papierov na držby", style: :flow }
 
       # Market price changes
-      items << { label: "Change in holdings (market price activity)", value: balance.net_market_flows_money, tooltip: "Change in holdings value from market price movements", style: :flow }
+      items << { label: "Zmena držieb (pohyb trhových cien)", value: balance.net_market_flows_money, tooltip: "Zmena hodnoty držieb v dôsledku pohybu trhových cien", style: :flow }
 
       if has_adjustments?
-        items << { label: "End balance", value: end_balance_before_adjustments, tooltip: "The calculated balance after all activity", style: :subtotal }
-        items << { label: "Adjustments", value: total_adjustments, tooltip: "Manual reconciliations or other adjustments", style: :adjustment }
+        items << { label: "Vypočítaný zostatok", value: end_balance_before_adjustments, tooltip: "Zostatok vypočítaný po všetkých pohyboch", style: :subtotal }
+        items << { label: "Úpravy", value: total_adjustments, tooltip: "Ručné úpravy alebo iné korekcie", style: :adjustment }
       end
 
-      items << { label: "Final balance", value: balance.end_balance_money, tooltip: "The final portfolio value for the day", style: :final }
+      items << { label: "Konečný zostatok", value: balance.end_balance_money, tooltip: "Konečná hodnota portfólia za tento deň", style: :final }
       items
     end
 
     def loan_items
       items = [
-        { label: "Start principal", value: balance.start_balance_money, tooltip: "The principal balance at the beginning of this day", style: :start },
-        { label: "Net principal change", value: net_non_cash_flow, tooltip: "Principal payments and new borrowing during the day", style: :flow }
+        { label: "Počiatočná istina", value: balance.start_balance_money, tooltip: "Zostatok istiny na začiatku tohto dňa", style: :start },
+        { label: "Čistá zmena istiny", value: net_non_cash_flow, tooltip: "Splátky istiny a nové čerpanie úveru počas dňa", style: :flow }
       ]
 
       if has_adjustments?
-        items << { label: "End principal", value: end_balance_before_adjustments, tooltip: "The calculated principal after all transactions", style: :subtotal }
-        items << { label: "Adjustments", value: balance.non_cash_adjustments_money, tooltip: "Manual reconciliations or other adjustments", style: :adjustment }
+        items << { label: "Vypočítaná istina", value: end_balance_before_adjustments, tooltip: "Istina vypočítaná po všetkých transakciách", style: :subtotal }
+        items << { label: "Úpravy", value: balance.non_cash_adjustments_money, tooltip: "Ručné úpravy alebo iné korekcie", style: :adjustment }
       end
 
-      items << { label: "Final principal", value: balance.end_balance_money, tooltip: "The final principal balance for the day", style: :final }
+      items << { label: "Konečná istina", value: balance.end_balance_money, tooltip: "Konečný zostatok istiny za tento deň", style: :final }
       items
     end
 
     def asset_items # Property/Vehicle
       items = [
-        { label: "Start value", value: balance.start_balance_money, tooltip: "The asset value at the beginning of this day", style: :start },
-        { label: "Net value change", value: net_total_flow, tooltip: "All value changes including improvements and depreciation", style: :flow }
+        { label: "Počiatočná hodnota", value: balance.start_balance_money, tooltip: "Hodnota aktíva na začiatku tohto dňa", style: :start },
+        { label: "Čistá zmena hodnoty", value: net_total_flow, tooltip: "Všetky zmeny hodnoty vrátane zhodnotenia a odpisov", style: :flow }
       ]
 
       if has_adjustments?
-        items << { label: "End value", value: end_balance_before_adjustments, tooltip: "The calculated value after all changes", style: :subtotal }
-        items << { label: "Adjustments", value: total_adjustments, tooltip: "Manual value adjustments or appraisals", style: :adjustment }
+        items << { label: "Vypočítaná hodnota", value: end_balance_before_adjustments, tooltip: "Hodnota vypočítaná po všetkých zmenách", style: :subtotal }
+        items << { label: "Úpravy", value: total_adjustments, tooltip: "Ručné úpravy hodnoty alebo odhady", style: :adjustment }
       end
 
-      items << { label: "Final value", value: balance.end_balance_money, tooltip: "The final asset value for the day", style: :final }
+      items << { label: "Konečná hodnota", value: balance.end_balance_money, tooltip: "Konečná hodnota aktíva za tento deň", style: :final }
       items
     end
 
     def crypto_items
       items = [
-        { label: "Start balance", value: balance.start_balance_money, tooltip: "The crypto holdings value at the beginning of this day", style: :start }
+        { label: "Počiatočný zostatok", value: balance.start_balance_money, tooltip: "Hodnota kryptomien na začiatku tohto dňa", style: :start }
       ]
 
-      items << { label: "Buys", value: balance.cash_outflows_money * -1, tooltip: "Crypto purchases during the day", style: :flow } if balance.cash_outflows != 0
-      items << { label: "Sells", value: balance.cash_inflows_money, tooltip: "Crypto sales during the day", style: :flow } if balance.cash_inflows != 0
-      items << { label: "Market changes", value: balance.net_market_flows_money, tooltip: "Value changes from market price movements", style: :flow } if balance.net_market_flows != 0
+      items << { label: "Nákupy", value: balance.cash_outflows_money * -1, tooltip: "Nákupy kryptomien počas dňa", style: :flow } if balance.cash_outflows != 0
+      items << { label: "Predaje", value: balance.cash_inflows_money, tooltip: "Predaje kryptomien počas dňa", style: :flow } if balance.cash_inflows != 0
+      items << { label: "Zmeny na trhu", value: balance.net_market_flows_money, tooltip: "Zmeny hodnoty v dôsledku pohybu trhových cien", style: :flow } if balance.net_market_flows != 0
 
       if has_adjustments?
-        items << { label: "End balance", value: end_balance_before_adjustments, tooltip: "The calculated balance after all activity", style: :subtotal }
-        items << { label: "Adjustments", value: total_adjustments, tooltip: "Manual reconciliations or other adjustments", style: :adjustment }
+        items << { label: "Vypočítaný zostatok", value: end_balance_before_adjustments, tooltip: "Zostatok vypočítaný po všetkých pohyboch", style: :subtotal }
+        items << { label: "Úpravy", value: total_adjustments, tooltip: "Ručné úpravy alebo iné korekcie", style: :adjustment }
       end
 
-      items << { label: "Final balance", value: balance.end_balance_money, tooltip: "The final crypto holdings value for the day", style: :final }
+      items << { label: "Konečný zostatok", value: balance.end_balance_money, tooltip: "Konečná hodnota kryptomien za tento deň", style: :final }
       items
     end
 

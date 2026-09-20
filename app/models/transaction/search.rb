@@ -98,7 +98,7 @@ class Transaction::Search
         categories
       )
 
-      if categories.exclude?("Uncategorized")
+      if categories.exclude?(Category.uncategorized.name)
         query = query.where.not(category_id: nil)
       end
 

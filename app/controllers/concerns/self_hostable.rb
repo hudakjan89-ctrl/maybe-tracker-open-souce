@@ -23,7 +23,7 @@ module SelfHostable
       if controller_name == "pages" && action_name == "redis_configuration_error"
         # If Redis is now working, redirect to home
         if redis_connected?
-          redirect_to root_path, notice: "Redis is now configured properly! You can now setup your Maybe application."
+          redirect_to root_path, notice: "Redis je správne nastavený. Teraz môžete pokračovať v nastavení aplikácie."
         end
 
         return

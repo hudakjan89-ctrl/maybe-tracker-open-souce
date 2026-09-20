@@ -2,11 +2,10 @@ class Depository < ApplicationRecord
   include Accountable
 
   SUBTYPES = {
-    "checking" => { short: "Checking", long: "Checking" },
-    "savings" => { short: "Savings", long: "Savings" },
-    "hsa" => { short: "HSA", long: "Health Savings Account" },
-    "cd" => { short: "CD", long: "Certificate of Deposit" },
-    "money_market" => { short: "MM", long: "Money Market" }
+    "checking" => { short: "Bežný", long: "Bežný účet" },
+    "savings" => { short: "Sporiaci", long: "Sporiaci účet" },
+    "cd" => { short: "Termínovaný", long: "Termínovaný vklad" },
+    "money_market" => { short: "Peňažný trh", long: "Fond peňažného trhu" }
   }.freeze
 
   class << self

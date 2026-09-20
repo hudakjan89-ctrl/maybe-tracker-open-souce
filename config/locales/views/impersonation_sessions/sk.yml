@@ -2,14 +2,14 @@
 sk:
   impersonation_sessions:
     approve:
-      success: Request approved
+      success: Žiadosť bola schválená
     complete:
-      success: Relácia completed
+      success: Relácia bola ukončená
     create:
-      success: Request sent to user. Počkaťing for approval.
+      success: Žiadosť bola odoslaná používateľovi. Čaká sa na schválenie.
     join:
-      success: Pripojiť saed session
+      success: Pripojili ste sa k relácii
     leave:
-      success: Vľavo session
+      success: Opustili ste reláciu
     reject:
-      success: Request rejected
+      success: Žiadosť bola zamietnutá

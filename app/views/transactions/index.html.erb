@@ -63,11 +63,11 @@
             <%= check_box_tag "selection_entry",
                               class: "checkbox checkbox--light",
                               data: { action: "bulk-select#togglePageSelection" } %>
-            <p>transaction</p>
+            <p>transakcia</p>
           </div>
 
-          <p class="col-span-2">category</p>
-          <p class="col-span-2 justify-self-end">amount</p>
+          <p class="col-span-2">kategória</p>
+          <p class="col-span-2 justify-self-end">suma</p>
         </div>
 
         <% if @transactions.any? %>
@@ -75,7 +75,7 @@
             <%= check_box_tag "selection_entry",
                               class: "checkbox checkbox--light mr-2 ml-1",
                               data: { action: "bulk-select#togglePageSelection" } %>
-            <span>TRANSACTION</span>
+            <span>TRANSAKCIA</span>
           </div>
         <% end %>
 

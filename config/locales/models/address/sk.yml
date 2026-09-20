@@ -3,9 +3,9 @@ sk:
   address:
     attributes:
       country: Krajina
-      line1: Adresa Čiara 1
-      line2: Adresa Čiara 2
-      locality: Lokálneity
-      postal_code: Postal Kód
+      line1: Adresa – riadok 1
+      line2: Adresa – riadok 2
+      locality: Mesto
+      postal_code: PSČ
       region: Región
     format: "%{line1} %{line2}, %{locality}, %{region} %{postal_code} %{country}"

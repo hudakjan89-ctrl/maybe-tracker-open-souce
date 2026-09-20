@@ -2,37 +2,37 @@
 sk:
   mfa:
     backup_codes:
-      backup_codes_description: Each code can only be used once. Keep these codes
-        safe and secure.
-      backup_codes_title: Your Záloha Kóds
-      continue: Pokračovať to Zabezpečenie Nastavenia
-      description: Obchod these backup codes in a safe place - you'll need them if
-        you lose access to your authenticator app
-      page_title: Záloha Kóds
-      title: Uložiť Your Záloha Kóds
+      backup_codes_description: Každý kód sa dá použiť iba raz. Uchovávajte tieto kódy
+        v bezpečí.
+      backup_codes_title: Vaše zálohové kódy
+      continue: Pokračovať do nastavení zabezpečenia
+      description: Uložte si tieto zálohové kódy na bezpečné miesto – budete ich potrebovať,
+        ak stratíte prístup k svojej autentifikačnej aplikácii
+      page_title: Zálohové kódy
+      title: Uložte si zálohové kódy
     create:
-      invalid_code: Neplatné verification code. Prosím try again.
+      invalid_code: Neplatný overovací kód. Skúste to, prosím, znova.
     disable:
-      success: Two-factor authentication has been disabled
+      success: Dvojfaktorové overenie bolo vypnuté
     new:
-      code_label: Verification Kód
-      code_placeholder: Enter 6-digit code
-      description: Enhance your account security by setting up two-factor authentication
-      page_title: Two-Faktor Authentication Nastavenie
-      scan_description: Use an authenticator app like Ísťogle Authenticator or 1Heslo
-        to scan this QR code
-      scan_title: 1. Skenovať QR Kód
-      secret_description: If you can't scan the QR code, enter this secret key manually
-        in your authenticator app
-      secret_title: Manuálne Entry Kód
-      title: Množina Hore Two-Faktor Authentication
-      verify_button: Overiť and Zapnúť 2FA
-      verify_description: Enter the 6-digit code from your authenticator app
-      verify_title: 2. Enter Verification Kód
+      code_label: Overovací kód
+      code_placeholder: Zadajte 6-miestny kód
+      description: Zvýšte bezpečnosť svojho účtu nastavením dvojfaktorového overenia
+      page_title: Nastavenie dvojfaktorového overenia
+      scan_description: Naskenujte tento QR kód autentifikačnou aplikáciou, napríklad
+        Google Authenticator alebo 1Password
+      scan_title: 1. Naskenujte QR kód
+      secret_description: Ak nemôžete naskenovať QR kód, zadajte tento tajný kľúč
+        do autentifikačnej aplikácie manuálne
+      secret_title: Kód na manuálne zadanie
+      title: Nastavte si dvojfaktorové overenie
+      verify_button: Overiť a zapnúť 2FA
+      verify_description: Zadajte 6-miestny kód z autentifikačnej aplikácie
+      verify_title: 2. Zadajte overovací kód
     verify:
-      description: Enter the code from your authenticator app to continue
-      page_title: Overiť Two-Faktor Authentication
-      title: Two-Faktor Authentication
+      description: Pokračujte zadaním kódu z autentifikačnej aplikácie
+      page_title: Dvojfaktorové overenie
+      title: Dvojfaktorové overenie
       verify_button: Overiť
     verify_code:
-      invalid_code: Neplatné authentication code. Prosím try again.
+      invalid_code: Neplatný overovací kód. Skúste to, prosím, znova.

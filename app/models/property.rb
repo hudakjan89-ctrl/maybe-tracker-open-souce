@@ -2,12 +2,12 @@ class Property < ApplicationRecord
   include Accountable
 
   SUBTYPES = {
-    "single_family_home" => { short: "Single Family Home", long: "Single Family Home" },
-    "multi_family_home" => { short: "Multi-Family Home", long: "Multi-Family Home" },
-    "condominium" => { short: "Condo", long: "Condominium" },
-    "townhouse" => { short: "Townhouse", long: "Townhouse" },
-    "investment_property" => { short: "Investment Property", long: "Investment Property" },
-    "second_home" => { short: "Second Home", long: "Second Home" }
+    "single_family_home" => { short: "Dom", long: "Rodinný dom" },
+    "multi_family_home" => { short: "Bytovka", long: "Viacbytový dom" },
+    "condominium" => { short: "Byt", long: "Byt v osobnom vlastníctve" },
+    "townhouse" => { short: "Radovka", long: "Radový dom" },
+    "investment_property" => { short: "Investičná", long: "Investičná nehnuteľnosť" },
+    "second_home" => { short: "Chata", long: "Rekreačná nehnuteľnosť" }
   }.freeze
 
   has_one :address, as: :addressable, dependent: :destroy

@@ -3,15 +3,15 @@
 <% if candidates.any? %>
   <div data-controller="transfer-match" class="space-y-2">
     <p class="text-sm text-secondary">
-      Select a method for matching your transactions.
+      Vyberte spôsob spárovania transakcií.
     </p>
 
     <%= form.select :method,
               [
-                ["Match existing transaction (recommended)", "existing"],
-                ["Create new transaction", "new"]
+                ["Spárovať s existujúcou transakciou (odporúčané)", "existing"],
+                ["Vytvoriť novú transakciu", "new"]
               ],
-              { selected: "existing", label: "Matching method" },
+              { selected: "existing", label: "Spôsob spárovania" },
               data: { action: "change->transfer-match#update" } %>
 
     <div data-transfer-match-target="existingSelect">
@@ -19,19 +19,19 @@
                 candidates.map { |entry|
                   [entry_name_detailed(entry), entry.id]
                 },
-                { label: "Matching transaction" } %>
+                { label: "Protistrana" } %>
     </div>
 
     <div data-transfer-match-target="newSelect" class="hidden">
       <%= form.select :target_account_id,
                 accounts.map { |account| [account.name, account.id] },
-                { label: "Target account" } %>
+                { label: "Cieľový účet" } %>
     </div>
   </div>
 <% else %>
   <p class="text-sm text-secondary">
-    We couldn't find any transactions to match from your other accounts.
-    Please select an account and we will create a new inflow transaction for you.
+    Na vašich ostatných účtoch sme nenašli žiadnu vhodnú transakciu.
+    Vyberte účet a my vytvoríme novú prichádzajúcu transakciu.
   </p>
 
   <%= form.hidden_field :method, value: "new" %>
@@ -39,6 +39,6 @@
   <div>
     <%= form.select :target_account_id,
                 accounts.map { |account| [account.name, account.id] },
-                { label: "Target account" } %>
+                { label: "Cieľový účet" } %>
   </div>
 <% end %>

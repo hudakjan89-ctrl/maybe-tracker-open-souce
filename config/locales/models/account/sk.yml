@@ -5,17 +5,17 @@ sk:
       account:
         balance: Zostatok
         currency: Mena
-        family: Family
-        family_id: Family
+        family: Domácnosť
+        family_id: Domácnosť
         name: Názov
-        subtype: Subtype
+        subtype: Podtyp
     models:
       account: Účet
       account/credit: Kreditná karta
-      account/depository: Zakázaťkový účet
+      account/depository: Bankový účet
       account/investment: Investícia
-      account/loan: Pôžička
-      account/other_asset: Ostatné aktívum
-      account/other_liability: Ostatný záväzok
-      account/property: Nehnuteľnosti
+      account/loan: Úver
+      account/other_asset: Iné aktívum
+      account/other_liability: Iný záväzok
+      account/property: Nehnuteľnosť
       account/vehicle: Vozidlo

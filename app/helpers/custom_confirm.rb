@@ -1,14 +1,17 @@
 # The shape of data expected by `confirm_dialog_controller.js` to override the
 # default browser confirm API via Turbo.
+#
+# `resource_name` sa vkladá do vety „Naozaj chcete zmazať …?“, preto ho volajúci
+# posiela už v akuzatíve (napr. „túto transakciu“, „všetky štítky“).
 class CustomConfirm
   class << self
     def for_resource_deletion(resource_name, high_severity: false)
       new(
         destructive: true,
         high_severity: high_severity,
-        title: "Delete #{resource_name.titleize}?",
-        body: "Are you sure you want to delete #{resource_name.downcase}? This is not reversible.",
-        btn_text: "Delete #{resource_name.titleize}"
+        title: "Zmazať #{resource_name}?",
+        body: "Naozaj chcete zmazať #{resource_name}? Túto akciu nie je možné vrátiť späť.",
+        btn_text: "Zmazať"
       )
     end
   end
@@ -38,14 +41,14 @@ class CustomConfirm
     end
 
     def default_title
-      "Are you sure?"
+      "Ste si istí?"
     end
 
     def default_body
-      "This is not reversible."
+      "Túto akciu nie je možné vrátiť späť."
     end
 
     def default_btn_text
-      "Confirm"
+      "Potvrdiť"
     end
 end

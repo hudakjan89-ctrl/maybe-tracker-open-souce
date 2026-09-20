@@ -4,10 +4,16 @@ class Rule::ConditionFilter
   TYPES = [ "text", "number", "select" ]
 
   OPERATORS_MAP = {
-    "text" => [ [ "Contains", "like" ], [ "Equal to", "=" ] ],
-    "number" => [ [ "Greater than", ">" ], [ "Greater or equal to", ">=" ], [ "Less than", "<" ], [ "Less than or equal to", "<=" ], [ "Is equal to", "=" ] ],
-    "select" => [ [ "Equal to", "=" ] ]
+    "text" => [ [ "Obsahuje", "like" ], [ "Rovná sa", "=" ] ],
+    "number" => [ [ "Väčšie ako", ">" ], [ "Väčšie alebo rovné", ">=" ], [ "Menšie ako", "<" ], [ "Menšie alebo rovné", "<=" ], [ "Rovná sa", "=" ] ],
+    "select" => [ [ "Rovná sa", "=" ] ]
   }
+
+  LABELS = {
+    "transaction_name" => "Názov transakcie",
+    "transaction_amount" => "Suma transakcie",
+    "transaction_merchant" => "Obchodník"
+  }.freeze
 
   def initialize(rule)
     @rule = rule
@@ -27,7 +33,7 @@ class Rule::ConditionFilter
   end
 
   def label
-    key.humanize
+    LABELS.fetch(key, key.humanize)
   end
 
   def options

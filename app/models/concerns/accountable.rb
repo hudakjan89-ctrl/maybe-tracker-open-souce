@@ -66,6 +66,21 @@ module Accountable
       }.fetch(name, name.pluralize.titleize)
     end
 
+    # Text tlačidla na pridanie účtu tohto typu
+    def new_account_label
+      {
+        "Depository" => "Nový účet",
+        "Investment" => "Nový investičný účet",
+        "Crypto" => "Nová krypto peňaženka",
+        "Property" => "Nová nehnuteľnosť",
+        "Vehicle" => "Nové vozidlo",
+        "OtherAsset" => "Nové aktívum",
+        "CreditCard" => "Nová kreditná karta",
+        "Loan" => "Nová pôžička",
+        "OtherLiability" => "Nový záväzok"
+      }.fetch(name, "Nový účet")
+    end
+
     def balance_money(family)
       family.accounts
             .active

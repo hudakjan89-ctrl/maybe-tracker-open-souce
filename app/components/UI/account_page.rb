@@ -47,6 +47,19 @@ class UI::AccountPage < ApplicationComponent
     end
   end
 
+  def tab_label(tab)
+    case tab
+    when :activity
+      "Aktivita"
+    when :holdings
+      "Držby"
+    when :overview
+      "Prehľad"
+    else
+      tab.to_s.humanize
+    end
+  end
+
   def tab_content_for(tab)
     case tab
     when :activity

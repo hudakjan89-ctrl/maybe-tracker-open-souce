@@ -1,0 +1,17 @@
+<%# locals: (group:) %>
+
+<div>
+  <%= render "budget_categories/budget_category", budget_category: group.budget_category %>
+
+  <% group.budget_subcategories.each do |budget_subcategory| %>
+    <div class="w-full flex items-center -mt-4">
+      <div class="ml-8 flex items-center justify-center text-subdued">
+        <%= icon "corner-down-right" %>
+      </div>
+
+      <%= render "budget_categories/budget_category", budget_category: budget_subcategory %>
+    </div>
+  <% end %>
+</div>
+
+<%= render "shared/ruler" %>

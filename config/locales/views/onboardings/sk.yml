@@ -5,24 +5,24 @@ sk:
       sign_out: Odhlásiť sa
     preferences:
       currency: Mena
-      date_format: Formaát dátumu
-      example: Príklad account
+      date_format: Formát dátumu
+      example: Ukážkový účet
       locale: Jazyk
-      preview: Náhľad how data displays based on preferences.
-      submit: Dokončené
-      subtitle: Let's configure your preferences.
+      preview: Náhľad, ako sa údaje zobrazia podľa vašich predvolieb.
+      submit: Dokončiť
+      subtitle: Nastavme si vaše predvoľby.
       title: Nastavte si predvoľby
     profile:
       country: Krajina
       first_name: Meno
-      household_name: Domácnosť Názov
+      household_name: Názov domácnosti
       last_name: Priezvisko
-      profile_image: Profil Obrázok
+      profile_image: Profilová fotka
       submit: Pokračovať
-      subtitle: Let's complete your profile.
-      title: Let's set up the basics
+      subtitle: Dokončme váš profil.
+      title: Nastavme si základné údaje
     show:
-      message: We’re really excited you’re here. In the next step we’ll ask you a
-        few questions to complete your profile and then get you all set up.
-      setup: Množina up account
-      title: Meet Maybe
+      message: Sme veľmi radi, že ste tu. V ďalšom kroku vám položíme niekoľko otázok,
+        aby sme dokončili váš profil a všetko pripravili.
+      setup: Nastaviť účet
+      title: Predstavujeme Maybe

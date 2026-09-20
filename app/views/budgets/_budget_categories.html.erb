@@ -15,26 +15,18 @@
         <%= render "budget_categories/no_categories" %>
       </div>
     <% else %>
-      <% category_groups = BudgetCategory::Group.for(budget.budget_categories) %>
+      <% visible_groups, hidden_groups = BudgetCategory::Group.split_by_relevance(budget.budget_categories) %>
 
-      <% category_groups.each_with_index do |group, index| %>
-        <div>
-          <%= render "budget_categories/budget_category", budget_category: group.budget_category %>
+      <% visible_groups.each do |group| %>
+        <%= render "budgets/budget_category_group", group: group %>
+      <% end %>
 
-          <div>
-            <% group.budget_subcategories.each do |budget_subcategory| %>
-              <div class="w-full flex items-center -mt-4">
-                <div class="ml-8 flex items-center justify-center text-subdued">
-                  <%= icon "corner-down-right" %>
-                </div>
-
-                <%= render "budget_categories/budget_category", budget_category: budget_subcategory %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-
-        <%= render "shared/ruler" %>
+      <% if hidden_groups.any? %>
+        <%= render layout: "shared/show_more_disclosure", locals: { count: hidden_groups.size } do %>
+          <% hidden_groups.each do |group| %>
+            <%= render "budgets/budget_category_group", group: group %>
+          <% end %>
+        <% end %>
       <% end %>
 
       <%= render "budget_categories/budget_category", budget_category: budget.uncategorized_budget_category %>

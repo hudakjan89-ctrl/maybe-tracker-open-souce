@@ -2,6 +2,8 @@ class BudgetCategoriesController < ApplicationController
   before_action :set_budget
 
   def index
+    Category::Normalizer.normalize!(Current.family)
+    @budget.sync_budget_categories
     @budget_categories = @budget.budget_categories.includes(:category)
     render layout: "wizard"
   end

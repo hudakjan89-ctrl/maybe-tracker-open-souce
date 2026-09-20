@@ -2,18 +2,18 @@
 sk:
   invitations:
     create:
-      failure: Could not send invitation
-      success: Invitation sent successfully
+      failure: Pozvánku sa nepodarilo odoslať
+      success: Pozvánka bola úspešne odoslaná
     destroy:
-      failure: There was a problem removing the invitation.
-      not_authorized: You are not authorized to manage invitations.
-      success: Invitation was successfully removed.
+      failure: Pri odstraňovaní pozvánky sa vyskytol problém.
+      not_authorized: Nemáte oprávnenie spravovať pozvánky.
+      success: Pozvánka bola úspešne odstránená.
     new:
-      email_label: E-mail Adresa
-      email_placeholder: Enter email address
-      role_admin: Administrátoristrátor
-      role_label: Role
+      email_label: E-mailová adresa
+      email_placeholder: Zadajte e-mailovú adresu
+      role_admin: Správca
+      role_label: Rola
       role_member: Člen
-      submit: Odoslať Invitation
-      subtitle: Odoslať an invitation to join your family account on Maybe
-      title: Invite Someone
+      submit: Odoslať pozvánku
+      subtitle: Odošlite pozvánku do svojej domácnosti v Maybe
+      title: Pozvať osobu

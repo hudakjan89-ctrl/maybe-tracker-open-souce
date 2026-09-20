@@ -3,9 +3,9 @@ sk:
   category:
     dropdowns:
       row:
-        delete: Vymazať category
-        edit: Horeraviť category
+        delete: Vymazať kategóriu
+        edit: Upraviť kategóriu
       show:
-        clear: Vymazať category
-        no_categories: Zatiaľ žiadne categories found
+        clear: Zrušiť kategóriu
+        no_categories: Nenašli sa žiadne kategórie
         search_placeholder: Hľadať

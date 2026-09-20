@@ -4,18 +4,19 @@ sk:
     attributes:
       user:
         email: E-mail
-        family: Family
-        family_id: Family
+        family: Domácnosť
+        family_id: Domácnosť
         first_name: Meno
         last_name: Priezvisko
         password: Heslo
-        password_confirmation: Heslo Potvrdiťation
+        password_confirmation: Potvrdenie hesla
     errors:
       models:
         user:
           attributes:
             base:
-              cannot_deactivate_admin_with_other_users: Administrátor cannot delete
-                account while other users are present. Prosím delete all members first.
+              cannot_deactivate_admin_with_other_users: Správca nemôže vymazať účet,
+                kým sú v domácnosti ďalší používatelia. Najprv odstráňte všetkých
+                členov.
             profile_image:
-              invalid_file_size: file size must be less than %{max_megabytes}MB
+              invalid_file_size: veľkosť súboru musí byť menšia ako %{max_megabytes} MB

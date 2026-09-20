@@ -2,13 +2,13 @@
 sk:
   entries:
     create:
-      success: Entry created
+      success: Záznam bol vytvorený
     destroy:
-      success: Entry deleted
+      success: Záznam bol vymazaný
     empty:
-      description: Try adding an záznam, editing filters or refining your search
+      description: Skúste pridať záznam, upraviť filtre alebo upresniť hľadanie
       title: Nenašli sa žiadne záznamy
     loading:
-      loading: Načítava sa záznamy...
+      loading: Načítavajú sa záznamy...
     update:
-      success: Entry updated
+      success: Záznam bol aktualizovaný

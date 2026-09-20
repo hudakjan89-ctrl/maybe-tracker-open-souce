@@ -34,7 +34,7 @@
                   <%= icon "palette", size: "2xl", data: { action: "click->category#toggleSections" } %>
                 </div>
                 <div data-category-target="validationMessage" class="hidden self-start flex gap-1 items-center text-xs text-destructive ">
-                  <span>Poor contrast, choose darker color or</span>
+                  <span>Slabý kontrast, zvoľte tmavšiu farbu alebo</span>
                   <button type="button" class="underline cursor-pointer" data-action="category#autoAdjust">auto-adjust.</button>
                 </div>
               </div>
@@ -62,10 +62,10 @@
       <% end %>
 
       <div class="space-y-2">
-        <%= f.select :classification, [["Income", "income"], ["Expense", "expense"]], { label: "Classification" }, required: true %>
-        <%= f.text_field :name, placeholder: t(".placeholder"), required: true, autofocus: true, label: "Name", data: { color_avatar_target: "name" } %>
+        <%= f.select :classification, [["Príjem", "income"], ["Výdavok", "expense"]], { label: "Typ" }, required: true %>
+        <%= f.text_field :name, placeholder: t(".placeholder"), required: true, autofocus: true, label: "Názov", data: { color_avatar_target: "name" } %>
         <% unless category.parent? %>
-          <%= f.select :parent_id, categories.pluck(:name, :id), { include_blank: "(unassigned)", label: "Parent category (optional)" }, disabled: category.parent?, data: { action: "change->category#handleParentChange" } %>
+          <%= f.select :parent_id, categories.pluck(:name, :id), { include_blank: "(žiadna)", label: "Nadradená kategória (nepovinné)" }, disabled: category.parent?, data: { action: "change->category#handleParentChange" } %>
         <% end %>
       </div>
     </section>

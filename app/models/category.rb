@@ -23,6 +23,16 @@ class Category < ApplicationRecord
 
   COLORS = %w[#e99537 #4da568 #6471eb #db5a54 #df4e92 #c44fe9 #eb5429 #61c9ea #805dee #6ad28a]
 
+  # Základných 5 kategórií + 1 príjem. Ďalšie si používateľ pridá cez +.
+  DEFAULTS = [
+    [ "Plat", "#4da568", "circle-dollar-sign", "income" ],
+    [ "Bývanie", "#6471eb", "house", "expense" ],
+    [ "Doprava", "#df4e92", "bus", "expense" ],
+    [ "Potraviny", "#eb5429", "shopping-cart", "expense" ],
+    [ "Nákupy", "#805dee", "ticket", "expense" ],
+    [ "Predplatné", "#61c9ea", "credit-card", "expense" ]
+  ].freeze
+
   UNCATEGORIZED_COLOR = "#737373"
   TRANSFER_COLOR = "#444CE7"
   PAYMENT_COLOR = "#db5a54"
@@ -51,7 +61,7 @@ class Category < ApplicationRecord
     end
 
     def bootstrap!
-      default_categories.each do |name, color, icon, classification|
+      DEFAULTS.each do |name, color, icon, classification|
         find_or_create_by!(name: name) do |category|
           category.color = color
           category.classification = classification
@@ -62,31 +72,11 @@ class Category < ApplicationRecord
 
     def uncategorized
       new(
-        name: "Uncategorized",
+        name: "Bez kategórie",
         color: UNCATEGORIZED_COLOR,
         lucide_icon: "circle-dashed"
       )
     end
-
-    private
-      def default_categories
-        [
-          [ "Income", "#e99537", "circle-dollar-sign", "income" ],
-          [ "Loan Payments", "#6471eb", "credit-card", "expense" ],
-          [ "Fees", "#6471eb", "credit-card", "expense" ],
-          [ "Entertainment", "#df4e92", "drama", "expense" ],
-          [ "Food & Drink", "#eb5429", "utensils", "expense" ],
-          [ "Shopping", "#e99537", "shopping-cart", "expense" ],
-          [ "Home Improvement", "#6471eb", "house", "expense" ],
-          [ "Healthcare", "#4da568", "pill", "expense" ],
-          [ "Personal Care", "#4da568", "pill", "expense" ],
-          [ "Services", "#4da568", "briefcase", "expense" ],
-          [ "Gifts & Donations", "#61c9ea", "hand-helping", "expense" ],
-          [ "Transportation", "#df4e92", "bus", "expense" ],
-          [ "Travel", "#df4e92", "plane", "expense" ],
-          [ "Rent & Utilities", "#db5a54", "lightbulb", "expense" ]
-        ]
-      end
   end
 
   def inherit_color_from_parent

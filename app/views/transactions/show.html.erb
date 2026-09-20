@@ -23,7 +23,7 @@
           <% unless @entry.transaction.transfer? %>
             <div class="flex items-center gap-2">
               <%= f.select :nature,
-                    [["Expense", "outflow"], ["Income", "inflow"]],
+                    [["Výdavok", "outflow"], ["Príjem", "inflow"]],
                     { container_class: "w-1/3", label: t(".nature"), selected: @entry.amount.negative? ? "inflow" : "outflow" },
                     { data: { "auto-submit-form-target": "auto" } } %>
 
@@ -103,8 +103,8 @@
               data: { controller: "auto-submit-form" } do |f| %>
           <div class="flex cursor-pointer items-center gap-4 justify-between">
             <div class="text-sm space-y-1">
-              <h4 class="text-primary">Exclude</h4>
-              <p class="text-secondary">Excluded transactions will be removed from budgeting calculations and reports.</p>
+              <h4 class="text-primary">Vylúčiť z výpočtov</h4>
+              <p class="text-secondary">Vylúčené transakcie sa nezapočítajú do rozpočtov ani do prehľadov.</p>
             </div>
 
             <%= f.toggle :excluded, { data: { auto_submit_form_target: "auto" } } %>
@@ -120,8 +120,8 @@
           <%= f.fields_for :entryable do |ef| %>
             <div class="flex cursor-pointer items-center gap-4 justify-between">
               <div class="text-sm space-y-1">
-                <h4 class="text-primary">One-time <%= @entry.amount.negative? ? "Income" : "Expense" %></h4>
-                <p class="text-secondary">One-time transactions will be excluded from certain budgeting calculations and reports to help you see what's really important.</p>
+                <h4 class="text-primary">Jednorazový <%= @entry.amount.negative? ? "príjem" : "výdavok" %></h4>
+                <p class="text-secondary">Jednorazové transakcie sa nezapočítajú do priemerov, takže prehľady lepšie ukážu vaše bežné výdavky.</p>
               </div>
 
               <%= ef.toggle :kind, {
@@ -134,12 +134,12 @@
 
         <div class="flex items-center justify-between gap-4 p-3">
           <div class="text-sm space-y-1">
-            <h4 class="text-primary">Transfer or Debt Payment?</h4>
-            <p class="text-secondary">Transfers and payments are special types of transactions that indicate money movement between 2 accounts.</p>
+            <h4 class="text-primary">Prevod alebo splátka dlhu?</h4>
+            <p class="text-secondary">Prevody a splátky sú špeciálne transakcie, ktoré označujú presun peňazí medzi dvoma účtami.</p>
           </div>
 
           <%= render DS::Link.new(
-            text: "Open matcher",
+            text: "Spárovať s transakciou",
             icon: "arrow-left-right",
             variant: "outline",
             href: new_transaction_transfer_match_path(@entry),
@@ -147,7 +147,7 @@
           ) %>
         </div>
 
-        <!-- Delete Transaction Form -->
+        <%# Formulár na zmazanie transakcie %>
         <div class="flex items-center justify-between gap-2 p-3">
           <div class="text-sm space-y-1">
             <h4 class="text-primary"><%= t(".delete_title") %></h4>
@@ -159,7 +159,7 @@
             variant: "outline-destructive",
             href: entry_path(@entry),
             method: :delete,
-            confirm: CustomConfirm.for_resource_deletion("transaction"),
+            confirm: CustomConfirm.for_resource_deletion("túto transakciu"),
             frame: "_top"
           ) %>
         </div>

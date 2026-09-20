@@ -2,36 +2,36 @@
 sk:
   holdings:
     cash:
-      brokerage_cash: Brokerage cash
+      brokerage_cash: Hotovosť na účte
     destroy:
-      success: Držaťing deleted
+      success: Držba bola vymazaná
     holding:
-      per_share: per share
-      shares: "%{qty} shares"
+      per_share: za kus
+      shares: "%{qty} kusov"
     index:
-      average_cost: Priemer cost
+      average_cost: Priemerná cena
       holdings: Držby
       name: Názov
-      new_holding: Zatiaľ žiadnevá transakcia
-      no_holdings: Zatiaľ žiadne holdings to show.
-      return: Celkom return
+      new_holding: Nová transakcia
+      no_holdings: Žiadne držby na zobrazenie.
+      return: Celkový výnos
       weight: Podiel
     missing_price_tooltip:
-      description: This investment has missing values and we could not calculate its
-        returns or value.
-      missing_data: Chýbajúce data
+      description: Pri tejto investícii chýbajú údaje, preto sme nedokázali vypočítať
+        jej výnos ani hodnotu.
+      missing_data: Chýbajúce údaje
     show:
-      avg_cost_label: Priemer Náklad
-      current_market_price_label: Aktuálny Trh Cena
+      avg_cost_label: Priemerná cena
+      current_market_price_label: Aktuálna trhová cena
       delete: Vymazať
-      delete_subtitle: This will delete the holding and all your associated trades
-        on this account.  Túto akciu nie je možné vrátiť späť.
-      delete_title: Vymazať holding
-      history: History
+      delete_subtitle: Týmto vymažete držbu aj všetky súvisiace obchody na tomto účte.
+        Túto akciu nie je možné vrátiť späť.
+      delete_title: Vymazať držbu
+      history: História
       overview: Prehľad
-      portfolio_weight_label: Portfolio Podiel
+      portfolio_weight_label: Podiel v portfóliu
       settings: Nastavenia
       ticker_label: Ticker
-      trade_history_entry: "%{qty} shares of %{security} at %{price}"
-      total_return_label: Celkom Vrátiť sa
+      trade_history_entry: "%{qty} kusov %{security} za %{price}"
+      total_return_label: Celkový výnos
       unknown: Neznáme

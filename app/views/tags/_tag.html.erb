@@ -26,7 +26,7 @@
           href: tag_path(tag),
           icon: "trash-2",
           method: :delete,
-          confirm: CustomConfirm.for_resource_deletion(tag.name)
+          confirm: CustomConfirm.for_resource_deletion("štítok „#{tag.name}“")
         ) %>
       <% end %>
     <% end %>

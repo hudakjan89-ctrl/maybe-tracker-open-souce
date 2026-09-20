@@ -2,7 +2,7 @@
 sk:
   invitation_mailer:
     invite_email:
-      accept_button: Prijať Invitation
-      body: "%{inviter} has invited you to join the %{family} family on Maybe!"
-      expiry_notice: This invitation will expire in %{days} days
-      greeting: Vitajte to Maybe!
+      accept_button: Prijať pozvánku
+      body: "%{inviter} vás pozýva do domácnosti %{family} v Maybe!"
+      expiry_notice: Platnosť tejto pozvánky vyprší za %{days} dní
+      greeting: Vitajte v Maybe!

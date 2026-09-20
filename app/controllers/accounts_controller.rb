@@ -10,7 +10,7 @@ class AccountsController < ApplicationController
 
   def sync_all
     family.sync_later
-    redirect_to accounts_path, notice: "Syncing accounts..."
+    redirect_to accounts_path, notice: "Účty sa synchronizujú..."
   end
 
   def show
@@ -52,7 +52,7 @@ class AccountsController < ApplicationController
 
   def destroy
     @account.destroy_later
-    redirect_to accounts_path, notice: "Account scheduled for deletion"
+    redirect_to accounts_path, notice: "Účet bol zaradený na zmazanie."
   end
 
   private

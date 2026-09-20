@@ -53,14 +53,23 @@
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-lg font-medium">Kategórie</h2>
 
-        <% if @budget.initialized? %>
+        <div class="flex items-center gap-2">
           <%= render DS::Link.new(
-            text: "Upraviť",
-            variant: "secondary",
-            icon: "settings-2",
-            href: budget_budget_categories_path(@budget)
+            text: "Pridať",
+            icon: "plus",
+            href: new_category_path,
+            frame: :modal,
+            variant: "ghost"
           ) %>
-        <% end %>
+          <% if @budget.initialized? %>
+            <%= render DS::Link.new(
+              text: "Upraviť",
+              variant: "secondary",
+              icon: "settings-2",
+              href: budget_budget_categories_path(@budget)
+            ) %>
+          <% end %>
+        </div>
       </div>
 
       <div class="bg-container-inset rounded-xl p-1">

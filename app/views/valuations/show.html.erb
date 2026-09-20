@@ -24,12 +24,12 @@
                 max: Date.current %>
 
           <%= f.money_field :amount,
-                label: "Account value on date",
+                label: "Hodnota účtu k dátumu",
                 disable_currency: true %>
 
           <div class="flex justify-end">
             <%= render DS::Button.new(
-              text: "Update value",
+              text: "Aktualizovať hodnotu",
               variant: :primary,
               type: "submit"
             ) %>
@@ -67,7 +67,7 @@
                 entry_path(entry),
                 method: :delete,
                 class: "rounded-lg px-3 py-2 text-red-500 text-sm font-medium border border-secondary",
-                data: { turbo_confirm: CustomConfirm.for_resource_deletion("value update").to_data_attribute, turbo_frame: "_top" } %>
+                data: { turbo_confirm: CustomConfirm.for_resource_deletion("túto aktualizáciu zostatku").to_data_attribute, turbo_frame: "_top" } %>
         </div>
       </div>
     <% end %>

@@ -2,26 +2,26 @@
 sk:
   family_merchants:
     create:
-      error: 'Chyba creating merchant: %{error}'
-      success: Zatiaľ žiadnevé merchant created successfully
+      error: 'Nepodarilo sa vytvoriť obchodníka: %{error}'
+      success: Obchodník bol úspešne vytvorený
     destroy:
-      success: Obchodník deleted successfully
+      success: Obchodník bol úspešne vymazaný
     edit:
-      title: Horeraviť merchant
+      title: Upraviť obchodníka
     form:
-      name_placeholder: Obchodník name
+      name_placeholder: Názov obchodníka
     index:
-      empty: Zatiaľ žiadne merchants yet
-      new: Zatiaľ žiadnevé merchant
+      empty: Zatiaľ žiadni obchodníci
+      new: Nový obchodník
       title: Obchodníci
     merchant:
-      confirm_accept: Vymazať merchant
-      confirm_body: Are you sure you want to delete this merchant? Removing this merchant
-        will unlink all associated transakcie and may effect your reporting.
-      confirm_title: Vymazať merchant?
-      delete: Vymazať merchant
-      edit: Horeraviť merchant
+      confirm_accept: Vymazať obchodníka
+      confirm_body: Naozaj chcete vymazať tohto obchodníka? Odstránením sa od neho
+        odpoja všetky súvisiace transakcie, čo môže ovplyvniť vaše prehľady.
+      confirm_title: Vymazať obchodníka?
+      delete: Vymazať obchodníka
+      edit: Upraviť obchodníka
     new:
-      title: Zatiaľ žiadnevé merchant
+      title: Nový obchodník
     update:
-      success: Obchodník updated successfully
+      success: Obchodník bol úspešne aktualizovaný

@@ -18,16 +18,7 @@
 
         <div class="max-w-full">
           <%= content_tag :div, class: ["flex items-center gap-2"] do %>
-            <% if transaction.merchant&.logo_url.present? || MerchantLogo::LogoUrl.for(entry.name).present? || MerchantLogo::LogoUrl.emoji_for(entry.name).present? || transaction.category&.lucide_icon.present? %>
-              <%= render "shared/entry_avatar", entry: entry, size: "sm" %>
-            <% else %>
-              <%= render DS::FilledIcon.new(
-                variant: :text,
-                text: entry.name,
-                size: "sm",
-                rounded: true
-              ) %>
-            <% end %>
+            <%= render "shared/entry_avatar", entry: entry, size: "sm" %>
 
             <div class="truncate">
               <div class="space-y-0.5">
@@ -58,7 +49,7 @@
 
                   <div class="flex items-center gap-1 flex-shrink-0">
                     <% if transaction.one_time? %>
-                      <span class="text-orange-500" title="One-time <%= entry.amount.negative? ? "income" : "expense" %> (excluded from averages)">
+                      <span class="text-orange-500" title="Jednorazový <%= entry.amount.negative? ? "príjem" : "výdavok" %> (nezapočítava sa do priemerov)">
                         <%= icon "asterisk", size: "sm", color: "current" %>
                       </span>
                     <% end %>
@@ -72,7 +63,7 @@
                 <div class="text-secondary text-xs font-normal hidden lg:block">
                   <% if transaction.transfer? %>
                     <span class="text-secondary">
-                      <%= transaction.loan_payment? ? "Loan Payment" : "Transfer" %> • <%= entry.account.name %>
+                      <%= transaction.loan_payment? ? "Splátka úveru" : "Prevod" %> • <%= entry.account.name %>
                     </span>
                   <% else %>
                     <%= link_to entry.account.name,

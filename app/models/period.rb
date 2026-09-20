@@ -18,7 +18,7 @@ class Period
     },
     "current_week" => {
       date_range: -> { [ Date.current.beginning_of_week, Date.current ] },
-      label_short: "WTD",
+      label_short: "TÝŽ",
       label: "Aktuálny týždeň",
       comparison_label: "oproti začiatku týždňa"
     },
@@ -30,7 +30,7 @@ class Period
     },
     "current_month" => {
       date_range: -> { [ Date.current.beginning_of_month, Date.current ] },
-      label_short: "MTD",
+      label_short: "MES",
       label: "Aktuálny mesiac",
       comparison_label: "oproti začiatku mesiaca"
     },
@@ -48,7 +48,7 @@ class Period
     },
     "current_year" => {
       date_range: -> { [ Date.current.beginning_of_year, Date.current ] },
-      label_short: "YTD",
+      label_short: "ROK",
       label: "Aktuálny rok",
       comparison_label: "oproti začiatku roka"
     },
@@ -60,7 +60,7 @@ class Period
     },
     "last_5_years" => {
       date_range: -> { [ 5.years.ago.to_date, Date.current ] },
-      label_short: "5Y",
+      label_short: "5R",
       label: "Posledných 5 rokov",
       comparison_label: "oproti pred 5 rokmi"
     }

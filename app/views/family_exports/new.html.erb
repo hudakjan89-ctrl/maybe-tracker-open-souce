@@ -1,40 +1,40 @@
 <%= render DS::Dialog.new do |dialog| %>
-  <% dialog.with_header(title: "Export your data", subtitle: "Download all your financial data") %>
+  <% dialog.with_header(title: "Export údajov", subtitle: "Stiahnite si všetky svoje finančné údaje") %>
 
   <% dialog.with_body do %>
     <div class="space-y-4">
       <div class="bg-container-inset rounded-lg p-4 space-y-3">
-        <h3 class="font-medium text-primary">What's included:</h3>
+        <h3 class="font-medium text-primary">Čo export obsahuje:</h3>
         <ul class="space-y-2 text-sm text-secondary">
           <li class="flex items-start gap-2">
             <%= icon "check", class: "shrink-0 mt-0.5 text-positive" %>
-            <span>All accounts and balances</span>
+            <span>Všetky účty a zostatky</span>
           </li>
           <li class="flex items-start gap-2">
             <%= icon "check", class: "shrink-0 mt-0.5 text-positive" %>
-            <span>Transaction history</span>
+            <span>História transakcií</span>
           </li>
           <li class="flex items-start gap-2">
             <%= icon "check", class: "shrink-0 mt-0.5 text-positive" %>
-            <span>Investment trades</span>
+            <span>Investičné obchody</span>
           </li>
           <li class="flex items-start gap-2">
             <%= icon "check", class: "shrink-0 mt-0.5 text-positive" %>
-            <span>Categories and tags</span>
+            <span>Kategórie a štítky</span>
           </li>
         </ul>
       </div>
 
       <div class="bg-amber-50 border border-amber-200 rounded-lg p-3">
         <p class="text-sm text-amber-800">
-          <strong>Note:</strong> This export includes all of your data, but only some of the data can be imported back into Maybe via the CSV import feature. We support account, transaction (with category and tags), and trade imports. Other account data cannot be imported and is for your records only.
+          <strong>Poznámka:</strong> Export obsahuje všetky vaše údaje, ale späť do aplikácie sa dá cez CSV import načítať len časť z nich — účty, transakcie (vrátane kategórií a štítkov) a obchody. Ostatné údaje slúžia len pre vašu evidenciu.
         </p>
       </div>
 
       <%= form_with url: family_exports_path, method: :post, class: "space-y-4" do |form| %>
         <div class="flex gap-3">
-          <%= link_to "Cancel", "#", class: "flex-1 text-center px-4 py-2 border border-primary rounded-lg hover:bg-surface-hover", data: { action: "click->modal#close" } %>
-          <%= form.submit "Export data", class: "flex-1 bg-inverse fg-inverse rounded-lg px-4 py-2 cursor-pointer" %>
+          <%= link_to "Zrušiť", "#", class: "flex-1 text-center px-4 py-2 border border-primary rounded-lg hover:bg-surface-hover", data: { action: "click->modal#close" } %>
+          <%= form.submit "Exportovať údaje", class: "flex-1 bg-inverse fg-inverse rounded-lg px-4 py-2 cursor-pointer" %>
         </div>
       <% end %>
     </div>

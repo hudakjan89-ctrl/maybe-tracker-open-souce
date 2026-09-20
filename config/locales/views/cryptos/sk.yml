@@ -2,6 +2,6 @@
 sk:
   cryptos:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     new:
-      title: Zadať zostatok účtu
+      title: Zadajte zostatok účtu

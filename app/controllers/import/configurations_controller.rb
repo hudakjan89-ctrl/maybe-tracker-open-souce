@@ -11,7 +11,7 @@ class Import::ConfigurationsController < ApplicationController
     @import.generate_rows_from_csv
     @import.reload.sync_mappings
 
-    redirect_to import_clean_path(@import), notice: "Import configured successfully."
+    redirect_to import_clean_path(@import), notice: "Import bol nastavený."
   end
 
   private

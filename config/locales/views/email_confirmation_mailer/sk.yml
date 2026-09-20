@@ -2,9 +2,9 @@
 sk:
   email_confirmation_mailer:
     confirmation_email:
-      body: You recently requested to change your email address. Click the button
-        below to confirm this change.
-      cta: Potvrdiť email change
-      expiry_notice: This link will expire in %{hours} hours.
-      greeting: Ahoj!
-      subject: 'Maybe: Potvrdiť your email change'
+      body: Nedávno ste požiadali o zmenu svojej e-mailovej adresy. Zmenu potvrdíte
+        kliknutím na tlačidlo nižšie.
+      cta: Potvrdiť zmenu e-mailu
+      expiry_notice: Platnosť tohto odkazu vyprší za %{hours} hodín.
+      greeting: Dobrý deň!
+      subject: 'Maybe: Potvrďte zmenu e-mailu'

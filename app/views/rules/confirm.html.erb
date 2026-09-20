@@ -1,22 +1,22 @@
 <%= render DS::Dialog.new(reload_on_close: true) do |dialog| %>
   <%
     title = if @rule.name.present?
-              "Confirm changes to \"#{@rule.name}\""
+              "Potvrdiť zmeny v pravidle „#{@rule.name}“"
             else
-              "Confirm changes"
+              "Potvrdiť zmeny"
             end
   %>
   <% dialog.with_header(title: title) %>
 
   <% dialog.with_body do %>
     <p class="text-secondary text-sm mb-4">
-      You are about to apply this rule to
-      <span class="text-primary font-medium"><%= @rule.affected_resource_count %> <%= @rule.resource_type.pluralize %></span>
-      that meet the specified rule criteria.  Please confirm if you wish to proceed with this change.
+      Toto pravidlo sa použije na
+      <span class="text-primary font-medium"><%= @rule.affected_resource_count %> transakcií</span>,
+      ktoré spĺňajú zadané podmienky. Potvrďte, či chcete pokračovať.
     </p>
 
     <%= render DS::Button.new(
-      text: "Confirm changes",
+      text: "Potvrdiť zmeny",
       href: apply_rule_path(@rule),
       method: :post,
       full_width: true,

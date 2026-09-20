@@ -70,9 +70,9 @@ module ApplicationHelper
 
   def entry_amount_display(entry)
     if entry.amount.negative?
-      content_tag(:span, "+#{format_money(entry.amount.abs)}", class: "text-success font-medium tabular-nums")
+      content_tag(:span, "+#{format_money(entry.amount_money.abs)}", class: "text-success font-medium tabular-nums")
     else
-      content_tag(:span, "−#{format_money(entry.amount)}", class: "text-destructive font-medium tabular-nums")
+      content_tag(:span, "−#{format_money(entry.amount_money)}", class: "text-destructive font-medium tabular-nums")
     end
   end
 

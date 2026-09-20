@@ -1,0 +1,20 @@
+<%# locals: (count:, label: "kategórie") %>
+<%#
+  Natívne rozbaľovanie cez <details> — obsah sa odovzdá cez blok.
+  Používa sa na skrytie menej dôležitých položiek za tlačidlo „+“.
+%>
+
+<details class="group">
+  <summary class="flex items-center justify-center gap-1.5 py-3 cursor-pointer select-none list-none text-sm font-medium text-secondary hover:text-primary [&::-webkit-details-marker]:hidden">
+    <span class="group-open:hidden flex items-center gap-1.5">
+      <%= icon "plus", size: "sm", color: "current" %>
+      + Ďalšie <%= label %> (<%= count %>)
+    </span>
+    <span class="hidden group-open:flex items-center gap-1.5">
+      <%= icon "minus", size: "sm", color: "current" %>
+      Skryť ďalšie <%= label %>
+    </span>
+  </summary>
+
+  <%= yield %>
+</details>

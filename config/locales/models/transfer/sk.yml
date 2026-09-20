@@ -6,16 +6,17 @@ sk:
         transfer:
           attributes:
             base:
-              inflow_cannot_be_in_multiple_transfers: Inflow transakcia cannot be
-                part of multiple transfers
-              must_be_from_different_accounts: Prevod must have different accounts
-              must_be_from_same_family: Prevod must be from the same family
-              must_be_within_date_range: Prevod transakcia dates must be within 4
-                days of each other
-              must_have_opposite_amounts: Prevod transakcie must have opposite amounts
-              must_have_single_currency: Prevod must have a single currency
-              outflow_cannot_be_in_multiple_transfers: Outflow transakcia cannot be
-                part of multiple transfers
+              inflow_cannot_be_in_multiple_transfers: Prichádzajúca transakcia nemôže
+                byť súčasťou viacerých prevodov
+              must_be_from_different_accounts: Prevod musí byť medzi dvoma rôznymi
+                účtami
+              must_be_from_same_family: Prevod musí byť v rámci tej istej domácnosti
+              must_be_within_date_range: Dátumy transakcií prevodu nesmú byť od seba
+                vzdialené viac ako 4 dni
+              must_have_opposite_amounts: Transakcie prevodu musia mať opačné sumy
+              must_have_single_currency: Prevod musí byť v jednej mene
+              outflow_cannot_be_in_multiple_transfers: Odchádzajúca transakcia nemôže
+                byť súčasťou viacerých prevodov
   transfer:
-    name: Prevod to %{to_account}
-    payment_name: Payment to %{to_account}
+    name: Prevod na %{to_account}
+    payment_name: Platba na %{to_account}

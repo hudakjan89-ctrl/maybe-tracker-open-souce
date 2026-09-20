@@ -13,9 +13,9 @@ class FamilyExportsController < ApplicationController
     FamilyDataExportJob.perform_later(@export)
 
     respond_to do |format|
-      format.html { redirect_to settings_profile_path, notice: "Export started. You'll be able to download it shortly." }
+      format.html { redirect_to settings_profile_path, notice: "Export sa spustil. O chvíľu si ho budete môcť stiahnuť." }
       format.turbo_stream {
-        stream_redirect_to settings_profile_path, notice: "Export started. You'll be able to download it shortly."
+        stream_redirect_to settings_profile_path, notice: "Export sa spustil. O chvíľu si ho budete môcť stiahnuť."
       }
     end
   end
@@ -29,7 +29,7 @@ class FamilyExportsController < ApplicationController
     if @export.downloadable?
       redirect_to @export.export_file, allow_other_host: true
     else
-      redirect_to settings_profile_path, alert: "Export not ready for download"
+      redirect_to settings_profile_path, alert: "Export ešte nie je pripravený na stiahnutie."
     end
   end
 
@@ -41,7 +41,7 @@ class FamilyExportsController < ApplicationController
 
     def require_admin
       unless Current.user.admin?
-        redirect_to root_path, alert: "Access denied"
+        redirect_to root_path, alert: "Prístup zamietnutý."
       end
     end
 end

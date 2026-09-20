@@ -2,10 +2,10 @@ class Loan < ApplicationRecord
   include Accountable
 
   SUBTYPES = {
-    "mortgage" => { short: "Mortgage", long: "Mortgage" },
-    "student" => { short: "Student", long: "Student Loan" },
-    "auto" => { short: "Auto", long: "Auto Loan" },
-    "other" => { short: "Other", long: "Other Loan" }
+    "mortgage" => { short: "Hypotéka", long: "Hypotekárny úver" },
+    "student" => { short: "Študentská", long: "Študentská pôžička" },
+    "auto" => { short: "Auto", long: "Úver na auto" },
+    "other" => { short: "Iná", long: "Iná pôžička" }
   }.freeze
 
   def monthly_payment

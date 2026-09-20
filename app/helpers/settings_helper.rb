@@ -1,15 +1,15 @@
 module SettingsHelper
   SETTINGS_ORDER = [
-    { name: "Account", path: :settings_profile_path },
-    { name: "Preferences", path: :settings_preferences_path },
-    { name: "Security", path: :settings_security_path },
-    { name: "Self hosting", path: :settings_hosting_path },
-    { name: "Accounts", path: :accounts_path },
-    { name: "Imports", path: :imports_path },
-    { name: "Tags", path: :tags_path },
-    { name: "Categories", path: :categories_path },
-    { name: "Rules", path: :rules_path },
-    { name: "Merchants", path: :family_merchants_path }
+    { name: "Účet", path: :settings_profile_path },
+    { name: "Predvoľby", path: :settings_preferences_path },
+    { name: "Zabezpečenie", path: :settings_security_path },
+    { name: "Self-hosting", path: :settings_hosting_path },
+    { name: "Účty", path: :accounts_path },
+    { name: "Importy", path: :imports_path },
+    { name: "Štítky", path: :tags_path },
+    { name: "Kategórie", path: :categories_path },
+    { name: "Pravidlá", path: :rules_path },
+    { name: "Obchodníci", path: :family_merchants_path }
   ]
 
   def adjacent_setting(current_path, offset)

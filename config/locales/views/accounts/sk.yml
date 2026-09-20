@@ -6,12 +6,12 @@ sk:
     chart:
       data_not_available: Pre zvolené obdobie nie sú k dispozícii žiadne údaje
     create:
-      success: "%{type} account created"
+      success: Účet (%{type}) bol vytvorený
     destroy:
-      success: "%{type} account scheduled for deletion"
+      success: Účet (%{type}) je naplánovaný na vymazanie
     empty:
-      empty_message: Add an account either via connection, importing or entering manually.
-      new_account: Zatiaľ žiadnevý účet
+      empty_message: Pridajte účet prepojením s bankou, importom alebo manuálnym zadaním.
+      new_account: Nový účet
       no_accounts: Zatiaľ žiadne účty
     form:
       balance: Aktuálny zostatok
@@ -21,13 +21,13 @@ sk:
       accounts: Účty
       manual_accounts:
         other_accounts: Ostatné účty
-      new_account: Zatiaľ žiadnevý účet
-      sync: Synchronizovaťhronizovať všetko
+      new_account: Nový účet
+      sync: Synchronizovať všetko
     new:
-      import_accounts: Importovaťovať účty
+      import_accounts: Importovať účty
       method_selector:
-        connected_entry: Odkaz account
-        connected_entry_eu: Odkaz EU account
+        connected_entry: Prepojiť účet
+        connected_entry_eu: Prepojiť účet v EÚ
         manual_entry: Zadať zostatok účtu
         title: Ako to chcete pridať?
       title: Čo chcete pridať?
@@ -38,29 +38,28 @@ sk:
         date: Dátum
         entries: záznamy
         entry: záznam
-        new: Zatiaľ žiadnevé
-        new_balance: Zatiaľ žiadnevý zostatok
-        new_transaction: Zatiaľ žiadnevá transakcia
+        new: Nový
+        new_balance: Nový zostatok
+        new_transaction: Nová transakcia
         no_entries: Nenašli sa žiadne záznamy
         title: Aktivita
       chart:
         balance: Zostatok
-        owed: Dlhovaná suma
+        owed: Dlžná suma
       menu:
-        confirm_accept: Vymazať "%{name}"
-        confirm_body_html: "<p>By deleting this account, you will erase its value
-          history, affecting various aspects of your overall account. This action
-          will have a direct impact on your net worth calculations and the account
-          graphs.</p><br /> <p>After deletion, there is no way you'll be able to restore
-          the account information because you'll need to add it as a new account.</p>"
+        confirm_accept: Vymazať „%{name}“
+        confirm_body_html: "<p>Vymazaním tohto účtu zmažete aj celú históriu jeho hodnoty,
+          čo ovplyvní viaceré časti vášho prehľadu. Priamo sa to dotkne výpočtu čistého
+          majetku aj grafov účtu.</p><br /> <p>Po vymazaní sa údaje účtu už nedajú
+          obnoviť – účet by ste museli pridať znova ako nový.</p>"
         confirm_title: Vymazať účet?
-        edit: Horeraviť
-        import: Importovaťovať transakcie
+        edit: Upraviť
+        import: Importovať transakcie
         manage: Spravovať účty
     update:
-      success: "%{type} account updated"
+      success: Účet (%{type}) bol aktualizovaný
   email_confirmations:
     new:
-      invalid_token: Neplatné or expired confirmation link.
-      success_login: Your email has been confirmed. Prosím log in with your new email
-        address.
+      invalid_token: Potvrdzovací odkaz je neplatný alebo mu vypršala platnosť.
+      success_login: Váš e-mail bol potvrdený. Prihláste sa, prosím, novou e-mailovou
+        adresou.

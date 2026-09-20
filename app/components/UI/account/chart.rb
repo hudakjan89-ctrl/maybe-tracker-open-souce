@@ -31,20 +31,22 @@ class UI::Account::Chart < ApplicationComponent
     when "Investment", "Crypto"
       case view
       when "balance"
-        "Total account value"
+        "Celková hodnota účtu"
       when "holdings_balance"
-        "Holdings value"
+        "Hodnota držieb"
       when "cash_balance"
-        "Cash value"
+        "Hodnota hotovosti"
       end
-    when "Property", "Vehicle"
-      "Estimated #{account.accountable_type.humanize.downcase} value"
+    when "Property"
+      "Odhadovaná hodnota nehnuteľnosti"
+    when "Vehicle"
+      "Odhadovaná hodnota vozidla"
     when "CreditCard", "OtherLiability"
-      "Debt balance"
+      "Zostatok dlhu"
     when "Loan"
-      "Remaining principal balance"
+      "Zostatok istiny"
     else
-      "Balance"
+      "Zostatok"
     end
   end
 

@@ -1,6 +1,13 @@
 class Rule::ActionExecutor
   TYPES = [ "select", "function", "text" ]
 
+  LABELS = {
+    "set_transaction_category" => "Nastaviť kategóriu",
+    "set_transaction_merchant" => "Nastaviť obchodníka",
+    "set_transaction_name" => "Nastaviť názov",
+    "set_transaction_tags" => "Nastaviť štítky"
+  }.freeze
+
   def initialize(rule)
     @rule = rule
   end
@@ -10,7 +17,7 @@ class Rule::ActionExecutor
   end
 
   def label
-    key.humanize
+    LABELS.fetch(key, key.humanize)
   end
 
   def type

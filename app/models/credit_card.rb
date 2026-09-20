@@ -2,7 +2,7 @@ class CreditCard < ApplicationRecord
   include Accountable
 
   SUBTYPES = {
-    "credit_card" => { short: "Credit Card", long: "Credit Card" }
+    "credit_card" => { short: "Kreditná karta", long: "Kreditná karta" }
   }.freeze
 
   class << self

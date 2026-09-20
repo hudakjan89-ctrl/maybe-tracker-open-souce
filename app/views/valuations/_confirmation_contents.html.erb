@@ -5,47 +5,45 @@
     <% brokerage_cash = reconciliation_dry_run.new_cash_balance || 0 %>
     <% holdings_value = reconciliation_dry_run.new_balance - brokerage_cash %>
 
-    <p>This will <%= action_verb %> the account value on <span class="font-medium text-primary"><%= entry.date.strftime("%B %d, %Y") %></span> to:</p>
+    <p><%= action_verb %> hodnotu účtu k <span class="font-medium text-primary"><%= l entry.date, format: :long %></span> na:</p>
 
     <div class="bg-container rounded-lg p-4 space-y-2 border border-primary">
       <div class="flex justify-between">
-        <span>Total account value</span>
+        <span>Celková hodnota účtu</span>
         <span class="font-medium text-primary"><%= Money.new(reconciliation_dry_run.new_balance, account.currency).format %></span>
       </div>
       <div class="flex justify-between text-xs">
-        <span>Holdings value</span>
+        <span>Hodnota držieb</span>
         <span><%= Money.new(holdings_value, account.currency).format %></span>
       </div>
       <div class="flex justify-between text-xs">
-        <span>Brokerage cash</span>
+        <span>Hotovosť na účte</span>
         <span class="<%= brokerage_cash.negative? ? "text-red-500" : "text-green-500" %>"><%= Money.new(brokerage_cash, account.currency).format %></span>
       </div>
     </div>
   <% else %>
     <p><%= action_verb.capitalize %>
-      <% if account.depository? %>
-        account balance
-      <% elsif account.credit_card? %>
-        credit card balance
+      <% if account.credit_card? %>
+        zostatok kreditnej karty
       <% elsif account.loan? %>
-        loan balance
+        zostatok úveru
       <% elsif account.property? %>
-        property value
+        hodnotu nehnuteľnosti
       <% elsif account.vehicle? %>
-        vehicle value
+        hodnotu vozidla
       <% elsif account.crypto? %>
-        crypto balance
+        hodnotu kryptomien
       <% elsif account.other_asset? %>
-        asset value
+        hodnotu aktíva
       <% elsif account.other_liability? %>
-        liability balance
+        výšku záväzku
       <% else %>
-        balance
+        zostatok účtu
       <% end %>
-      on <span class="font-medium text-primary"><%= entry.date.strftime("%B %d, %Y") %></span> to
+      k <span class="font-medium text-primary"><%= l entry.date, format: :long %></span> na
       <span class="font-medium text-primary"><%= entry.amount_money.format %></span>.
     </p>
   <% end %>
 
-  <p>All future transactions and balances will be recalculated based on this <%= is_update ? "change" : "update" %>.</p>
+  <p>Všetky nasledujúce transakcie a zostatky sa prepočítajú podľa tejto zmeny.</p>
 </div>

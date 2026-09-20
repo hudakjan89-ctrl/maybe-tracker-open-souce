@@ -6,10 +6,12 @@ sk:
         trend:
           attributes:
             current:
-              must_be_of_the_same_type_as_previous: must be of the same type as previous
-              must_be_of_type_money_numeric_or_nil: must be of type Money, Numeric,
-                or nil
+              must_be_of_the_same_type_as_previous: musí byť rovnakého typu ako predchádzajúca
+                hodnota
+              must_be_of_type_money_numeric_or_nil: musí byť suma, číslo alebo prázdna
+                hodnota
             previous:
-              must_be_of_the_same_type_as_current: must be of the same type as current
-              must_be_of_type_money_numeric_or_nil: must be of type Money, Numeric,
-                or nil
+              must_be_of_the_same_type_as_current: musí byť rovnakého typu ako aktuálna
+                hodnota
+              must_be_of_type_money_numeric_or_nil: musí byť suma, číslo alebo prázdna
+                hodnota

@@ -2,6 +2,6 @@
 sk:
   invite_codes:
     index:
-      invite_code_description: Generovať a new code to see it displayed here. Generovaťd
-        codes that have been used will no longer be shown.
-      no_invite_codes: Zatiaľ žiadne codes to show
+      invite_code_description: Vygenerujte nový kód a zobrazí sa tu. Vygenerované kódy,
+        ktoré už boli použité, sa nebudú zobrazovať.
+      no_invite_codes: Žiadne kódy na zobrazenie

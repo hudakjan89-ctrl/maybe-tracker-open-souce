@@ -15,11 +15,11 @@
   <div class="flex items-center gap-4">
     <%= form.select :date_col_label,
                     import.csv_headers,
-                    { label: "Date", prompt: "Select column" },
+                    { label: "Dátum", prompt: "Vyberte stĺpec" },
                     required: true %>
     <%= form.select :date_format,
                     Family::DATE_FORMATS,
-                    { label: t(".date_format_label"), prompt: "Select format" },
+                    { label: t(".date_format_label"), prompt: "Vyberte formát" },
                     required: true %>
   </div>
 
@@ -27,21 +27,22 @@
   <div class="flex items-center gap-4">
     <%= form.select :amount_col_label,
                     import.csv_headers,
-                    { label: "Amount", container_class: "w-2/5", prompt: "Select column" },
+                    { label: "Suma", container_class: "w-2/5", prompt: "Vyberte stĺpec" },
                     required: true %>
     <%= form.select :currency_col_label,
                     import.csv_headers,
-                    { include_blank: "Default", label: "Currency", container_class: "w-1/5" } %>
+                    { include_blank: "Predvolená", label: "Mena", container_class: "w-1/5" } %>
     <%= form.select :number_format,
                     Import::NUMBER_FORMATS.keys,
-                    { label: "Format", prompt: "Select format", container_class: "w-2/5" },
+                    { label: "Formát", prompt: "Vyberte formát", container_class: "w-2/5" },
                     required: true %>
   </div>
 
   <%# Amount Type Strategy %>
+  <% amount_type_strategy_labels = { "signed_amount" => "Znamienko sumy", "custom_column" => "Vlastný stĺpec" } %>
   <%= form.select :amount_type_strategy,
-                  Import::AMOUNT_TYPE_STRATEGIES.map { |strategy| [strategy.humanize, strategy] },
-                  { label: "Amount type strategy", prompt: "Select strategy" },
+                  Import::AMOUNT_TYPE_STRATEGIES.map { |strategy| [amount_type_strategy_labels.fetch(strategy, strategy.humanize), strategy] },
+                  { label: "Spôsob určenia typu sumy", prompt: "Vyberte spôsob" },
                   required: true,
                   data: {
                     action: "import#handleAmountTypeStrategyChange",
@@ -54,8 +55,8 @@
     <div class="flex items-center gap-2">
       <span class="text-sm shrink-0 text-secondary">↪</span>
       <%= form.select :signage_convention,
-                      [["Incomes are positive", "inflows_positive"], ["Incomes are negative", "inflows_negative"]],
-                      { label: "Amount type", prompt: "Select convention" },
+                      [["Príjmy sú kladné", "inflows_positive"], ["Príjmy sú záporné", "inflows_negative"]],
+                      { label: "Typ sumy", prompt: "Vyberte konvenciu" },
                       required: @import.amount_type_strategy == "signed_amount" %>
     </div>
   <% end %>
@@ -66,23 +67,23 @@
     <div class="space-y-2">
       <div class="flex items-center gap-2 text-sm">
         <span class="shrink-0 text-secondary">↪</span>
-        <span class="text-secondary">Set</span>
+        <span class="text-secondary">Použiť</span>
         <%= form.select :entity_type_col_label,
                         import.csv_headers,
-                        { prompt: "Select column", container_class: "w-48 px-3 py-1.5 border border-secondary rounded-md" },
+                        { prompt: "Vyberte stĺpec", container_class: "w-48 px-3 py-1.5 border border-secondary rounded-md" },
                         required: @import.amount_type_strategy == "custom_column",
                         data: { action: "import#handleAmountTypeChange" } %>
-        <span class="text-secondary">as amount type column</span>
+        <span class="text-secondary">ako stĺpec s typom sumy</span>
       </div>
 
       <div class="items-center gap-2 text-sm <%= @import.entity_type_col_label.nil? ? "hidden" : "flex" %>" data-import-target="amountTypeValue">
         <span class="shrink-0 text-secondary">↪</span>
-        <span class="text-secondary">Set</span>
+        <span class="text-secondary">Použiť</span>
         <%= form.select :amount_type_inflow_value,
                         @import.selectable_amount_type_values,
-                        { prompt: "Select column", container_class: "w-48 px-3 py-1.5 border border-secondary rounded-md" },
+                        { prompt: "Vyberte hodnotu", container_class: "w-48 px-3 py-1.5 border border-secondary rounded-md" },
                         required: @import.amount_type_strategy == "custom_column" %>
-        <span class="text-secondary">as "income" (inflow) value</span>
+        <span class="text-secondary">ako hodnotu pre príjem (prírastok)</span>
       </div>
     </div>
   <% end %>
@@ -91,21 +92,21 @@
   <% unless import.account.present? %>
     <%= form.select :account_col_label,
                     import.csv_headers,
-                    { include_blank: "Leave empty", label: "Account" } %>
+                    { include_blank: "Nechať prázdne", label: "Účet" } %>
   <% end %>
 
   <%= form.select :name_col_label,
                   import.csv_headers,
-                  { include_blank: "Leave empty", label: "Name" } %>
+                  { include_blank: "Nechať prázdne", label: "Názov" } %>
   <%= form.select :category_col_label,
                   import.csv_headers,
-                  { include_blank: "Leave empty", label: "Category" } %>
+                  { include_blank: "Nechať prázdne", label: "Kategória" } %>
   <%= form.select :tags_col_label,
                   import.csv_headers,
-                  { include_blank: "Leave empty", label: "Tags" } %>
+                  { include_blank: "Nechať prázdne", label: "Štítky" } %>
   <%= form.select :notes_col_label,
                   import.csv_headers,
-                  { include_blank: "Leave empty", label: "Notes" } %>
+                  { include_blank: "Nechať prázdne", label: "Poznámky" } %>
 
-  <%= form.submit "Apply configuration", disabled: import.complete? %>
+  <%= form.submit "Použiť konfiguráciu", disabled: import.complete? %>
 <% end %>

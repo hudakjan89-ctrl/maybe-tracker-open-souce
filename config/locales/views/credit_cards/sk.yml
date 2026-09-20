@@ -2,24 +2,24 @@
 sk:
   credit_cards:
     edit:
-      edit: Horeraviť %{account}
+      edit: Upraviť %{account}
     form:
-      annual_fee: Annual fee
+      annual_fee: Ročný poplatok
       annual_fee_placeholder: '99'
-      apr: APR
+      apr: RPMN
       apr_placeholder: '15.99'
-      available_credit: Dostupné credit
+      available_credit: Dostupný kreditný rámec
       available_credit_placeholder: '10000'
-      expiration_date: Expiration date
-      minimum_payment: Minimum payment
+      expiration_date: Dátum platnosti
+      minimum_payment: Minimálna splátka
       minimum_payment_placeholder: '100'
     new:
-      title: Enter credit card details
+      title: Zadajte údaje o kreditnej karte
     overview:
-      amount_owed: Suma Owed
-      annual_fee: Annual Fee
-      apr: APR
-      available_credit: Dostupné Credit
-      expiration_date: Expiration Dátum
-      minimum_payment: Minimum Payment
+      amount_owed: Dlžná suma
+      annual_fee: Ročný poplatok
+      apr: RPMN
+      available_credit: Dostupný kreditný rámec
+      expiration_date: Dátum platnosti
+      minimum_payment: Minimálna splátka
       unknown: Neznáme

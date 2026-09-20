@@ -2,17 +2,12 @@ module Demo
   class Setup
     CURRENCY = "EUR"
 
-    CATEGORIES = [
-      [ "Plat", "#e99537", "circle-dollar-sign", "income" ],
-      [ "Príjem", "#4da568", "circle-dollar-sign", "income" ],
-      [ "Potraviny", "#eb5429", "utensils", "expense" ],
-      [ "Reštaurácie", "#df4e92", "utensils", "expense" ],
-      [ "Nákupy", "#e99537", "shopping-cart", "expense" ],
-      [ "Doprava", "#6471eb", "bus", "expense" ],
-      [ "Zábava", "#df4e92", "drama", "expense" ],
-      [ "Bývanie", "#6471eb", "house", "expense" ],
-      [ "Zdravie", "#4da568", "pill", "expense" ],
-      [ "Predplatné", "#805dee", "credit-card", "expense" ]
+    CATEGORIES = Category::DEFAULTS
+
+    EXTRA_CATEGORIES = [
+      [ "Reštaurácie", "#e99537", "utensils", "expense" ],
+      [ "Zábava", "#c44fe9", "drama", "expense" ],
+      [ "Zdravie", "#4da568", "pill", "expense" ]
     ].freeze
 
     EXPENSE_TEMPLATES = [
@@ -85,7 +80,9 @@ module Demo
       end
 
       def ensure_categories!
-        CATEGORIES.each do |name, color, icon, classification|
+        Category::Normalizer.normalize!(@family)
+
+        (CATEGORIES + EXTRA_CATEGORIES).each do |name, color, icon, classification|
           category = @family.categories.find_or_initialize_by(name: name)
           category.color = color
           category.lucide_icon = icon
