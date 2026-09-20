@@ -18,7 +18,7 @@
 
         <div class="max-w-full">
           <%= content_tag :div, class: ["flex items-center gap-2"] do %>
-            <% if transaction.merchant&.logo_url.present? || Merchant::LogoUrl.for(entry.name).present? || Merchant::LogoUrl.emoji_for(entry.name).present? || transaction.category&.lucide_icon.present? %>
+            <% if transaction.merchant&.logo_url.present? || MerchantLogo::LogoUrl.for(entry.name).present? || MerchantLogo::LogoUrl.emoji_for(entry.name).present? || transaction.category&.lucide_icon.present? %>
               <%= render "shared/entry_avatar", entry: entry, size: "sm" %>
             <% else %>
               <%= render DS::FilledIcon.new(

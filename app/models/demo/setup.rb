@@ -164,11 +164,11 @@ module Demo
           template = EXPENSE_TEMPLATES[@rng.rand(EXPENSE_TEMPLATES.length)]
           date = @rng.rand(6.months.ago.to_date..Date.current)
 
-          account.entries.create!(
-            entryable: Transaction.new(category: category(template[:category])),
+          create_transaction_entry!(
+            account: account,
+            category: category(template[:category]),
             amount: @rng.rand(template[:amount]),
             name: template[:name],
-            currency: CURRENCY,
             date: date
           )
         end
@@ -291,7 +291,7 @@ module Demo
           currency: CURRENCY,
           date: date
         )
-        Merchant::Assigner.assign_to_transaction!(entry.entryable, entry_name: name)
+        MerchantLogo::Assigner.assign_to_transaction!(entry.entryable, entry_name: name)
         entry
       end
 

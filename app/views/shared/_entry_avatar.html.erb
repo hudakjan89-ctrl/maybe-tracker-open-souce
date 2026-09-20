@@ -2,8 +2,8 @@
 <% transaction = entry.entryable %>
 <% category = transaction.respond_to?(:category) ? transaction.category : nil %>
 <% merchant = transaction.respond_to?(:merchant) ? transaction.merchant : nil %>
-<% logo_url = merchant&.logo_url.presence || Merchant::LogoUrl.for(entry.name) %>
-<% emoji = Merchant::LogoUrl.emoji_for(entry.name) %>
+<% logo_url = merchant&.logo_url.presence || MerchantLogo::LogoUrl.for(entry.name) %>
+<% emoji = MerchantLogo::LogoUrl.emoji_for(entry.name) %>
 <% size_classes = { "sm" => "w-8 h-8 text-sm", "md" => "w-10 h-10 text-base", "lg" => "w-12 h-12 text-lg" } %>
 <% dims = size_classes.fetch(size, size_classes["md"]) %>
 
