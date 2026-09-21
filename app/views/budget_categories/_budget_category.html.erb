@@ -30,7 +30,7 @@
         <% if budget_category.available_to_spend.negative? %>
           <p class="text-sm font-medium text-red-500"><%= format_money(budget_category.available_to_spend_money.abs) %> nad limitom</p>
         <% elsif budget_category.available_to_spend.zero? %>
-          <p class="text-sm font-medium <%= budget_category.budgeted_spending.positive? ? "text-orange-500" : "text-secondary" %>">
+          <p class="text-sm font-medium <%= budget_category.budgeted_spending.to_d.positive? ? "text-orange-500" : "text-secondary" %>">
             <%= format_money(budget_category.available_to_spend_money) %> zostáva
           </p>
         <% else %>
@@ -38,7 +38,7 @@
         <% end %>
       <% else %>
         <p class="text-sm text-secondary font-medium">
-          priemer <%= budget_category.median_monthly_expense_money.format %>/mes.
+          priemer <%= format_money(budget_category.median_monthly_expense_money) %>/mes.
         </p>
       <% end %>
     </div>

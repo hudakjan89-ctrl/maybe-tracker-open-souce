@@ -82,7 +82,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :demo_transactions, only: :create
+  resource :tatra_statement, only: %i[new create]
 
   resources :family_merchants, only: %i[index new create edit update destroy]
 

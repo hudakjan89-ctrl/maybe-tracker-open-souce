@@ -5,7 +5,7 @@
     <h3 class="text-sm text-secondary mb-2">Príjmy</h3>
 
     <span class="inline-block mb-2 text-xl font-medium text-primary">
-      <%= budget.actual_income_money.format %>
+      <%= format_money(budget.actual_income_money) %>
     </span>
 
     <% if budget.income_category_totals.any? %>
@@ -32,7 +32,7 @@
   <div class="p-4">
     <h3 class="text-sm text-secondary mb-2">Výdavky</h3>
 
-    <span class="inline-block mb-2 text-xl font-medium text-primary"><%= budget.actual_spending_money.format %></span>
+    <span class="inline-block mb-2 text-xl font-medium text-primary"><%= format_money(budget.actual_spending_money) %></span>
 
     <% if budget.expense_category_totals.any? %>
       <div>

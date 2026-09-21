@@ -85,4 +85,21 @@ class BudgetTest < ActiveSupport::TestCase
 
     assert_not_nil budget.previous_budget_param
   end
+
+  test "param_to_date accepts stable and legacy formats" do
+    date = Date.new(2026, 9, 1)
+    assert_equal date, Budget.param_to_date("2026-09")
+    assert_equal date, Budget.param_to_date("sep-2026")
+    assert_equal Date.current.beginning_of_month, Budget.param_to_date("not-a-date")
+  end
+
+  test "uncategorized budget category always has a budget" do
+    budget = Budget.find_or_bootstrap(@family, start_date: Date.current)
+    uncategorized = budget.uncategorized_budget_category
+
+    assert_equal budget, uncategorized.budget
+    assert uncategorized.currency.present?
+    assert_nothing_raised { uncategorized.initialized? }
+    assert_nothing_raised { uncategorized.median_monthly_expense }
+  end
 end

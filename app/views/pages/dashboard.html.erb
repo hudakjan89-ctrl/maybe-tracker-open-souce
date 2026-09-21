@@ -7,11 +7,6 @@
     </div>
 
     <div class="flex items-center gap-2">
-      <%= button_to demo_transactions_path, method: :post, class: "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-container-inset border border-secondary text-secondary hover:text-primary hover:bg-surface-hover transition-colors" do %>
-        <%= icon("zap", size: "sm") %>
-        Testing — ukážkové dáta
-      <% end %>
-
       <%= render DS::Link.new(
         icon: "plus",
         text: "Nové",

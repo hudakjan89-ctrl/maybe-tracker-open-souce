@@ -3,8 +3,28 @@
 
   <% dialog.with_body do %>
     <div class="rounded-xl bg-container-inset p-1">
-      <h3 class="uppercase text-secondary text-xs font-medium px-3 py-1.5"><%= t(".sources") %></h3>
+        <h3 class="uppercase text-secondary text-xs font-medium px-3 py-1.5"><%= t(".sources") %></h3>
       <ul class="bg-container shadow-border-xs rounded-lg">
+        <% if Current.family.accounts.any? %>
+          <li>
+            <%= link_to new_tatra_statement_path, class: "flex items-center justify-between p-4 group cursor-pointer w-full", data: { turbo_frame: "modal" } do %>
+              <div class="flex items-center gap-2">
+                <div class="bg-success/10 rounded-md w-8 h-8 flex items-center justify-center">
+                  <span class="text-success">
+                    <%= icon("file-text", color: "current") %>
+                  </span>
+                </div>
+                <div>
+                  <span class="text-sm text-primary group-hover:text-secondary block">Výpis z Tatra banky</span>
+                  <span class="text-xs text-secondary">PDF výpis — každá transakcia, nič sa nevynechá</span>
+                </div>
+              </div>
+              <%= icon("chevron-right") %>
+            <% end %>
+
+            <%= render "shared/ruler" %>
+          </li>
+        <% end %>
         <li>
           <% if @pending_import.present? && (params[:type].nil? || params[:type] == @pending_import.type) %>
             <%= link_to import_path(@pending_import), class: "flex items-center justify-between p-4 group cursor-pointer", data: { turbo: false } do %>

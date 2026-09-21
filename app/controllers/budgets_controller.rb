@@ -7,6 +7,7 @@ class BudgetsController < ApplicationController
 
   def show
     Category::Normalizer.normalize!(Current.family)
+    @budget.reload
     @budget.sync_budget_categories
   end
 
@@ -43,7 +44,9 @@ class BudgetsController < ApplicationController
     end
 
     def redirect_to_current_month_budget
-      current_budget = Budget.find_or_bootstrap(Current.family, start_date: Date.current)
+      current_budget = Budget.find_or_bootstrap(Current.family, start_date: Date.current.beginning_of_month)
+      raise ActiveRecord::RecordNotFound unless current_budget
+
       redirect_to budget_path(current_budget)
     end
 end

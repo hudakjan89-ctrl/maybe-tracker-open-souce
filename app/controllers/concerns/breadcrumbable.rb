@@ -21,6 +21,7 @@ module Breadcrumbable
         "investments" => "Investície",
         "holdings" => "Držby",
         "imports" => "Importy",
+        "tatra_statements" => "Výpis Tatra banky",
         "categories" => "Kategórie",
         "tags" => "Značky",
         "rules" => "Pravidlá",

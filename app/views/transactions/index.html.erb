@@ -16,10 +16,18 @@
           <% menu.with_item(variant: "link", text: "Štítky", href: tags_path, icon: "tags", data: { turbo_frame: :_top }) %>
           <% menu.with_item(variant: "link", text: "Obchodníci", href: family_merchants_path, icon: "store", data: { turbo_frame: :_top }) %>
           <% menu.with_item(variant: "link", text: "Importy", href: imports_path, icon: "hard-drive-upload", data: { turbo_frame: :_top }) %>
+          <% menu.with_item(variant: "link", text: "Výpis Tatra banky", href: new_tatra_statement_path, icon: "file-text", data: { turbo_frame: :modal, class_name: "md:!hidden" }) %>
           <% menu.with_item(variant: "link", text: "Import", href: new_import_path, icon: "download", data: { turbo_frame: "modal", class_name: "md:!hidden" }) %>
         <% end %>
 
-        <div class="hidden md:flex">
+        <div class="hidden md:flex gap-2">
+          <%= render DS::Link.new(
+            text: "Výpis Tatra banky",
+            icon: "file-text",
+            variant: "outline",
+            href: new_tatra_statement_path,
+            frame: :modal,
+          ) %>
           <%= render DS::Link.new(
             text: "Importovať",
             icon: "download",

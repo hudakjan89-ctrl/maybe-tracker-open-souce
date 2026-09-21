@@ -18,7 +18,7 @@ class BudgetCategory < ApplicationRecord
     delegate :name, :color, to: :category
 
     def self.for(budget_categories)
-      top_level_categories = budget_categories.select { |budget_category| budget_category.category.parent_id.nil? }
+      top_level_categories = budget_categories.select { |budget_category| budget_category.category.present? && budget_category.category.parent_id.nil? }
       top_level_categories.map do |top_level_category|
         subcategories = budget_categories.select { |bc| bc.category.parent_id == top_level_category.category_id && top_level_category.category_id.present? }
         new(top_level_category, subcategories.sort_by { |subcategory| subcategory.category.name })
@@ -67,11 +67,11 @@ class BudgetCategory < ApplicationRecord
   end
 
   def initialized?
-    budget.initialized?
+    budget&.initialized?
   end
 
   def category
-    super || budget.family.categories.uncategorized
+    super || budget&.family&.categories&.uncategorized || Category.uncategorized
   end
 
   def name
@@ -79,14 +79,20 @@ class BudgetCategory < ApplicationRecord
   end
 
   def actual_spending
+    return 0 unless budget
+
     budget.budget_category_actual_spending(self)
   end
 
   def avg_monthly_expense
+    return 0 unless budget
+
     budget.category_avg_monthly_expense(category)
   end
 
   def median_monthly_expense
+    return 0 unless budget
+
     budget.category_median_monthly_expense(category)
   end
 
@@ -99,9 +105,9 @@ class BudgetCategory < ApplicationRecord
   end
 
   def percent_of_budget_spent
-    return 0 unless budgeted_spending > 0
+    return 0 unless budgeted_spending.to_d.positive?
 
-    (actual_spending / budgeted_spending) * 100
+    (actual_spending.to_d / budgeted_spending.to_d) * 100
   end
 
   def to_donut_segments_json
@@ -129,7 +135,7 @@ class BudgetCategory < ApplicationRecord
     return nil unless subcategory?
 
     parent_budget = budget.budget_categories.find { |bc| bc.category.id == category.parent_id }&.budgeted_spending
-    siblings_budget = siblings.sum(&:budgeted_spending)
+    siblings_budget = siblings.sum { |s| s.budgeted_spending.to_d }
 
     [ parent_budget - siblings_budget, 0 ].max
   end

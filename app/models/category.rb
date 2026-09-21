@@ -74,7 +74,7 @@ class Category < ApplicationRecord
       new(
         name: "Bez kategórie",
         color: UNCATEGORIZED_COLOR,
-        lucide_icon: "circle-dashed"
+        lucide_icon: "shapes"
       )
     end
   end

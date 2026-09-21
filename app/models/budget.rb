@@ -1,14 +1,16 @@
 class Budget < ApplicationRecord
   include Monetizable
 
-  PARAM_DATE_FORMAT = "%b-%Y"
+  # Locale-stable URL param (old links like "sep-2026" still parse).
+  PARAM_DATE_FORMAT = "%Y-%m"
+  LEGACY_PARAM_FORMATS = [ "%b-%Y", "%B-%Y", "%m-%Y", "%Y-%m-%d" ].freeze
 
   belongs_to :family
 
   has_many :budget_categories, -> { includes(:category) }, dependent: :destroy
 
   validates :start_date, :end_date, presence: true
-  validates :start_date, :end_date, uniqueness: { scope: :family_id }
+  validates :start_date, uniqueness: { scope: :family_id }
 
   monetize :budgeted_spending, :expected_income, :allocated_spending,
            :actual_spending, :available_to_spend, :available_to_allocate,
@@ -16,35 +18,47 @@ class Budget < ApplicationRecord
 
   class << self
     def date_to_param(date)
-      date.strftime(PARAM_DATE_FORMAT).downcase
+      date.to_date.strftime(PARAM_DATE_FORMAT)
     end
 
     def param_to_date(param)
-      Date.strptime(param, PARAM_DATE_FORMAT).beginning_of_month
+      str = param.to_s.strip
+      return Date.current.beginning_of_month if str.blank?
+
+      ( [ PARAM_DATE_FORMAT ] + LEGACY_PARAM_FORMATS ).each do |fmt|
+        begin
+          return Date.strptime(str, fmt).beginning_of_month
+        rescue ArgumentError, Date::Error
+          next
+        end
+      end
+
+      Date.current.beginning_of_month
     end
 
     def budget_date_valid?(date, family:)
-      beginning_of_month = date.beginning_of_month
+      beginning_of_month = date.to_date.beginning_of_month
 
       beginning_of_month >= oldest_valid_budget_date(family) && beginning_of_month <= Date.current.end_of_month
     end
 
     def find_or_bootstrap(family, start_date:)
-      return nil unless budget_date_valid?(start_date, family: family)
+      date = start_date.to_date.beginning_of_month
+      return nil unless budget_date_valid?(date, family: family)
 
       Budget.transaction do
-        budget = Budget.find_or_create_by!(
-          family: family,
-          start_date: start_date.beginning_of_month,
-          end_date: start_date.end_of_month
-        ) do |b|
-          b.currency = family.currency
-        end
+        budget = family.budgets.find_by(start_date: date) || family.budgets.create!(
+          start_date: date,
+          end_date: date.end_of_month,
+          currency: family.currency.presence || "EUR"
+        )
 
         budget.sync_budget_categories
-
+        budget.budget_categories.reset
         budget
       end
+    rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
+      family.budgets.find_by(start_date: date)&.tap(&:sync_budget_categories)
     end
 
     private
@@ -84,7 +98,8 @@ class Budget < ApplicationRecord
   end
 
   def uncategorized_budget_category
-    budget_categories.uncategorized.tap do |bc|
+    BudgetCategory.uncategorized.tap do |bc|
+      bc.budget = self
       bc.budgeted_spending = [ available_to_allocate, 0 ].max
       bc.currency = family.currency
     end
@@ -136,7 +151,9 @@ class Budget < ApplicationRecord
     # Continuous gray segment for empty budgets
     return [ { color: "var(--budget-unallocated-fill)", amount: 1, id: unused_segment_id } ] unless allocations_valid?
 
-    segments = budget_categories.map do |bc|
+    segments = budget_categories.filter_map do |bc|
+      next unless bc.category
+
       { color: bc.category.color, amount: budget_category_actual_spending(bc), id: bc.id }
     end
 
@@ -159,7 +176,10 @@ class Budget < ApplicationRecord
   end
 
   def budget_category_actual_spending(budget_category)
-    expense_totals.category_totals.find { |ct| ct.category.id == budget_category.category.id }&.total || 0
+    category = budget_category.category
+    return 0 unless category
+
+    expense_totals.category_totals.find { |ct| ct.category&.id == category.id }&.total || 0
   end
 
   def category_median_monthly_expense(category)
@@ -175,28 +195,29 @@ class Budget < ApplicationRecord
   end
 
   def percent_of_budget_spent
-    return 0 unless budgeted_spending > 0
+    return 0 unless budgeted_spending.to_d.positive?
 
-    (actual_spending / budgeted_spending.to_f) * 100
+    (actual_spending.to_d / budgeted_spending.to_d) * 100
   end
 
   def overage_percent
     return 0 unless available_to_spend.negative?
+    return 0 unless actual_spending.to_d.positive?
 
-    available_to_spend.abs / actual_spending.to_f * 100
+    available_to_spend.abs / actual_spending.to_d * 100
   end
 
   # =============================================================================
   # Budget allocations: How much user has budgeted for all parent categories combined
   # =============================================================================
   def allocated_spending
-    budget_categories.reject { |bc| bc.subcategory? }.sum(&:budgeted_spending)
+    budget_categories.reject(&:subcategory?).sum { |bc| bc.budgeted_spending.to_d }
   end
 
   def allocated_percent
-    return 0 unless budgeted_spending && budgeted_spending > 0
+    return 0 unless budgeted_spending.to_d.positive?
 
-    (allocated_spending / budgeted_spending.to_f) * 100
+    (allocated_spending / budgeted_spending.to_d) * 100
   end
 
   def available_to_allocate
@@ -219,19 +240,20 @@ class Budget < ApplicationRecord
   end
 
   def actual_income_percent
-    return 0 unless expected_income > 0
+    return 0 unless expected_income.to_d.positive?
 
-    (actual_income / expected_income.to_f) * 100
+    (actual_income.to_d / expected_income.to_d) * 100
   end
 
   def remaining_expected_income
-    expected_income - actual_income
+    expected_income.to_d - actual_income.to_d
   end
 
   def surplus_percent
     return 0 unless remaining_expected_income.negative?
+    return 0 unless expected_income.to_d.positive?
 
-    remaining_expected_income.abs / expected_income.to_f * 100
+    remaining_expected_income.abs / expected_income.to_d * 100
   end
 
   private

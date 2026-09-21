@@ -7,14 +7,15 @@
 
   <div class="text-sm mr-3">
     <p class="text-primary font-medium mb-0.5"><%= budget_category.category.name %></p>
-    <p class="text-secondary">priemer <%= budget_category.avg_monthly_expense_money.format(precision: 0) %>/mes.</p>
+    <p class="text-secondary">priemer <%= format_money(budget_category.avg_monthly_expense_money, precision: 0) %>/mes.</p>
   </div>
 
   <div class="ml-auto">
     <div class="form-field w-[120px]">
       <div class="flex items-center">
-        <span class="text-subdued text-sm mr-2"><%= budget_category.budgeted_spending_money.currency.symbol %></span>
-        <%= text_field_tag :uncategorized, budget_category.budgeted_spending_money.amount, autocomplete: "off", class: "form-field__input text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", disabled: true %>
+        <% money = budget_category.budgeted_spending_money %>
+        <span class="text-subdued text-sm mr-2"><%= money&.currency&.symbol %></span>
+        <%= text_field_tag :uncategorized, money&.amount, autocomplete: "off", class: "form-field__input text-right [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", disabled: true %>
       </div>
     </div>
   </div>

@@ -27,14 +27,6 @@ class RegistrationsController < ApplicationController
       @invitation&.update!(accepted_at: Time.current)
       @session = create_session_for(@user)
 
-      if @invitation.nil?
-        begin
-          Demo::Setup.new(@user.family).populate!
-        rescue => e
-          Rails.logger.error("Auto demo setup failed: #{e.class} - #{e.message}")
-        end
-      end
-
       redirect_to root_path, notice: t(".success")
     else
       render :new, status: :unprocessable_entity, alert: t(".failure")

@@ -62,7 +62,7 @@ module ApplicationHelper
     end
   end
 
-  def format_money(number_or_money, options = {})
+  def format_money(number_or_money, **options)
     return nil unless number_or_money
 
     Money.new(number_or_money).format(options)
