@@ -26,10 +26,10 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "destroys account" do
+  test "destroys account immediately" do
     delete account_url(@account)
     assert_redirected_to accounts_path
-    assert_enqueued_with job: DestroyJob
-    assert_equal "Account scheduled for deletion", flash[:notice]
+    assert_not Account.exists?(@account.id)
+    assert_match(/zmazan/, flash[:notice])
   end
 end

@@ -1,11 +1,13 @@
 class TatraStatementsController < ApplicationController
   def new
     @accounts = Current.family.accounts.visible.alphabetically
+    @selected_account_id = params[:account_id].presence || @accounts.first&.id
   end
 
   def create
     @accounts = Current.family.accounts.visible.alphabetically
     account = @accounts.find_by(id: params[:account_id] || params.dig(:tatra_statement, :account_id))
+    @selected_account_id = account&.id || params[:account_id]
     file = params[:statement] || params.dig(:tatra_statement, :statement)
 
     unless account

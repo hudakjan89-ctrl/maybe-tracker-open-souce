@@ -51,8 +51,12 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    @account.destroy_later
-    redirect_to accounts_path, notice: "Účet bol zaradený na zmazanie."
+    name = @account.name
+    @account.destroy!
+    redirect_to accounts_path, notice: "Účet „#{name}“ a súvisiace prevody boli zmazané."
+  rescue => e
+    Rails.logger.error("[Accounts] destroy failed: #{e.class}: #{e.message}")
+    redirect_to accounts_path, alert: "Účet sa nepodarilo zmazať. Skúste to znova."
   end
 
   private

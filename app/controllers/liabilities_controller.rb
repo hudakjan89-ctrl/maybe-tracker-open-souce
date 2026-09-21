@@ -50,8 +50,12 @@ class LiabilitiesController < ApplicationController
   end
 
   def destroy
-    @account.destroy_later
-    redirect_to root_path, notice: "Záväzok bol odstránený."
+    name = @account.name
+    @account.destroy!
+    redirect_to root_path, notice: "Záväzok „#{name}“ a súvisiace platby boli zmazané."
+  rescue => e
+    Rails.logger.error("[Liabilities] destroy failed: #{e.class}: #{e.message}")
+    redirect_to root_path, alert: "Záväzok sa nepodarilo zmazať. Skúste to znova."
   end
 
   def payments

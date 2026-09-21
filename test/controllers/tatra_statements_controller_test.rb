@@ -11,6 +11,12 @@ class TatraStatementsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h2", text: /Tatra banky/
   end
 
+  test "new preselects account from query param" do
+    get new_tatra_statement_path, params: { account_id: accounts(:savings).id }
+    assert_response :success
+    assert_select "option[value=?][selected]", accounts(:savings).id
+  end
+
   test "create imports uploaded statement" do
     file = Tempfile.new([ "vypis", ".txt" ])
     file.write("24.07.2026 Kaufland -69,00\n26.07.2026 Spotify -6,00\n")

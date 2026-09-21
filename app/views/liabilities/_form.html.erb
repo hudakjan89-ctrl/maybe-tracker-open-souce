@@ -18,24 +18,24 @@
   <p class="text-xs text-secondary">Zadajte aktuálnu sumu, ktorú ešte musíte splatiť. Ak zadáte 0, záväzok sa označí ako splatený.</p>
 
   <%= form.submit account.persisted? ? "Uložiť zmeny" : "Pridať záväzok", class: "w-full" %>
+<% end %>
 
-  <% if account.persisted? %>
-    <div class="pt-2 border-t border-secondary">
-      <%= render DS::Button.new(
-        text: "Zmazať záväzok",
-        variant: :outline_destructive,
-        href: liability_path(account),
-        method: :delete,
-        confirm: CustomConfirm.new(
-          title: "Zmazať záväzok?",
-          body: "Naozaj chcete natrvalo zmazať tento záväzok? Túto akciu nie je možné vrátiť späť.",
-          btn_text: "Zmazať záväzok",
-          destructive: true,
-          high_severity: true
-        ),
-        data: { turbo_frame: "_top" },
-        class: "w-full"
-      ) %>
-    </div>
-  <% end %>
+<% if account.persisted? %>
+  <div class="pt-2 border-t border-secondary">
+    <%= render DS::Button.new(
+      text: "Zmazať záväzok",
+      variant: :outline_destructive,
+      href: liability_path(account),
+      method: :delete,
+      confirm: CustomConfirm.new(
+        title: "Zmazať záväzok?",
+        body: "Zmaže sa aj so všetkými platbami (napríklad „Payment to leasing auta“ na bežnom účte). Túto akciu nie je možné vrátiť späť.",
+        btn_text: "Zmazať záväzok aj platby",
+        destructive: true,
+        high_severity: true
+      ),
+      data: { turbo_frame: "_top" },
+      class: "w-full"
+    ) %>
+  </div>
 <% end %>

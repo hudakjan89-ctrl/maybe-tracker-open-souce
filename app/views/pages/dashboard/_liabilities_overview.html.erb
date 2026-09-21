@@ -55,6 +55,20 @@
               frame: :modal,
               variant: "ghost"
             ) %>
+            <%= render DS::Button.new(
+              text: "Zmazať",
+              variant: :ghost,
+              href: liability_path(account),
+              method: :delete,
+              confirm: CustomConfirm.new(
+                title: "Zmazať záväzok?",
+                body: "Zmaže sa „#{account.name}“ aj so súvisiacimi platbami na účtoch. Túto akciu nie je možné vrátiť späť.",
+                btn_text: "Zmazať záväzok aj platby",
+                destructive: true,
+                high_severity: true
+              ),
+              data: { turbo_frame: "_top" }
+            ) %>
           </div>
         </div>
       <% end %>

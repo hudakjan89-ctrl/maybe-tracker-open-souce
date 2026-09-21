@@ -4,6 +4,15 @@
   <% menu.with_item(variant: "link", text: "Upraviť", href: edit_account_path(account), icon: "pencil-line", data: { turbo_frame: :modal }) %>
 
   <% unless account.crypto? %>
+    <% if account.depository? %>
+      <% menu.with_item(
+        variant: "link",
+        text: "Výpis Tatra banky",
+        href: new_tatra_statement_path(account_id: account.id),
+        icon: "file-text",
+        data: { turbo_frame: :modal }
+      ) %>
+    <% end %>
     <% menu.with_item(
       variant: "link",
       text: "Importovať transakcie",

@@ -13,7 +13,7 @@
       <%= styled_form_with url: tatra_statement_path, method: :post, multipart: true, data: { turbo_frame: :_top }, class: "space-y-4" do |form| %>
         <%= form.collection_select :account_id,
               @accounts, :id, :name,
-              { label: "Účet", selected: @accounts.first.id },
+              { label: "Účet", selected: @selected_account_id || @accounts.first.id },
               { name: "account_id", required: true } %>
 
         <div class="flex flex-col items-center justify-center w-full min-h-40 border border-secondary border-dashed rounded-xl cursor-pointer px-4 py-6"

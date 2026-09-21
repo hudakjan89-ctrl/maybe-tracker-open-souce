@@ -22,6 +22,11 @@ class Account < ApplicationRecord
   scope :assets, -> { where(classification: "asset") }
   scope :liabilities, -> { where(classification: "liability") }
   scope :alphabetically, -> { order(:name) }
+  # Self-hosted: Plaid sme odpojili, ručné sú účty bez bankového prepojenia.
+  scope :manual, -> { where(plaid_account_id: nil) }
+
+  before_destroy :remove_linked_transfer_activity
+  after_commit :sync_counterpart_accounts_after_destroy, on: :destroy
 
   has_one_attached :logo
 
@@ -76,9 +81,12 @@ class Account < ApplicationRecord
     nil
   end
 
+  def manual?
+    plaid_account_id.blank?
+  end
+
   def destroy_later
-    mark_for_deletion!
-    DestroyJob.perform_later(self)
+    destroy
   end
 
   # Override destroy to handle error recovery for accounts
@@ -148,4 +156,42 @@ class Account < ApplicationRecord
       raise "Unknown account type: #{accountable_type}"
     end
   end
+
+  private
+    # Platby leasingu / prevody sú pár transakcií. Pri zmazaní účtu zmažeme
+    # aj druhú stranu (napr. „Payment to leasing auta“ na bežnom účte).
+    def remove_linked_transfer_activity
+      txn_ids = entries.where(entryable_type: "Transaction").pluck(:entryable_id)
+      return if txn_ids.empty?
+
+      transfers = Transfer.where(inflow_transaction_id: txn_ids)
+                          .or(Transfer.where(outflow_transaction_id: txn_ids))
+      rejected = RejectedTransfer.where(inflow_transaction_id: txn_ids)
+                                 .or(RejectedTransfer.where(outflow_transaction_id: txn_ids))
+
+      related_ids = (
+        transfers.pluck(:inflow_transaction_id, :outflow_transaction_id) +
+        rejected.pluck(:inflow_transaction_id, :outflow_transaction_id)
+      ).flatten.compact.uniq
+
+      counterpart_ids = related_ids - txn_ids
+      counterpart_entries = Entry.where(entryable_type: "Transaction", entryable_id: counterpart_ids)
+      @counterpart_account_ids_for_sync = counterpart_entries.distinct.pluck(:account_id)
+
+      transfers.delete_all
+      rejected.delete_all
+      counterpart_entries.find_each(&:destroy)
+    end
+
+    def sync_counterpart_accounts_after_destroy
+      ids = Array(@counterpart_account_ids_for_sync).uniq
+      return if ids.empty?
+
+      Account.where(id: ids).find_each do |account|
+        account.sync_now
+      rescue => e
+        Rails.logger.warn("[Account] counterpart sync after destroy failed: #{e.class} #{e.message}")
+        account.sync_later
+      end
+    end
 end
