@@ -34,4 +34,17 @@ class TatraStatementsControllerTest < ActionDispatch::IntegrationTest
     file.close!
     file.unlink
   end
+
+  test "create imports official Tatra CSV statement" do
+    csv = file_fixture_upload("tatra_export.csv")
+
+    assert_difference -> { accounts(:depository).entries.transactions.count }, 10 do
+      post tatra_statement_path, params: {
+        account_id: accounts(:depository).id,
+        statement: csv
+      }
+    end
+
+    assert_redirected_to transactions_path
+  end
 end

@@ -69,4 +69,25 @@ class TatraStatement::ImporterTest < ActiveSupport::TestCase
     assert_equal 0, result.imported_count
     assert_equal 2, result.duplicate_count
   end
+
+  test "imports official Tatra CSV export with card merchants and bank transfers" do
+    csv = file_fixture("tatra_export.csv").read
+
+    result = TatraStatement::Importer.new(
+      family: @family,
+      account: @account,
+      bytes: csv,
+      filename: "document.csv"
+    ).call
+
+    assert_equal 10, result.imported_count
+    assert_equal 0, result.duplicate_count
+
+    bufet = @account.entries.find_by(name: "BUFET AGLOMERACIA")
+    assert_equal Date.new(2026, 6, 15), bufet.date
+    assert_equal BigDecimal("4.04"), bufet.amount
+
+    income = @account.entries.find_by(name: "Príjem — Tatra banka")
+    assert_equal BigDecimal("-173.50"), income.amount
+  end
 end

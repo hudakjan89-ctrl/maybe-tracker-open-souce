@@ -1,11 +1,11 @@
 class TatraStatement::Categorizer
   RULES = [
     [ /v[yý]plata|\bmzda\b|\bplat\b|salary|paycheck|[uú]rok zo|dividenda/i, "Plat" ],
-    [ /kaufland|tesco|lidl|billa|yeme|terno|coop|jednota|fresh|potravin|grocery|lidl/i, "Potraviny" ],
-    [ /spotify|netflix|disney|youtube|icloud|apple\.com|predplat|hbo|canva|openai|chatgpt/i, "Predplatné" ],
+    [ /kaufland|tesco|lidl|billa|yeme|terno|coop|jednota|fresh|potravin|grocery|metro|mcdonald|bufet|smokey|streetfood|rel plus|u\.?s\.?\s*steel|tabak/i, "Potraviny" ],
+    [ /spotify|netflix|disney|youtube|icloud|apple\.com|predplat|hbo|canva|openai|chatgpt|playstation|prime video|google one|google cloud/i, "Predplatné" ],
     [ /slovnaft|omv|\bshell\b|benz|phm|tankov|leasing|doprav|parkov|pps|\bvlak\b|regiojet|\buber\b|\bbolt\b|autobus|mhd/i, "Doprava" ],
-    [ /n[aá]jom|b[yý]vanie|energie|\bzse\b|\bspp\b|vod[aá]rne|internet|orange|telekom|\bo2\b|\bupc\b|anto|v[yý]tah/i, "Bývanie" ],
-    [ /alza|ikea|zalando|zara|pepco|\bkik\b|action|\bdm\b|rossmann|teta|datart|\bnay\b|about you|decathlon/i, "Nákupy" ]
+    [ /n[aá]jom|b[yý]vanie|energie|\bzse\b|\bspp\b|vod[aá]rne|internet|orange|telekom|\bo2\b|\bupc\b|anto|v[yý]tah|dovera|poistn/i, "Bývanie" ],
+    [ /alza|ikea|zalando|zara|pepco|\bkik\b|action|\bdm\b|rossmann|teta|datart|\bnay\b|about you|decathlon|obi|allegro|filtreaoleje|skoda|gopay|cebia/i, "Nákupy" ]
   ].freeze
 
   def initialize(family)

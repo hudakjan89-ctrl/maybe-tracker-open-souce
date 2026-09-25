@@ -30,6 +30,7 @@ module MerchantLogo
     "dr max" => "drmax.sk",
     "drmax" => "drmax.sk",
     "benu" => "benu.sk",
+    "dovera" => "dovera.sk",
 
     # Nábytok a domácnosť
     "ikea" => "ikea.com",
@@ -56,6 +57,8 @@ module MerchantLogo
     "pepco" => "pepco.sk",
     "kik" => "kik.sk",
     "action" => "action.com",
+    "allegro" => "allegro.pl",
+    "cebia" => "cebia.cz",
 
     # Predplatné a technológie
     "spotify" => "spotify.com",
@@ -75,6 +78,8 @@ module MerchantLogo
     "dropbox" => "dropbox.com",
     "steam" => "steampowered.com",
     "playstation" => "playstation.com",
+    "prime video" => "primevideo.com",
+    "google one" => "one.google.com",
     "xbox" => "xbox.com",
     "audible" => "audible.com",
 
@@ -134,6 +139,7 @@ module MerchantLogo
     "unicredit" => "unicreditbank.sk",
     "365 bank" => "365.bank",
     "revolut" => "revolut.com",
+    "revolutu" => "revolut.com",
     "wise" => "wise.com",
     "paypal" => "paypal.com",
     "n26" => "n26.com",

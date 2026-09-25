@@ -60,15 +60,31 @@ class TatraStatement::Importer
       text = extract_text
       raise TatraStatement::EmptyText, "PDF neobsahuje čitateľný text. Exportujte výpis z internet bankingu, nie naskenovaný obrázok." if text.blank?
 
-      TatraStatement::Parser.new(text).transactions
+      parser = if TatraStatement::CsvParser.handles?(text)
+        TatraStatement::CsvParser.new(text)
+      else
+        TatraStatement::Parser.new(text)
+      end
+
+      parser.transactions
     end
 
     def extract_text
       if pdf?
         TatraStatement::PdfText.extract(@bytes)
       else
-        @bytes.to_s.force_encoding(Encoding::UTF_8).encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
+        decode_bytes(@bytes)
       end
+    end
+
+    def decode_bytes(bytes)
+      raw = bytes.to_s
+      utf8 = raw.dup.force_encoding(Encoding::UTF_8)
+      return utf8 if utf8.valid_encoding?
+
+      raw.force_encoding("Windows-1250").encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
+    rescue EncodingError
+      raw.to_s.encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
     end
 
     def pdf?

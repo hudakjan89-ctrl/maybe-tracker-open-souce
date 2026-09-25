@@ -1,5 +1,5 @@
 <%= render DS::Dialog.new do |dialog| %>
-  <% dialog.with_header(title: "Výpis z Tatra banky", subtitle: "Nahrajte PDF výpis alebo históriu pohybov. Importuje sa každá transakcia, nič sa nevynechá.") %>
+  <% dialog.with_header(title: "Výpis z Tatra banky", subtitle: "Nahrajte CSV alebo PDF z internet bankingu. Importuje sa každá transakcia, nič sa nevynechá.") %>
 
   <% dialog.with_body do %>
     <% if @accounts.empty? %>
@@ -22,8 +22,8 @@
              data-file-upload-target="uploadArea">
           <div data-file-upload-target="uploadText" class="flex flex-col items-center text-center">
             <%= icon("file-text", size: "lg", class: "mb-3") %>
-            <p class="text-sm text-primary font-medium">Kliknite a vyberte PDF výpis</p>
-            <p class="text-xs text-secondary mt-1">PDF z internet bankingu, prípadne CSV alebo TXT</p>
+            <p class="text-sm text-primary font-medium">Kliknite a vyberte CSV alebo PDF výpis</p>
+            <p class="text-xs text-secondary mt-1">Najlepšie funguje CSV z Histórie pohybov. PDF a TXT tiež.</p>
           </div>
           <div class="flex flex-col gap-2 items-center hidden" data-file-upload-target="fileName">
             <%= icon("file-text", size: "lg") %>
@@ -31,14 +31,14 @@
           </div>
           <%= form.file_field :statement,
                 name: "statement",
-                accept: ".pdf,.csv,.txt,application/pdf,text/csv,text/plain",
+                accept: ".pdf,.csv,.txt,application/pdf,text/csv,text/plain,text/comma-separated-values",
                 required: true,
                 class: "hidden",
                 data: { file_upload_target: "input" } %>
         </div>
 
         <p class="text-xs text-secondary">
-          V Tatra banke: Účty → História pohybov / Výpisy → stiahnuť PDF. Po importe uvidíte všetky pohyby v Transakciách.
+          V Tatra banke: Účty → História pohybov → Exportovať CSV. Prípadne stiahnite PDF výpis. Po importe uvidíte všetky pohyby v Transakciách.
         </p>
 
         <%= form.submit "Importovať výpis" %>
