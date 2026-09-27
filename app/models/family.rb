@@ -85,12 +85,12 @@ class Family < ApplicationRecord
 
     accounts.where(status: "disabled", accountable_type: leftover_types).find_each do |liability|
       next unless liability.name.match?(leftover_name)
-      next unless entries.exists?([ "name ILIKE ?", "Payment to #{self.class.sanitize_sql_like(liability.name)}%" ])
+      next unless entries.exists?([ "entries.name ILIKE ?", "Payment to #{self.class.sanitize_sql_like(liability.name)}%" ])
 
       liability.destroy!
     end
 
-    entries.where("name ILIKE ?", "Payment to %").find_each do |entry|
+    entries.where("entries.name ILIKE ?", "Payment to %").find_each do |entry|
       dest_name = entry.name.sub(/\APayment to /i, "").strip
       next unless dest_name.match?(leftover_name)
 

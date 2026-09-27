@@ -29,7 +29,11 @@ class TatraStatement::Importer
 
   def call
     import = nil
-    @family.purge_leftover_liability_payments!
+    begin
+      @family.purge_leftover_liability_payments!
+    rescue => e
+      Rails.logger.warn("[TatraStatement] leftover cleanup skipped: #{e.class}: #{e.message}")
+    end
     parsed = parse_all
     raise TatraStatement::NoTransactions, "Vo výpise sa nenašli žiadne pohyby." if parsed.empty?
 
