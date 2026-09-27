@@ -5,6 +5,11 @@ class TatraStatement::CsvParserTest < ActiveSupport::TestCase
     @text = file_fixture("tatra_export.csv").read
   end
 
+  test "detects official Tatra CSV even when the upload is binary UTF-8" do
+    binary = @text.dup.force_encoding(Encoding::ASCII_8BIT)
+    assert TatraStatement::CsvParser.handles?(binary)
+  end
+
   test "detects official Tatra CSV export" do
     assert TatraStatement::CsvParser.handles?(@text)
     assert_not TatraStatement::CsvParser.handles?("24.07.2026 Kaufland -69,00")

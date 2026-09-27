@@ -60,4 +60,22 @@ class Import::UploadsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to transactions_path
     assert_match(/Naimportovaných/, flash[:notice])
   end
+
+  test "binary UTF-8 Tatra CSV still imports immediately" do
+    upload = file_fixture_upload("tatra_export.csv")
+    upload.define_singleton_method(:read) do
+      File.binread(path)
+    end
+
+    assert_difference -> { accounts(:depository).entries.transactions.count }, 10 do
+      patch import_upload_url(@import), params: {
+        import: {
+          csv_file: upload,
+          col_sep: ","
+        }
+      }
+    end
+
+    assert_redirected_to transactions_path
+  end
 end

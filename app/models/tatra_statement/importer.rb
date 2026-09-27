@@ -79,13 +79,7 @@ class TatraStatement::Importer
     end
 
     def decode_bytes(bytes)
-      raw = bytes.to_s
-      utf8 = raw.dup.force_encoding(Encoding::UTF_8)
-      return utf8 if utf8.valid_encoding?
-
-      raw.force_encoding("Windows-1250").encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
-    rescue EncodingError
-      raw.to_s.encode(Encoding::UTF_8, invalid: :replace, undef: :replace)
+      TatraStatement.decode(bytes)
     end
 
     def pdf?

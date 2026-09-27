@@ -14,8 +14,8 @@ class Import::UploadsController < ApplicationController
   end
 
   def update
-    if tatra_statement?(csv_str)
-      return import_tatra_statement!(csv_str)
+    if tatra_upload?
+      return import_tatra_statement!
     end
 
     if csv_valid?(csv_str)
@@ -29,6 +29,13 @@ class Import::UploadsController < ApplicationController
 
       render :show, status: :unprocessable_entity
     end
+  rescue ActionController::ParameterMissing
+    flash.now[:alert] = "Vložte CSV alebo PDF výpis z Tatra banky."
+    render :show, status: :unprocessable_entity
+  rescue => e
+    Rails.logger.error("[Import::Uploads] #{e.class}: #{e.message}\n#{e.backtrace.first(12).join("\n")}")
+    flash.now[:alert] = "Súbor sa nepodarilo spracovať. Skúste to cez tlačidlo Vložiť výpis."
+    render :show, status: :unprocessable_entity
   end
 
   private
@@ -36,15 +43,33 @@ class Import::UploadsController < ApplicationController
       @import = Current.family.imports.find(params[:import_id])
     end
 
+    def uploaded_bytes
+      @uploaded_bytes ||= begin
+        file = upload_params[:csv_file]
+        if file.respond_to?(:read)
+          file.rewind if file.respond_to?(:rewind)
+          file.read
+        else
+          upload_params[:raw_file_str].to_s
+        end
+      end
+    end
+
     def csv_str
-      @csv_str ||= upload_params[:csv_file]&.read || upload_params[:raw_file_str]
+      @csv_str ||= TatraStatement.decode(uploaded_bytes)
     end
 
-    def tatra_statement?(str)
-      TatraStatement::CsvParser.handles?(str.to_s)
+    def tatra_upload?
+      filename = upload_params[:csv_file]&.original_filename.to_s.downcase
+      bytes = uploaded_bytes.to_s
+      TatraStatement::CsvParser.handles?(bytes) ||
+        filename.end_with?(".pdf") ||
+        bytes.start_with?("%PDF")
+    rescue ActionController::ParameterMissing
+      false
     end
 
-    def import_tatra_statement!(str)
+    def import_tatra_statement!
       account = Current.family.accounts.visible.find_by(id: params.dig(:import, :account_id)) ||
         @import.account ||
         Current.family.default_cash_account
@@ -57,7 +82,7 @@ class Import::UploadsController < ApplicationController
       result = TatraStatement::Importer.new(
         family: Current.family,
         account: account,
-        bytes: str,
+        bytes: uploaded_bytes,
         filename: filename
       ).call
 
@@ -69,14 +94,12 @@ class Import::UploadsController < ApplicationController
     end
 
     def csv_valid?(str)
-      begin
-        csv = Import.parse_csv_str(str, col_sep: upload_params[:col_sep])
-        return false if csv.headers.empty?
-        return false if csv.count == 0
-        true
-      rescue CSV::MalformedCSVError
-        false
-      end
+      csv = Import.parse_csv_str(str, col_sep: upload_params[:col_sep])
+      return false if csv.headers.empty?
+      return false if csv.count == 0
+      true
+    rescue CSV::MalformedCSVError, ArgumentError, EncodingError
+      false
     end
 
     def upload_params

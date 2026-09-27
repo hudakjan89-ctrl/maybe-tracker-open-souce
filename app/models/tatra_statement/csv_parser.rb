@@ -55,12 +55,14 @@ class TatraStatement::CsvParser
   TIMESTAMP = /\b(\d{8})(?:\s+(\d{2}:\d{2}:\d{2}))?\s+(?:[\d.]+\s*EUR\s+)?(.+)\z/i
 
   def self.handles?(text)
-    head = text.to_s.sub(/\A\uFEFF/, "").lines.find { |line| line.include?(",") || line.include?(";") }.to_s
+    head = TatraStatement.decode(text).sub(/\A\uFEFF/, "").lines.find { |line| line.include?(",") || line.include?(";") }.to_s
     head.match?(/d[aá]tum\s+spracovania/i) && head.match?(/\bsuma\b/i) && head.match?(/\btyp\b/i)
+  rescue ArgumentError, EncodingError
+    false
   end
 
   def initialize(text)
-    @text = text.to_s.sub(/\A\uFEFF/, "")
+    @text = TatraStatement.decode(text).sub(/\A\uFEFF/, "")
   end
 
   def transactions

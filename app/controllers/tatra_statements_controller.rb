@@ -37,6 +37,10 @@ class TatraStatementsController < ApplicationController
   rescue TatraStatement::EmptyText, TatraStatement::NoTransactions, TatraStatement::Error => e
     flash.now[:alert] = e.message
     render :new, status: :unprocessable_entity
+  rescue => e
+    Rails.logger.error("[TatraStatements] #{e.class}: #{e.message}\n#{e.backtrace.first(12).join("\n")}")
+    flash.now[:alert] = "Výpis sa nepodarilo spracovať. Exportujte CSV z Histórie pohybov a skúste to znova."
+    render :new, status: :unprocessable_entity
   end
 
   private
