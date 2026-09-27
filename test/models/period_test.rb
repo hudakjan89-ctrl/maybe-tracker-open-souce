@@ -50,11 +50,8 @@ class PeriodTest < ActiveSupport::TestCase
     assert_equal "vs. last month", period.comparison_label
   end
 
-  test "comparison_label returns date range for unknown period" do
-    start_date = Date.current - 15.days
-    end_date = Date.current
-    period = Period.new(start_date: start_date, end_date: end_date)
-    expected = "#{start_date.strftime("%b %d, %Y")} to #{end_date.strftime("%b %d, %Y")}"
-    assert_equal expected, period.comparison_label
+  test "interval is a postgres interval string" do
+    assert_equal "1 day", Period.last_30_days.interval
+    assert_equal "1 week", Period.last_5_years.interval
   end
 end

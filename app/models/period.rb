@@ -121,10 +121,11 @@ class Period
   end
 
   def interval
+    # PostgreSQL generate_series requires English interval literals.
     if days > 366
-      "1 týždeň"
+      "1 week"
     else
-      "1 deň"
+      "1 day"
     end
   end
 

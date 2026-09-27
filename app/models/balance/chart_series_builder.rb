@@ -32,7 +32,16 @@ class Balance::ChartSeriesBuilder
     attr_reader :account_ids, :currency, :period, :favorable_direction
 
     def interval
-      @interval || period.interval
+      sql_interval(@interval.presence || period.interval)
+    end
+
+    def sql_interval(value)
+      case value.to_s.strip.downcase
+      when /week|týžd/
+        "1 week"
+      else
+        "1 day"
+      end
     end
 
     def build_series_for(column)

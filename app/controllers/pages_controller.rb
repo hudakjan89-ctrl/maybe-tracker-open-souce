@@ -19,8 +19,9 @@ class PagesController < ApplicationController
     Category::Normalizer.normalize!(Current.family)
     begin
       Current.family.purge_leftover_liability_payments!
+      Current.family.reset_leftover_demo_cash_balances!
     rescue => e
-      Rails.logger.error("[Dashboard] leftover liability cleanup failed: #{e.class}: #{e.message}")
+      Rails.logger.error("[Dashboard] leftover cleanup failed: #{e.class}: #{e.message}")
     end
 
     @month_income = Current.family.income_statement.income_totals(period: month_period)

@@ -64,6 +64,19 @@ class Family < ApplicationRecord
     cash.find { |account| account.name.match?(/hlavn|tatra|bežn|bezny|checking/i) } || cash.first || accounts.visible.alphabetically.first
   end
 
+  def reset_leftover_demo_cash_balances!
+    return if entries.where.not(import_id: nil).exists?
+
+    accounts.visible.where(accountable_type: "Depository").find_each do |account|
+      next unless account.name.match?(/\A(Hlavný účet|Sporenie)\z/i)
+      next if account.balance.to_d.zero? && account.cash_balance.to_d.zero?
+
+      account.set_current_balance(0)
+    rescue => e
+      Rails.logger.error("[Family] leftover cash reset failed for #{account.id}: #{e.class}: #{e.message}")
+    end
+  end
+
   # Zmaže splatené testovacie záväzky (napr. leasing) aj s anglickými
   # platbami „Payment to …“ na bežnom účte.
   def purge_leftover_liability_payments!

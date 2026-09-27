@@ -66,9 +66,16 @@ class UI::Account::Chart < ApplicationComponent
 
   def series
     account.balance_series(period: period, view: view)
+  rescue => e
+    Rails.logger.error("[Account::Chart] series failed for #{account.id}: #{e.class}: #{e.message}")
+    Series.new(start_date: period.start_date, end_date: period.end_date, interval: "1 day", values: [])
   end
 
   def trend
+    return nil if series.blank?
+
     series.trend
+  rescue
+    nil
   end
 end

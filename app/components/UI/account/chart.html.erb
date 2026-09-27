@@ -38,7 +38,9 @@
 
   <%= turbo_frame_tag dom_id(@account, :chart_details) do %>
     <div class="px-4">
-      <%= render partial: "shared/trend_change", locals: { trend: trend, comparison_label: period.comparison_label } %>
+      <% if trend.present? %>
+        <%= render partial: "shared/trend_change", locals: { trend: trend, comparison_label: period.comparison_label } %>
+      <% end %>
     </div>
 
     <div class="h-64 pb-4">

@@ -35,4 +35,19 @@ class FamilyTest < ActiveSupport::TestCase
   test "default cash account prefers a checking-style name" do
     assert_equal accounts(:depository), families(:dylan_family).default_cash_account
   end
+
+  test "resets leftover demo cash on Hlavný účet" do
+    family = families(:dylan_family)
+    account = family.accounts.create!(
+      name: "Hlavný účet",
+      balance: 7538,
+      cash_balance: 7538,
+      currency: "USD",
+      accountable: Depository.new
+    )
+
+    family.reset_leftover_demo_cash_balances!
+
+    assert_equal 0, account.reload.balance
+  end
 end
