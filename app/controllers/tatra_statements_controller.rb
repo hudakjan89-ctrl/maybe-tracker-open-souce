@@ -1,22 +1,21 @@
 class TatraStatementsController < ApplicationController
   def new
-    @accounts = Current.family.accounts.visible.alphabetically
-    @selected_account_id = params[:account_id].presence || @accounts.first&.id
+    @account = selected_account
+    @accounts = cash_accounts
   end
 
   def create
-    @accounts = Current.family.accounts.visible.alphabetically
-    account = @accounts.find_by(id: params[:account_id] || params.dig(:tatra_statement, :account_id))
-    @selected_account_id = account&.id || params[:account_id]
+    @account = selected_account
+    @accounts = cash_accounts
     file = params[:statement] || params.dig(:tatra_statement, :statement)
 
-    unless account
-      flash.now[:alert] = "Vyberte účet, na ktorý sa majú transakcie nahrať."
+    unless @account
+      flash.now[:alert] = "Najprv vytvorte účet, na ktorý sa majú transakcie nahrať."
       return render :new, status: :unprocessable_entity
     end
 
     unless file
-      flash.now[:alert] = "Nahrajte PDF (alebo CSV/TXT) výpis z Tatra banky."
+      flash.now[:alert] = "Vložte CSV alebo PDF výpis z Tatra banky."
       return render :new, status: :unprocessable_entity
     end
 
@@ -29,7 +28,7 @@ class TatraStatementsController < ApplicationController
 
     result = TatraStatement::Importer.new(
       family: Current.family,
-      account: account,
+      account: @account,
       bytes: file.read,
       filename: file.original_filename
     ).call
@@ -39,4 +38,14 @@ class TatraStatementsController < ApplicationController
     flash.now[:alert] = e.message
     render :new, status: :unprocessable_entity
   end
+
+  private
+    def cash_accounts
+      Current.family.accounts.visible.where(accountable_type: "Depository").alphabetically
+    end
+
+    def selected_account
+      Current.family.accounts.visible.find_by(id: params[:account_id] || params.dig(:tatra_statement, :account_id)) ||
+        Current.family.default_cash_account
+    end
 end

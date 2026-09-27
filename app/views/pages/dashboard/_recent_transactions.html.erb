@@ -2,7 +2,10 @@
 <section class="bg-container rounded-xl shadow-border-xs overflow-hidden">
   <div class="flex items-center justify-between p-5 pb-0">
     <h2 class="text-lg font-medium text-primary">Posledné transakcie</h2>
-    <%= render DS::Link.new(text: "Všetky", href: transactions_path) %>
+    <div class="flex items-center gap-2">
+      <%= render DS::Link.new(text: "Vložiť výpis", icon: "file-text", href: new_tatra_statement_path, frame: :modal) %>
+      <%= render DS::Link.new(text: "Všetky", href: transactions_path, variant: "ghost") %>
+    </div>
   </div>
 
   <% if entries.any? %>

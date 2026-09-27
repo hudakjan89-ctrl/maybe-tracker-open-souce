@@ -14,6 +14,10 @@ class Import::UploadsController < ApplicationController
   end
 
   def update
+    if tatra_statement?(csv_str)
+      return import_tatra_statement!(csv_str)
+    end
+
     if csv_valid?(csv_str)
       @import.account = Current.family.accounts.find_by(id: params.dig(:import, :account_id))
       @import.assign_attributes(raw_file_str: csv_str, col_sep: upload_params[:col_sep])
@@ -34,6 +38,34 @@ class Import::UploadsController < ApplicationController
 
     def csv_str
       @csv_str ||= upload_params[:csv_file]&.read || upload_params[:raw_file_str]
+    end
+
+    def tatra_statement?(str)
+      TatraStatement::CsvParser.handles?(str.to_s)
+    end
+
+    def import_tatra_statement!(str)
+      account = Current.family.accounts.visible.find_by(id: params.dig(:import, :account_id)) ||
+        @import.account ||
+        Current.family.default_cash_account
+      unless account
+        flash.now[:alert] = "Najprv vytvorte účet, na ktorý sa majú transakcie nahrať."
+        return render :show, status: :unprocessable_entity
+      end
+
+      filename = upload_params[:csv_file]&.original_filename.presence || "vypis.csv"
+      result = TatraStatement::Importer.new(
+        family: Current.family,
+        account: account,
+        bytes: str,
+        filename: filename
+      ).call
+
+      @import.destroy
+      redirect_to transactions_path, notice: result.notice
+    rescue TatraStatement::EmptyText, TatraStatement::NoTransactions, TatraStatement::Error => e
+      flash.now[:alert] = e.message
+      render :show, status: :unprocessable_entity
     end
 
     def csv_valid?(str)

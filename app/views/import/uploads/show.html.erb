@@ -25,7 +25,11 @@
             <%= form.select :account_id, @import.family.accounts.visible.pluck(:name, :id), { label: "Účet (voliteľné)", include_blank: "Import viacerých účtov", selected: @import.account_id } %>
           <% end %>
 
-          <div class="flex flex-col items-center justify-center w-full h-64 border border-secondary border-dashed rounded-xl cursor-pointer" data-controller="file-upload" data-action="click->file-upload#triggerFileInput" data-file-upload-target="uploadArea">
+          <div class="flex flex-col items-center justify-center w-full h-64 border border-secondary border-dashed rounded-xl cursor-pointer"
+               data-controller="file-upload"
+               data-file-upload-autosubmit-value="true"
+               data-action="click->file-upload#triggerFileInput dragover->file-upload#dragOver drop->file-upload#drop dragleave->file-upload#dragLeave"
+               data-file-upload-target="uploadArea">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
               <div data-file-upload-target="uploadText" class="flex flex-col items-center">
                 <%= icon("plus", size: "lg", class: "mb-4 mx-auto") %>

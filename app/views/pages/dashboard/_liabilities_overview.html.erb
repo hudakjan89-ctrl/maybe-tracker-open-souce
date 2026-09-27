@@ -118,13 +118,29 @@
               <div class="h-full bg-success rounded-full" style="width: 100%"></div>
             </div>
 
-            <%= render DS::Link.new(
-              text: "Detail splácania",
-              icon: "receipt",
-              href: payments_liability_path(account),
-              frame: :modal,
-              variant: "ghost"
-            ) %>
+            <div class="flex flex-wrap gap-2">
+              <%= render DS::Link.new(
+                text: "Detail splácania",
+                icon: "receipt",
+                href: payments_liability_path(account),
+                frame: :modal,
+                variant: "ghost"
+              ) %>
+              <%= render DS::Button.new(
+                text: "Zmazať aj s platbami",
+                variant: :outline_destructive,
+                href: liability_path(account),
+                method: :delete,
+                confirm: CustomConfirm.new(
+                  title: "Zmazať splatený záväzok?",
+                  body: "Zmaže sa „#{account.name}“ aj so všetkými platbami na účtoch, napríklad „Payment to #{account.name}“.",
+                  btn_text: "Zmazať aj s platbami",
+                  destructive: true,
+                  high_severity: true
+                ),
+                data: { turbo_frame: "_top" }
+              ) %>
+            </div>
           </div>
         <% end %>
       </div>

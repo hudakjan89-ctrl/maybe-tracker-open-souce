@@ -29,6 +29,7 @@ class TatraStatement::Importer
 
   def call
     import = nil
+    @family.purge_leftover_liability_payments!
     parsed = parse_all
     raise TatraStatement::NoTransactions, "Vo výpise sa nenašli žiadne pohyby." if parsed.empty?
 

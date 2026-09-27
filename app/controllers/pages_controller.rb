@@ -16,6 +16,13 @@ class PagesController < ApplicationController
     end
 
     month_period = Period.current_month
+    Category::Normalizer.normalize!(Current.family)
+    begin
+      Current.family.purge_leftover_liability_payments!
+    rescue => e
+      Rails.logger.error("[Dashboard] leftover liability cleanup failed: #{e.class}: #{e.message}")
+    end
+
     @month_income = Current.family.income_statement.income_totals(period: month_period)
     @month_expense = Current.family.income_statement.expense_totals(period: month_period)
     @spending_income = Current.family.income_statement.income_totals(period: @cashflow_period)
@@ -27,7 +34,6 @@ class PagesController < ApplicationController
       .visible
       .reverse_chronological
       .limit(8)
-    Category::Normalizer.normalize!(Current.family)
     @current_budget = Budget.find_or_bootstrap(Current.family, start_date: Date.current)
     @dashboard = Dashboard::Overview.new(Current.family)
 

@@ -59,6 +59,35 @@ class Family < ApplicationRecord
     entries.order(:date).first&.date || Date.current
   end
 
+  def default_cash_account
+    cash = accounts.visible.where(accountable_type: "Depository").alphabetically.to_a
+    cash.find { |account| account.name.match?(/hlavn|tatra|bežn|bezny|checking/i) } || cash.first || accounts.visible.alphabetically.first
+  end
+
+  # Zmaže splatené testovacie záväzky (napr. leasing) aj s anglickými
+  # platbami „Payment to …“ na bežnom účte.
+  def purge_leftover_liability_payments!
+    leftover_name = /leasing|testovac|pr[ií]klad|sample|demo/i
+    leftover_types = %w[Loan OtherLiability]
+
+    accounts.where(status: "disabled", accountable_type: leftover_types).find_each do |liability|
+      next unless liability.name.match?(leftover_name)
+      next unless entries.exists?([ "name ILIKE ?", "Payment to #{self.class.sanitize_sql_like(liability.name)}%" ])
+
+      liability.destroy!
+    end
+
+    entries.where("name ILIKE ?", "Payment to %").find_each do |entry|
+      dest_name = entry.name.sub(/\APayment to /i, "").strip
+      next unless dest_name.match?(leftover_name)
+
+      dest = accounts.where(accountable_type: leftover_types).find_by("LOWER(name) = ?", dest_name.downcase)
+      next if dest&.active? || dest&.draft?
+
+      dest ? dest.destroy! : entry.destroy!
+    end
+  end
+
   # Used for invalidating family / balance sheet related aggregation queries
   def build_cache_key(key, invalidate_on_data_updates: false)
     # Our data sync process updates this timestamp whenever any family account successfully completes a data update.

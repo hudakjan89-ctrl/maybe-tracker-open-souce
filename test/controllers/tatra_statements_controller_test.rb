@@ -11,10 +11,20 @@ class TatraStatementsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h2", text: /Tatra banky/
   end
 
-  test "new preselects account from query param" do
+  test "new uses the requested cash account" do
     get new_tatra_statement_path, params: { account_id: accounts(:savings).id }
     assert_response :success
-    assert_select "option[value=?][selected]", accounts(:savings).id
+    assert_select "input[name=account_id][value=?]", accounts(:savings).id
+  end
+
+  test "create imports uploaded statement onto the default cash account" do
+    csv = file_fixture_upload("tatra_export.csv")
+
+    assert_difference -> { accounts(:depository).entries.transactions.count }, 10 do
+      post tatra_statement_path, params: { statement: csv }
+    end
+
+    assert_redirected_to transactions_path
   end
 
   test "create imports uploaded statement" do
