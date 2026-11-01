@@ -57,11 +57,18 @@ class Series
   end
 
   def trend
-    @trend ||= Trend.new(
-      current: values.last&.value,
-      previous: values.first&.value,
-      favorable_direction: favorable_direction
-    )
+    return @trend if defined?(@trend)
+
+    current = values.last&.value
+    @trend = if current.nil?
+      nil
+    else
+      Trend.new(
+        current: current,
+        previous: values.first&.value,
+        favorable_direction: favorable_direction
+      )
+    end
   end
 
   def as_json

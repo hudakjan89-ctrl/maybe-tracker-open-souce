@@ -23,6 +23,9 @@
     <% end %>
   </div>
 
+  <% if overview.cash_accounts.empty? %>
+    <p class="text-sm text-secondary mb-5">Nemáte žiadny bežný účet. Pridajte ho tlačidlom Nové, ak chcete znova sledovať zostatok.</p>
+  <% else %>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
     <% overview.cash_accounts.each do |account| %>
       <%= link_to account_path(account), class: "flex items-center gap-3 p-4 rounded-xl bg-container-inset border border-secondary hover:bg-surface-hover transition-colors" do %>
@@ -35,6 +38,7 @@
       <% end %>
     <% end %>
   </div>
+  <% end %>
 
   <% if series.any? %>
     <div class="w-full min-h-44"

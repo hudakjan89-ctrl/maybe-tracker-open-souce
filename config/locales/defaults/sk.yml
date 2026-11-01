@@ -4,6 +4,10 @@ sk:
     errors:
       messages:
         record_invalid: 'Validácia neúspešná: %{errors}'
+  activemodel:
+    errors:
+      messages:
+        model_invalid: 'Validácia neúspešná: %{errors}'
   date:
     abbr_day_names:
     - Ne
